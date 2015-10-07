@@ -1,0 +1,22 @@
+{ model: 'MultipleSubtyping',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"74a98def-482e-06c1-8345-838b21","name":"Adult","shapes":[],"supertypes":[["d1a1a542-c588-2b36-9bd4-d6a805","c0fb377e-857b-656a-487a-228308"]]},
+    {"uuid":"fe83811d-d57b-b5db-772d-258775","name":"Child","shapes":[],"supertypes":[["d1a1a542-c588-2b36-9bd4-d6a805","eac374f3-e49b-41b1-7e2a-a23db0"]]},
+    {"uuid":"a589cb47-00c7-49b9-6734-d7369a","name":"Female","shapes":[],"supertypes":[["d1a1a542-c588-2b36-9bd4-d6a805","e3bfcb7c-d3c2-3ed4-2199-b841e4"]]},
+    {"uuid":"d8e8110b-1008-c0cf-fffc-985a93","name":"Male","shapes":[],"supertypes":[["d1a1a542-c588-2b36-9bd4-d6a805","1711f066-01af-28d5-210e-5963a0"]]},
+    {"uuid":"60947c52-e7ee-8a90-afe1-36a6fe","name":"Person Name","shapes":[],"supertype":"783246ee-0f76-4b2e-ba31-29177e"},
+    {"uuid":"d1a1a542-c588-2b36-9bd4-d6a805","name":"Person","shapes":[],"ref_mode":".Name"},
+    {"uuid":"783246ee-0f76-4b2e-ba31-29177e","name":"String","shapes":[]},
+    {"uuid":"e0a2da15-5709-a558-c550-0500d0","name":"Teenager","shapes":[],"supertypes":[["d1a1a542-c588-2b36-9bd4-d6a805","1e12606c-3e89-4922-871e-f0591f"]]}
+  ],
+  fact_types: [
+    {"uuid":"efdb6d53-0b52-e2f3-2cc5-8fb29f","roles":[{"uuid":"b8ec7cb4-7892-efda-86f6-80095e","player":"d1a1a542-c588-2b36-9bd4-d6a805"},{"uuid":"0091a832-0199-a90e-a427-e79057","player":"60947c52-e7ee-8a90-afe1-36a6fe"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"0ad07c40-f313-71b0-2519-ad3ec6","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"b8ec7cb4-7892-efda-86f6-80095e"},{"uuid":"3f1bcb8f-f0fa-ce66-65ea-7f5d28","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"b8ec7cb4-7892-efda-86f6-80095e"}]}
+  ],
+  constraints: [
+    {"uuid":"7b192eea-fa4e-1196-655a-831147","type":"SetExclusionConstraint","shapes":[],"is_mandatory":true,"role_sequences":[["eac374f3-e49b-41b1-7e2a-a23db0"],["1e12606c-3e89-4922-871e-f0591f"],["c0fb377e-857b-656a-487a-228308"]]},
+    {"uuid":"9d9aff49-5b44-77cc-af35-f36452","type":"SetExclusionConstraint","shapes":[],"is_mandatory":true,"role_sequences":[["1711f066-01af-28d5-210e-5963a0"],["e3bfcb7c-d3c2-3ed4-2199-b841e4"]]}
+  ]
+}

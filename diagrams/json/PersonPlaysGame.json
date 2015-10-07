@@ -1,0 +1,22 @@
+{ model: 'PersonPlaysGame',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"ff530b96-59be-e9c6-3785-75645e","name":"Char","shapes":[]},
+    {"uuid":"ef05f090-cb9a-bddc-9b26-c05081","name":"Game Code","shapes":[],"supertype":"ff530b96-59be-e9c6-3785-75645e"},
+    {"uuid":"37affb91-dd3b-57c3-6548-21404c","name":"Game","shapes":[],"ref_mode":".Code"},
+    {"uuid":"ac8b0349-3b3a-6af4-95ad-0bee33","name":"Person Name","shapes":[],"supertype":"1f6ce1d0-178d-b526-3549-ae6632"},
+    {"uuid":"1d58e9f6-2798-ed08-8344-abb9eb","name":"Person","shapes":[],"ref_mode":".Name"},
+    {"uuid":"ddf24df7-5ab2-8d77-9451-755636","name":"Playing","shapes":[],"objectifies":"027d72c8-cbb9-9530-3e99-504f57","implicit":true},
+    {"uuid":"1f6ce1d0-178d-b526-3549-ae6632","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"1cfef723-d79f-caae-b03e-f31957","roles":[{"uuid":"8f5143fa-9ed7-e054-309e-a09a22","player":"1d58e9f6-2798-ed08-8344-abb9eb"},{"uuid":"121c6b0e-38df-f74e-6927-0420d1","player":"ac8b0349-3b3a-6af4-95ad-0bee33"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"9f40ea4f-5b7e-191f-ec5f-b89a1c","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"8f5143fa-9ed7-e054-309e-a09a22"},{"uuid":"c3a4876f-f75e-9422-eb9e-17076d","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"8f5143fa-9ed7-e054-309e-a09a22"}]},
+    {"uuid":"027d72c8-cbb9-9530-3e99-504f57","objectified_as":"ddf24df7-5ab2-8d77-9451-755636","roles":[{"uuid":"a101e906-c480-d685-d639-038361","player":"1d58e9f6-2798-ed08-8344-abb9eb"},{"uuid":"cd99a010-151a-ebaa-ae38-17cea5","player":"37affb91-dd3b-57c3-6548-21404c"}],"readings":[["01","{0} plays {1}"]],"shapes":[],"constraints":[{"uuid":"d301ec48-b367-99a5-9431-487749","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":null}]},
+    {"uuid":"5570bc9d-d17d-ea3d-bb0c-c5eabc","roles":[{"uuid":"7fc97d10-ec63-9e46-310d-ba663b","player":"37affb91-dd3b-57c3-6548-21404c"},{"uuid":"cfff22d2-e0fa-e3d1-95dd-a1ce07","player":"ef05f090-cb9a-bddc-9b26-c05081"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"9226fc61-4875-1a9d-70ec-210738","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"7fc97d10-ec63-9e46-310d-ba663b"},{"uuid":"beff9715-3ca6-fd72-a7b8-fa4268","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"7fc97d10-ec63-9e46-310d-ba663b"}]}
+  ],
+  constraints: [
+
+  ]
+}

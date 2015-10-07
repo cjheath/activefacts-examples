@@ -1,0 +1,15 @@
+{ model: 'SimplestUnary',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"41079d31-f72a-3956-87ff-36679e","name":"Some String","shapes":[],"supertype":"111f8d5d-43af-4212-5cb3-a99700"},
+    {"uuid":"111f8d5d-43af-4212-5cb3-a99700","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"48416b16-0d6e-d474-a266-e113a7","roles":[{"uuid":"4b21c25e-7a18-d99d-18f3-b07a05","player":"41079d31-f72a-3956-87ff-36679e"}],"readings":[["0","{0} is long"]],"shapes":[],"constraints":[{"uuid":"b54c26c5-cf6e-2747-9d2a-13861e","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":null}]}
+  ],
+  constraints: [
+
+  ]
+}

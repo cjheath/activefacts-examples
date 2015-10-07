@@ -1,0 +1,11 @@
+*.cs
+*.sql
+*.suo
+*.xml
+*.CoRef.orm
+*.xsd
+.*
+Properties
+bin
+obj
+ServiceDirector.*

@@ -1,0 +1,21 @@
+{ model: 'Marriage',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"9d7d41cd-a1c1-1bcd-352e-230862","name":"Marriage","shapes":[]},
+    {"uuid":"9d92d06f-1674-32d9-fe53-1edd43","name":"Name","shapes":[],"supertype":"2877f265-3ad8-5d18-40ec-b72bb3"},
+    {"uuid":"a0d60f07-138b-32b1-8407-21b3a4","name":"Person","shapes":[],"independent":true},
+    {"uuid":"2877f265-3ad8-5d18-40ec-b72bb3","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"f3b03639-f289-d694-6f3e-4ddcfb","roles":[{"uuid":"351e946e-5752-fe09-c5ec-6f899c","player":"a0d60f07-138b-32b1-8407-21b3a4"},{"uuid":"33b14726-e6a1-3bbf-938f-bbf377","player":"9d7d41cd-a1c1-1bcd-352e-230862"}],"readings":[["10","{0} is by husband-{1}"]],"shapes":[],"constraints":[{"uuid":"48e8d2f7-51ad-5421-9097-e8ec5c","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"33b14726-e6a1-3bbf-938f-bbf377"}]},
+    {"uuid":"f0d0b63f-1171-45fc-2218-60408d","roles":[{"uuid":"e4503612-4bf0-7787-03fc-af9ec2","player":"9d92d06f-1674-32d9-fe53-1edd43"},{"uuid":"918026f0-5d11-3880-5756-920156","player":"a0d60f07-138b-32b1-8407-21b3a4"}],"readings":[["10","{0} has family-{1}"]],"shapes":[],"constraints":[{"uuid":"5b934e90-0527-cf2f-919a-2d461e","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"918026f0-5d11-3880-5756-920156"}]},
+    {"uuid":"f05352a5-ca34-2944-9810-20b80e","roles":[{"uuid":"31f2a9af-382c-47c7-d77d-226748","player":"a0d60f07-138b-32b1-8407-21b3a4"},{"uuid":"2d34a224-bf39-2584-9223-9ab897","player":"9d7d41cd-a1c1-1bcd-352e-230862"}],"readings":[["10","{0} is of wife-{1}"]],"shapes":[],"constraints":[{"uuid":"5d52b1a4-a2ed-1742-6de1-14ca30","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"2d34a224-bf39-2584-9223-9ab897"}]},
+    {"uuid":"d96046e5-c58e-cb98-8e6a-40e640","roles":[{"uuid":"3fb0ebd2-e326-5010-aab1-635121","player":"9d92d06f-1674-32d9-fe53-1edd43"},{"uuid":"2488ccb0-6f43-6e6a-8525-0830a6","player":"a0d60f07-138b-32b1-8407-21b3a4"}],"readings":[["10","{0} has given-{1}"]],"shapes":[],"constraints":[{"uuid":"01b34eba-acd4-974a-c0b9-aafc14","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"2488ccb0-6f43-6e6a-8525-0830a6"}]}
+  ],
+  constraints: [
+    {"uuid":"116e29b9-8688-4b33-649b-ae1bec","type":"PresenceConstraint","shapes":[],"min_frequency":0,"max_frequency":1,"is_mandatory":null,"is_preferred_identifier":true,"role_sequences":[["3fb0ebd2-e326-5010-aab1-635121","e4503612-4bf0-7787-03fc-af9ec2"]]},
+    {"uuid":"4b343462-d714-466e-efc9-3bf6bf","type":"PresenceConstraint","shapes":[],"min_frequency":0,"max_frequency":1,"is_mandatory":null,"is_preferred_identifier":true,"role_sequences":[["351e946e-5752-fe09-c5ec-6f899c","31f2a9af-382c-47c7-d77d-226748"]]}
+  ]
+}

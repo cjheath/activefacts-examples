@@ -1,0 +1,20 @@
+{ model: 'Death',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"b992c807-41a3-080a-fc91-38c45e","name":"Cause Of Death","shapes":[],"supertype":"f0f44306-5843-c26e-d0cc-3fca99"},
+    {"uuid":"34bf7ee7-99db-4c56-7072-b1eddb","name":"Death","shapes":[],"objectifies":"c4a79d83-4b44-c072-39c3-30a095"},
+    {"uuid":"1240b15b-8e25-fb68-66ab-1fb677","name":"Person Name","shapes":[],"supertype":"f0f44306-5843-c26e-d0cc-3fca99"},
+    {"uuid":"d43b5b70-5ecb-1e46-6ffc-e876d4","name":"Person","shapes":[],"ref_mode":".Name","independent":true},
+    {"uuid":"f0f44306-5843-c26e-d0cc-3fca99","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"c4a79d83-4b44-c072-39c3-30a095","objectified_as":"34bf7ee7-99db-4c56-7072-b1eddb","roles":[{"uuid":"e4e18262-927b-070f-7eb7-28ceb6","player":"d43b5b70-5ecb-1e46-6ffc-e876d4"}],"readings":[["0","{0} is dead"]],"shapes":[],"constraints":[{"uuid":"b78d06bf-7ca2-aca0-cd74-379a50","min":1,"max":1,"is_preferred":true,"mandatory":true,"role":"e4e18262-927b-070f-7eb7-28ceb6"}]},
+    {"uuid":"3a5a39b2-8ae4-878f-387b-6956b6","roles":[{"uuid":"4128119d-3595-4a0e-3ae2-f870ac","player":"34bf7ee7-99db-4c56-7072-b1eddb"},{"uuid":"a02c66d3-24dd-1d1a-5804-535bfa","player":"b992c807-41a3-080a-fc91-38c45e"}],"readings":[["01","{0} was due to {1}"]],"shapes":[],"constraints":[{"uuid":"2f48062b-3845-43dd-e49c-157836","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"a02c66d3-24dd-1d1a-5804-535bfa"}]},
+    {"uuid":"4879e9ba-c161-1f72-3fbe-eb2359","roles":[{"uuid":"66dfc9ee-5c25-e2d5-03cd-833e10","player":"d43b5b70-5ecb-1e46-6ffc-e876d4"},{"uuid":"1be52a0e-6e7d-1780-5e1a-67a3a7","player":"1240b15b-8e25-fb68-66ab-1fb677"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"f458ee2c-c72e-afdc-ad2f-262d9d","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"66dfc9ee-5c25-e2d5-03cd-833e10"},{"uuid":"adb1591a-fa42-be94-350d-0fa78b","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"66dfc9ee-5c25-e2d5-03cd-833e10"}]}
+  ],
+  constraints: [
+
+  ]
+}

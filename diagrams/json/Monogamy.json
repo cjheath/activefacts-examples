@@ -1,0 +1,22 @@
+{ model: 'Monogamy',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"74f7cb25-88de-e214-e3e8-1560f6","name":"Auto Counter","shapes":[]},
+    {"uuid":"5d90f0d1-824a-d884-441c-e6ceca","name":"Boy","shapes":[],"supertypes":[["2bb6479d-7c83-6eec-0077-395623","ed8deea1-da05-65cf-93ee-a854e3"]]},
+    {"uuid":"33bca377-9b31-f4cf-0931-5d5fe2","name":"Girl","shapes":[],"supertypes":[["2bb6479d-7c83-6eec-0077-395623","3728d5f0-3a64-ff7e-c1c9-5d849d"]]},
+    {"uuid":"1baf726f-a0df-29a0-bc72-a2003a","name":"Name","shapes":[],"supertype":"4b9f0761-bc5a-6a68-92d4-efc237"},
+    {"uuid":"bcdfe592-a78b-27d7-896f-3e9878","name":"Person ID","shapes":[],"supertype":"74f7cb25-88de-e214-e3e8-1560f6"},
+    {"uuid":"2bb6479d-7c83-6eec-0077-395623","name":"Person","shapes":[],"ref_mode":".ID"},
+    {"uuid":"4b9f0761-bc5a-6a68-92d4-efc237","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"ccd566e8-95bd-fa1c-83ba-ba3bac","roles":[{"uuid":"cb20a406-d16b-911b-f3a5-241815","player":"33bca377-9b31-f4cf-0931-5d5fe2"},{"uuid":"07b3ba0e-26b1-e394-6031-787cff","player":"5d90f0d1-824a-d884-441c-e6ceca"}],"readings":[["01","{0} is going out with {1}"],["10","{0} is going out with {1}"]],"shapes":[],"constraints":[{"uuid":"0bd6e9b6-8c3a-95b7-4178-27b86d","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"07b3ba0e-26b1-e394-6031-787cff"},{"uuid":"0148fd45-9750-e959-678c-c50783","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"cb20a406-d16b-911b-f3a5-241815"},{"uuid":"4c3d7a4f-c3d1-f476-70c4-3d9e50","shapes":[],"ringKind":"Symmetric","roles":["cb20a406-d16b-911b-f3a5-241815","07b3ba0e-26b1-e394-6031-787cff"]}]},
+    {"uuid":"39a4c1af-a82d-7a1e-eee0-d9b5bb","roles":[{"uuid":"70c2c903-43c6-a3b2-7fa0-53bfa1","player":"2bb6479d-7c83-6eec-0077-395623"},{"uuid":"4ad62921-9d92-eaf6-8e9d-886e35","player":"bcdfe592-a78b-27d7-896f-3e9878"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"9f867713-cda5-d184-c54d-a4fbf7","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"70c2c903-43c6-a3b2-7fa0-53bfa1"},{"uuid":"8a9c48cc-0c71-abda-c4d9-8dc585","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"70c2c903-43c6-a3b2-7fa0-53bfa1"}]},
+    {"uuid":"71787461-1afd-424a-da30-1d74c5","roles":[{"uuid":"18aa2734-1bcc-9fb9-5af1-a6b037","player":"2bb6479d-7c83-6eec-0077-395623"},{"uuid":"ca1265af-3986-112e-a580-7b5f5f","player":"1baf726f-a0df-29a0-bc72-a2003a"}],"readings":[["01","{0} is called {1}"]],"shapes":[],"constraints":[{"uuid":"622c7525-20b8-2500-8c54-7d38d2","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"18aa2734-1bcc-9fb9-5af1-a6b037"}]}
+  ],
+  constraints: [
+    {"uuid":"004fa9f9-ccdf-a314-9ccd-a1c8d6","type":"SetExclusionConstraint","shapes":[],"is_mandatory":true,"role_sequences":[["3728d5f0-3a64-ff7e-c1c9-5d849d"],["ed8deea1-da05-65cf-93ee-a854e3"]]}
+  ]
+}

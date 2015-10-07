@@ -1,0 +1,2 @@
+Company: Address.City, Address.Postcode, Address.Street.First.Street.Line, Address.Street.Number, Address.Street.Second.Street.Line, Address.Street.Third.Street.Line, Company.ID[*], Company.Name[1]
+Person: Address.City, Address.Postcode, Address.Street.First.Street.Line, Address.Street.Number, Address.Street.Second.Street.Line, Address.Street.Third.Street.Line, Family.Name[1], Given.Names[1], Person.ID[*]

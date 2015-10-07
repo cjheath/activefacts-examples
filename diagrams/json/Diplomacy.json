@@ -1,0 +1,34 @@
+{ model: 'Diplomacy',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"1476bf33-4cac-0b8b-5b19-1128c5","name":"Ambassador","shapes":[],"supertypes":[["9c90efa5-1b1a-bc4f-89d9-1e05bb","a7df1a37-ec42-2447-dd31-c3a244"]]},
+    {"uuid":"a96e20b5-625f-6d53-4ac8-6751d6","name":"Country","shapes":[],"ref_mode":".Name","independent":true},
+    {"uuid":"7bf9af30-fd77-33d9-df61-8393ad","name":"CountryName","shapes":[],"supertype":"7ae6b610-f4df-b74a-f4f7-7d8ddf"},
+    {"uuid":"9c90efa5-1b1a-bc4f-89d9-1e05bb","name":"Diplomat","shapes":[],"ref_mode":".Name"},
+    {"uuid":"f2e828fb-9c34-1b58-e58d-c42b7a","name":"DiplomatName","shapes":[],"supertype":"7ae6b610-f4df-b74a-f4f7-7d8ddf"},
+    {"uuid":"ad6298db-a791-1d6c-c34b-a3d447","name":"Fluency","shapes":[],"objectifies":"912297cf-8974-c9c3-2de6-4b85ff","implicit":true},
+    {"uuid":"dbb58a85-a7e2-25ec-32ab-113d1c","name":"Language","shapes":[],"ref_mode":".Name","independent":true},
+    {"uuid":"0dba1c72-6d71-32bd-97e4-a675bb","name":"LanguageName","shapes":[],"supertype":"7ae6b610-f4df-b74a-f4f7-7d8ddf"},
+    {"uuid":"4b5e94cf-84d5-6f87-9ffe-3eb935","name":"LanguageUse","shapes":[],"objectifies":"5ab5ce73-93f2-6ec3-f90a-199a96","implicit":true},
+    {"uuid":"5e7d5cbe-2b3a-fc52-ab28-272764","name":"Representation","shapes":[],"objectifies":"2cc343bd-caa9-94a2-b34f-07c000","implicit":true},
+    {"uuid":"7ae6b610-f4df-b74a-f4f7-7d8ddf","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"672adb18-340b-12f1-2041-e69c58","roles":[{"uuid":"86de203e-217e-e415-1447-e7aa9b","player":"9c90efa5-1b1a-bc4f-89d9-1e05bb"},{"uuid":"470631fc-6116-d3e2-4011-6d6199","player":"f2e828fb-9c34-1b58-e58d-c42b7a"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"845814a0-fb63-7b77-7c52-9c2276","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"86de203e-217e-e415-1447-e7aa9b"},{"uuid":"5ed33bf2-7125-c856-2ce7-d10992","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"86de203e-217e-e415-1447-e7aa9b"}]},
+    {"uuid":"5ab5ce73-93f2-6ec3-f90a-199a96","objectified_as":"4b5e94cf-84d5-6f87-9ffe-3eb935","roles":[{"uuid":"f0902683-9fe6-d93d-5984-7f8dc7","player":"dbb58a85-a7e2-25ec-32ab-113d1c"},{"uuid":"5f98b3cc-8b26-9c2e-5b55-c9ea90","player":"a96e20b5-625f-6d53-4ac8-6751d6"}],"readings":[["01","{0} is spoken in {1}"],["10","{0} uses {1}"]],"shapes":[],"constraints":[{"uuid":"4994fc48-ce45-61ab-d713-b2ca9d","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":null}]},
+    {"uuid":"1848dc45-b33e-dec2-7bb1-f6edc2","roles":[{"uuid":"cd2e9168-9c1d-971c-af7e-0ea388","player":"a96e20b5-625f-6d53-4ac8-6751d6"},{"uuid":"ddb6d8e4-64b8-55d6-9d0e-19cd71","player":"7bf9af30-fd77-33d9-df61-8393ad"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"779e92b4-534b-ef27-e21f-11ea96","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"cd2e9168-9c1d-971c-af7e-0ea388"},{"uuid":"6dbf835a-db82-2ee6-7438-932b59","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"cd2e9168-9c1d-971c-af7e-0ea388"}]},
+    {"uuid":"9af3e76d-b737-6a0c-7dc6-13a7dc","roles":[{"uuid":"338c0fa8-2852-07bc-5d6f-436b62","player":"9c90efa5-1b1a-bc4f-89d9-1e05bb"},{"uuid":"4eb50048-7f28-714c-a351-55f70e","player":"a96e20b5-625f-6d53-4ac8-6751d6"}],"readings":[["01","{0} serves in {1}"]],"shapes":[],"constraints":[{"uuid":"f285c2d9-2c4f-1ce6-06c8-7d78b8","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"338c0fa8-2852-07bc-5d6f-436b62"}]},
+    {"uuid":"2cc343bd-caa9-94a2-b34f-07c000","objectified_as":"5e7d5cbe-2b3a-fc52-ab28-272764","roles":[{"uuid":"2d772448-dc94-743d-293c-b7f35f","player":"1476bf33-4cac-0b8b-5b19-1128c5"},{"uuid":"9de2ee5b-b62c-d469-0590-310fe0","player":"a96e20b5-625f-6d53-4ac8-6751d6"},{"uuid":"baff1b3c-c2fe-650a-6c7b-00b3d9","player":"a96e20b5-625f-6d53-4ac8-6751d6"}],"readings":[["012","{0} is from {1} to {2}"],["120","{0} is represented in {1} by {2}"]],"shapes":[],"constraints":[{"uuid":"db9568bf-663d-fe54-d8a0-f17012","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":"2d772448-dc94-743d-293c-b7f35f"},{"uuid":"a6f1307f-3dd2-2ae7-307d-eb5378","min":1,"max":null,"is_preferred":false,"mandatory":true,"role":"2d772448-dc94-743d-293c-b7f35f"}]},
+    {"uuid":"912297cf-8974-c9c3-2de6-4b85ff","objectified_as":"ad6298db-a791-1d6c-c34b-a3d447","roles":[{"uuid":"cf500c1c-c96d-e6bb-058b-1aecf8","player":"9c90efa5-1b1a-bc4f-89d9-1e05bb"},{"uuid":"90bd636d-87d3-f332-c63d-b246fd","player":"dbb58a85-a7e2-25ec-32ab-113d1c"}],"readings":[["01","{0} speaks {1}"],["10","{0} is spoken by {1}"]],"shapes":[],"constraints":[{"uuid":"e974070b-f50b-654b-9f22-7a72a0","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":null},{"uuid":"14809157-3f34-28c0-bc10-329a87","min":1,"max":null,"is_preferred":false,"mandatory":true,"role":"cf500c1c-c96d-e6bb-058b-1aecf8"}]},
+    {"uuid":"093b5f02-fb93-a357-707e-410aee","roles":[{"uuid":"6e8871f9-2acb-0f25-1823-26131f","player":"dbb58a85-a7e2-25ec-32ab-113d1c"},{"uuid":"d55b55ba-946a-3cd5-ac39-39ea64","player":"0dba1c72-6d71-32bd-97e4-a675bb"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"5ab1cd7f-ec5b-9946-0241-c77737","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"6e8871f9-2acb-0f25-1823-26131f"},{"uuid":"500fe347-f6f8-ebd7-ea02-dadc7d","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"6e8871f9-2acb-0f25-1823-26131f"}]},
+    {"uuid":"2c2fee96-f99e-e004-d307-19f653","roles":[{"uuid":"6d657354-2892-92f3-173f-4849a7","player":"9c90efa5-1b1a-bc4f-89d9-1e05bb"},{"uuid":"14a53816-4a8a-b031-baca-86a04b","player":"a96e20b5-625f-6d53-4ac8-6751d6"}],"readings":[["01","{0} represents {1}"]],"shapes":[],"constraints":[{"uuid":"9481c660-d0bb-e2fe-3622-c70716","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"6d657354-2892-92f3-173f-4849a7"}]}
+  ],
+  constraints: [
+    {"uuid":"1ba9099c-7046-b0fe-c75c-070c85","type":"SubsetConstraint","shapes":[],"role_sequences":[["a7df1a37-ec42-2447-dd31-c3a244","baff1b3c-c2fe-650a-6c7b-00b3d9"],["338c0fa8-2852-07bc-5d6f-436b62","4eb50048-7f28-714c-a351-55f70e"]]},
+    {"uuid":"d039344a-2684-6e91-09e2-775156","type":"SubsetConstraint","shapes":[],"role_sequences":[["a7df1a37-ec42-2447-dd31-c3a244","9de2ee5b-b62c-d469-0590-310fe0"],["6d657354-2892-92f3-173f-4849a7","14a53816-4a8a-b031-baca-86a04b"]]},
+    {"uuid":"9bbe1101-9b17-257a-2ca9-6378a4","type":"SetExclusionConstraint","shapes":[],"is_mandatory":null,"role_sequences":[["338c0fa8-2852-07bc-5d6f-436b62","4eb50048-7f28-714c-a351-55f70e"],["6d657354-2892-92f3-173f-4849a7","14a53816-4a8a-b031-baca-86a04b"]]},
+    {"uuid":"5ab1b04e-2934-e215-a077-d8b544","type":"SubsetConstraint","shapes":[],"role_sequences":[["338c0fa8-2852-07bc-5d6f-436b62","4eb50048-7f28-714c-a351-55f70e"],["cf500c1c-c96d-e6bb-058b-1aecf8","5f98b3cc-8b26-9c2e-5b55-c9ea90"]]}
+  ]
+}

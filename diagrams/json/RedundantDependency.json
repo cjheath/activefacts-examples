@@ -1,0 +1,33 @@
+{ model: 'RedundantDependency',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"f3546958-6cb8-101b-d245-ef5bd0","name":"Address Id","shapes":[],"supertype":"369afb3d-11ac-0548-bbfe-547b42"},
+    {"uuid":"836d0d69-53ae-a7cb-2a8e-0711b6","name":"Address","shapes":[],"ref_mode":".Id"},
+    {"uuid":"369afb3d-11ac-0548-bbfe-547b42","name":"Auto Counter","shapes":[]},
+    {"uuid":"b706d17f-96ed-f227-2482-ce80f6","name":"District Number","shapes":[],"supertype":"0331247a-cd05-de8a-1a07-15e0e7"},
+    {"uuid":"20b011b8-22c4-c314-12f0-0506ca","name":"Legislative District","shapes":[]},
+    {"uuid":"32540b10-83b2-cfad-ffa9-c75f5e","name":"Politician Id","shapes":[],"supertype":"369afb3d-11ac-0548-bbfe-547b42"},
+    {"uuid":"de9e1bf9-3e6a-0666-da4b-39b5ca","name":"Politician","shapes":[],"ref_mode":".Id"},
+    {"uuid":"f3869004-645f-afcf-174c-21570e","name":"Postal Code","shapes":[],"supertype":"0331247a-cd05-de8a-1a07-15e0e7"},
+    {"uuid":"0331247a-cd05-de8a-1a07-15e0e7","name":"Signed Integer","shapes":[]},
+    {"uuid":"bae02858-5084-c575-e9d8-7bebec","name":"State Or Province Id","shapes":[],"supertype":"369afb3d-11ac-0548-bbfe-547b42"},
+    {"uuid":"1392f665-ccc8-6c3d-75da-841d48","name":"State Or Province","shapes":[],"ref_mode":".Id"}
+  ],
+  fact_types: [
+    {"uuid":"7c350e1e-e1a9-eb63-fb47-8d3271","roles":[{"uuid":"0b941cc4-c5e6-b0f8-897c-823e33","player":"1392f665-ccc8-6c3d-75da-841d48"},{"uuid":"668e95aa-f176-fab8-9936-99f3a3","player":"bae02858-5084-c575-e9d8-7bebec"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"310ba663-05f9-68cc-3431-0bf398","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"0b941cc4-c5e6-b0f8-897c-823e33"},{"uuid":"e075d92e-eaea-7f52-c366-44fa08","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"0b941cc4-c5e6-b0f8-897c-823e33"}]},
+    {"uuid":"86565903-cb4e-59d1-c580-d38cec","roles":[{"uuid":"07de2908-81f7-3d0d-7877-5cf574","player":"f3869004-645f-afcf-174c-21570e"},{"uuid":"4bddcad8-46b1-b37f-26c8-3d2aae","player":"836d0d69-53ae-a7cb-2a8e-0711b6"}],"readings":[["10","{0} is assigned {1}"]],"shapes":[],"constraints":[{"uuid":"effc5864-08ae-6c89-7440-cc3fee","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"07de2908-81f7-3d0d-7877-5cf574"}]},
+    {"uuid":"96933a26-ab8b-c3c5-c1c2-a38678","roles":[{"uuid":"7fe55a6f-20fa-3e3f-1eff-9c5713","player":"1392f665-ccc8-6c3d-75da-841d48"},{"uuid":"c9df4e97-c3ff-cb0f-ed00-353056","player":"836d0d69-53ae-a7cb-2a8e-0711b6"}],"readings":[["10","{0} is in {1}"]],"shapes":[],"constraints":[{"uuid":"e6760d99-f7ac-6bc8-f376-54847c","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"7fe55a6f-20fa-3e3f-1eff-9c5713"}]},
+    {"uuid":"bb438e1a-2995-77ac-4830-a1f6e9","roles":[{"uuid":"e8fa2ba0-bbe4-abc1-b65e-3d4746","player":"20b011b8-22c4-c314-12f0-0506ca"},{"uuid":"906c3aef-be49-8d16-dd4d-6b550a","player":"1392f665-ccc8-6c3d-75da-841d48"}],"readings":[["01","{0} is for {1}"]],"shapes":[],"constraints":[{"uuid":"b541e05f-1648-50bd-e53e-9735c6","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"e8fa2ba0-bbe4-abc1-b65e-3d4746"}]},
+    {"uuid":"309d42b1-95f7-f4fe-dfca-28b887","roles":[{"uuid":"fb43ca1f-1ea3-22ca-d83e-aaecab","player":"20b011b8-22c4-c314-12f0-0506ca"},{"uuid":"98bc0b8e-845c-23d9-0f41-86a662","player":"836d0d69-53ae-a7cb-2a8e-0711b6"}],"readings":[["10","{0} is in {1}"]],"shapes":[],"constraints":[{"uuid":"0918d3a5-edaa-66bf-ac1b-62cba7","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"fb43ca1f-1ea3-22ca-d83e-aaecab"}]},
+    {"uuid":"e466b5e2-9a68-a3f5-d477-3bf9fe","roles":[{"uuid":"3d2927a3-d1a6-c81d-d045-12c6df","player":"de9e1bf9-3e6a-0666-da4b-39b5ca"},{"uuid":"c6d8cff0-f72f-817a-11d5-f5c355","player":"20b011b8-22c4-c314-12f0-0506ca"}],"readings":[["01","{0} represents {1}"],["10","{0} is represented by {1}"]],"shapes":[],"constraints":[{"uuid":"17120502-e445-e74e-3f22-20bcd0","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"c6d8cff0-f72f-817a-11d5-f5c355"},{"uuid":"f8ead269-6985-a260-ca06-fd90ab","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"c6d8cff0-f72f-817a-11d5-f5c355"}]},
+    {"uuid":"9fa0328b-e52c-474b-b578-ddf610","roles":[{"uuid":"17c29e72-1a35-be08-5007-0a967c","player":"20b011b8-22c4-c314-12f0-0506ca"},{"uuid":"1866b8c2-7699-9633-69e6-fb0974","player":"b706d17f-96ed-f227-2482-ce80f6"}],"readings":[["01","{0} has {1}"]],"shapes":[],"constraints":[{"uuid":"afc2d1a7-0e9c-a7bc-bfae-30ba26","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"17c29e72-1a35-be08-5007-0a967c"}]},
+    {"uuid":"2a4530cb-7a4a-6e08-d5f7-9f89e7","roles":[{"uuid":"822af987-363a-94dd-e9c6-70ae9e","player":"836d0d69-53ae-a7cb-2a8e-0711b6"},{"uuid":"99ef75d5-cfea-ba31-e0d9-d3421a","player":"f3546958-6cb8-101b-d245-ef5bd0"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"951a3c6a-02db-62e9-6712-f6e45f","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"822af987-363a-94dd-e9c6-70ae9e"},{"uuid":"4ec161ff-161c-0904-d2ac-d1f5c4","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"822af987-363a-94dd-e9c6-70ae9e"}]},
+    {"uuid":"70d9fe4b-5410-3435-da36-a2c601","roles":[{"uuid":"12503f37-61e8-bd0a-6b5b-eda38a","player":"de9e1bf9-3e6a-0666-da4b-39b5ca"},{"uuid":"45ec166b-4305-7dab-b824-bee6e3","player":"32540b10-83b2-cfad-ffa9-c75f5e"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"eb6d04ab-6e95-53da-e46e-66e66c","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"12503f37-61e8-bd0a-6b5b-eda38a"},{"uuid":"53162744-d9cd-194a-402e-cb018c","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"12503f37-61e8-bd0a-6b5b-eda38a"}]}
+  ],
+  constraints: [
+    {"uuid":"7dcae40f-1426-9250-140f-20ab8a","type":"SubsetConstraint","shapes":[],"role_sequences":[["98bc0b8e-845c-23d9-0f41-86a662","fb43ca1f-1ea3-22ca-d83e-aaecab"],["c9df4e97-c3ff-cb0f-ed00-353056","e8fa2ba0-bbe4-abc1-b65e-3d4746"]]},
+    {"uuid":"912c4428-a314-8a5d-7141-0ba37f","type":"PresenceConstraint","shapes":[],"min_frequency":0,"max_frequency":1,"is_mandatory":null,"is_preferred_identifier":true,"role_sequences":[["1866b8c2-7699-9633-69e6-fb0974","906c3aef-be49-8d16-dd4d-6b550a"]]}
+  ]
+}

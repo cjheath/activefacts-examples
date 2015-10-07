@@ -1,0 +1,31 @@
+{ model: 'Astronomy',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"b7f82cd8-18a5-ea47-56b8-d55073","name":"AstronomicalObject Code","shapes":[],"supertype":"f58b2d15-ccfc-ceb2-8152-b03d84"},
+    {"uuid":"d4ac280e-12ea-c9fe-87f9-2e2602","name":"AstronomicalObject","shapes":[],"ref_mode":".Code"},
+    {"uuid":"1ce600de-f4f8-c7a8-e2dd-01a4cf","name":"Mass","shapes":[],"supertype":"95b4dcfc-79c2-2f0b-aa3e-a27a37"},
+    {"uuid":"99db695a-2096-98fa-2abd-badf07","name":"Moon Name","shapes":[],"supertype":"f58b2d15-ccfc-ceb2-8152-b03d84"},
+    {"uuid":"4d738d4f-72b7-6083-0999-419f65","name":"Moon","shapes":[],"ref_mode":".Name","supertypes":[["d4ac280e-12ea-c9fe-87f9-2e2602","1292f947-c300-62cd-99ff-922efc"]]},
+    {"uuid":"5701e661-061c-ff0f-a0d1-77a442","name":"Nr Days","shapes":[],"supertype":"95b4dcfc-79c2-2f0b-aa3e-a27a37"},
+    {"uuid":"89f5dfc6-8c2a-c88d-d1cb-9e9ab2","name":"Orbit","shapes":[],"objectifies":"b0dfa4ab-47d8-e1c4-3c5b-750439"},
+    {"uuid":"82ef8214-083d-9436-6e62-36e5a8","name":"Planet Name","shapes":[],"supertype":"f58b2d15-ccfc-ceb2-8152-b03d84"},
+    {"uuid":"dd214f99-27af-b0c7-5f55-b95f89","name":"Planet","shapes":[],"ref_mode":".Name","supertypes":[["d4ac280e-12ea-c9fe-87f9-2e2602","da1afd89-7ed9-280a-3e2a-8c0c4c"]]},
+    {"uuid":"95b4dcfc-79c2-2f0b-aa3e-a27a37","name":"Real","shapes":[]},
+    {"uuid":"2a2536af-40bd-d8cc-0048-d1b00c","name":"Star","shapes":[],"supertypes":[["d4ac280e-12ea-c9fe-87f9-2e2602","50aef53f-f097-83c8-07d6-687e4d"]]},
+    {"uuid":"f58b2d15-ccfc-ceb2-8152-b03d84","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"809dd893-7ca7-e85a-a89d-36edf6","roles":[{"uuid":"445185d9-0ab2-b1cd-fa50-a6fb80","player":"dd214f99-27af-b0c7-5f55-b95f89"},{"uuid":"feda2def-0a5c-e078-49e9-7688f3","player":"82ef8214-083d-9436-6e62-36e5a8"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"6efb5af1-757e-f270-1db8-86c1f9","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"445185d9-0ab2-b1cd-fa50-a6fb80"},{"uuid":"4fda7b4b-600a-70fd-097d-63a474","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"445185d9-0ab2-b1cd-fa50-a6fb80"}]},
+    {"uuid":"bf9a3098-4790-e667-2428-0e03e5","roles":[{"uuid":"ae0c499b-c4bf-1c71-4ad8-7364f9","player":"89f5dfc6-8c2a-c88d-d1cb-9e9ab2"},{"uuid":"d2fa9ceb-81e5-2c2d-0568-49319b","player":"5701e661-061c-ff0f-a0d1-77a442"}],"readings":[["01","{0} has a synodic period of {1}"]],"shapes":[],"constraints":[{"uuid":"a9277660-b496-3ed7-7e75-e784be","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"d2fa9ceb-81e5-2c2d-0568-49319b"}]},
+    {"uuid":"8b72ccdc-a058-5afc-709c-b9686d","roles":[{"uuid":"728b11e4-2ee4-1f89-0dbf-6ea673","player":"d4ac280e-12ea-c9fe-87f9-2e2602"},{"uuid":"b8b0e8ab-635b-a893-2e2f-ddbf24","player":"b7f82cd8-18a5-ea47-56b8-d55073"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"e539e809-4c4a-ad03-ece6-f2cf02","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"728b11e4-2ee4-1f89-0dbf-6ea673"},{"uuid":"2e6ec9d4-9668-528e-ad27-d66767","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"728b11e4-2ee4-1f89-0dbf-6ea673"}]},
+    {"uuid":"5bc5003b-3cc7-0a3b-a73d-fc3f54","roles":[{"uuid":"9e7fd80f-24c0-52c1-2216-bd7351","player":"89f5dfc6-8c2a-c88d-d1cb-9e9ab2"},{"uuid":"11f5c661-523d-4827-9a3b-676da3","player":"d4ac280e-12ea-c9fe-87f9-2e2602"}],"readings":[["01","{0} is around {1}"]],"shapes":[],"constraints":[{"uuid":"483009e8-9057-4418-3875-5da1bb","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"9e7fd80f-24c0-52c1-2216-bd7351"},{"uuid":"4bd47852-25f9-a82f-14ca-d4d1e7","shapes":[],"ringKind":"AcyclicStronglyIntransitive","roles":["11f5c661-523d-4827-9a3b-676da3",null]}]},
+    {"uuid":"b0dfa4ab-47d8-e1c4-3c5b-750439","objectified_as":"89f5dfc6-8c2a-c88d-d1cb-9e9ab2","roles":[{"uuid":"3d4fac71-e8f0-9ba7-3d1d-3bc256","player":"d4ac280e-12ea-c9fe-87f9-2e2602"}],"readings":[["0","{0} is in orbit"]],"shapes":[],"constraints":[{"uuid":"63ed6ebd-61ca-d59f-474d-ebef38","min":1,"max":1,"is_preferred":true,"mandatory":true,"role":"3d4fac71-e8f0-9ba7-3d1d-3bc256"},{"uuid":"4bd47852-25f9-a82f-14ca-d4d1e7","shapes":[],"ringKind":"AcyclicStronglyIntransitive","roles":["11f5c661-523d-4827-9a3b-676da3","3d4fac71-e8f0-9ba7-3d1d-3bc256"]}]},
+    {"uuid":"1503e9db-ab78-ed55-2ee0-a76f2b","roles":[{"uuid":"f5bf9a5a-a087-2349-4f59-4fda8d","player":"d4ac280e-12ea-c9fe-87f9-2e2602"},{"uuid":"0b88367d-9656-ff98-bff0-2e1a31","player":"1ce600de-f4f8-c7a8-e2dd-01a4cf"}],"readings":[["01","{0} has {1}"]],"shapes":[],"constraints":[{"uuid":"abb0b604-fd90-8d2c-5ff9-b27ab9","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"0b88367d-9656-ff98-bff0-2e1a31"}]},
+    {"uuid":"98cf1ad3-954c-628d-4968-f5650c","roles":[{"uuid":"7e783039-2f70-408c-9b5a-96a762","player":"4d738d4f-72b7-6083-0999-419f65"},{"uuid":"e1012574-3a12-3a4d-0f6f-c39a62","player":"99db695a-2096-98fa-2abd-badf07"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"696a56c0-b0f5-d393-8a69-365cd6","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"7e783039-2f70-408c-9b5a-96a762"},{"uuid":"bc5e010a-e1af-eaf6-adc4-517f82","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"7e783039-2f70-408c-9b5a-96a762"}]}
+  ],
+  constraints: [
+    {"uuid":"18e6424c-f05b-155c-aa67-0fd39a","type":"SetExclusionConstraint","shapes":[],"is_mandatory":true,"role_sequences":[["50aef53f-f097-83c8-07d6-687e4d"],["da1afd89-7ed9-280a-3e2a-8c0c4c"],["1292f947-c300-62cd-99ff-922efc"]]}
+  ]
+}

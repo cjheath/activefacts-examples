@@ -1,0 +1,29 @@
+{ model: 'WaiterTips',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"f59300ea-f071-a434-e7ca-177cef","name":"AUDValue","shapes":[],"supertype":"567cca0a-f46d-ca00-2895-c4bc36"},
+    {"uuid":"b98c718a-8dde-64cb-b52f-61a33d","name":"Amount","shapes":[],"ref_mode":"AUDValue"},
+    {"uuid":"68066c2b-5a36-72d8-e2d3-10cc31","name":"Auto Counter","shapes":[]},
+    {"uuid":"a829b4c9-3d3a-464f-2435-1405f7","name":"Meal","shapes":[],"ref_mode":".Id"},
+    {"uuid":"7f7c0e31-11d3-5710-a0c6-f0d8c8","name":"MealId","shapes":[],"supertype":"68066c2b-5a36-72d8-e2d3-10cc31"},
+    {"uuid":"567cca0a-f46d-ca00-2895-c4bc36","name":"Money","shapes":[]},
+    {"uuid":"db913091-0ecf-38b1-24e5-3b2558","name":"Service","shapes":[],"objectifies":"b3ee7228-df2c-6d85-6fd0-c564c4"},
+    {"uuid":"8f458c23-08c1-c5ea-bd2e-c4f836","name":"Signed Integer","shapes":[]},
+    {"uuid":"2eddaa42-7e5a-caf0-dbba-3533c9","name":"Waiter","shapes":[],"ref_mode":".Nr"},
+    {"uuid":"6303045b-4b89-8877-b5a7-5f2f27","name":"WaiterNr","shapes":[],"supertype":"8f458c23-08c1-c5ea-bd2e-c4f836"},
+    {"uuid":"d5df70cb-a06e-21dd-0578-24a7dc","name":"WaiterTip","shapes":[],"objectifies":"da1f489e-2db9-c634-3a5b-7301a8","implicit":true}
+  ],
+  fact_types: [
+    {"uuid":"da1f489e-2db9-c634-3a5b-7301a8","objectified_as":"d5df70cb-a06e-21dd-0578-24a7dc","roles":[{"uuid":"094c2804-c27f-fa3e-4084-78df2d","player":"2eddaa42-7e5a-caf0-dbba-3533c9"},{"uuid":"9e8e534c-72ff-3141-6258-286026","player":"a829b4c9-3d3a-464f-2435-1405f7"},{"uuid":"1f4d6b6e-5840-4297-ef5b-369ef1","player":"b98c718a-8dde-64cb-b52f-61a33d"}],"readings":[["012","{0} for serving {1} reported a tip of {2}"]],"shapes":[],"constraints":[{"uuid":"07993944-12c2-1097-c102-c677fd","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":"1f4d6b6e-5840-4297-ef5b-369ef1"}]},
+    {"uuid":"673be2f0-05a6-4435-c12b-ff1d52","roles":[{"uuid":"183f8a47-5c3f-8624-1e8f-3dc159","player":"db913091-0ecf-38b1-24e5-3b2558"},{"uuid":"4792ee48-a10e-673a-c928-6c660d","player":"b98c718a-8dde-64cb-b52f-61a33d"}],"readings":[["01","{0} earned a tip of {1}"]],"shapes":[],"constraints":[{"uuid":"e341a4a5-2834-38a6-675f-a76116","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"4792ee48-a10e-673a-c928-6c660d"}]},
+    {"uuid":"b157074f-1235-3ab5-be60-2c8be2","roles":[{"uuid":"86d81f9b-47c4-dcf4-948e-ca45bb","player":"2eddaa42-7e5a-caf0-dbba-3533c9"},{"uuid":"77e9c45f-f74f-4533-ecd1-4cafbd","player":"6303045b-4b89-8877-b5a7-5f2f27"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"550e1093-a9cd-fead-0809-7dae99","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"86d81f9b-47c4-dcf4-948e-ca45bb"},{"uuid":"062dc919-8b2b-50bd-cc61-0eae66","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"86d81f9b-47c4-dcf4-948e-ca45bb"}]},
+    {"uuid":"2e493ff2-43ab-d664-c9ff-fac1dc","roles":[{"uuid":"51523aeb-e1c9-3ee9-2f7a-a39e90","player":"a829b4c9-3d3a-464f-2435-1405f7"},{"uuid":"e5f7b6d9-ffa8-63b7-86aa-edb6a9","player":"7f7c0e31-11d3-5710-a0c6-f0d8c8"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"7be745b3-2a4e-d5ae-182a-2077a0","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"51523aeb-e1c9-3ee9-2f7a-a39e90"},{"uuid":"a08e4b3d-bbe7-a33a-3ce2-ec9edf","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"51523aeb-e1c9-3ee9-2f7a-a39e90"}]},
+    {"uuid":"b3ee7228-df2c-6d85-6fd0-c564c4","objectified_as":"db913091-0ecf-38b1-24e5-3b2558","roles":[{"uuid":"ccc865b0-56b4-f9f7-5c18-8fe537","player":"2eddaa42-7e5a-caf0-dbba-3533c9"},{"uuid":"cbc53eae-51a2-2de8-eb5f-395c11","player":"a829b4c9-3d3a-464f-2435-1405f7"}],"readings":[["01","{0} served {1}"]],"shapes":[],"constraints":[{"uuid":"98f434e0-d05c-31c6-5bd4-d95766","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":null}]},
+    {"uuid":"56b5e167-49eb-50f7-70cb-626fa2","roles":[{"uuid":"a6e3482b-fc67-894e-7362-156b3a","player":"b98c718a-8dde-64cb-b52f-61a33d"},{"uuid":"99bf05c9-9b43-4de5-3748-4ea09a","player":"f59300ea-f071-a434-e7ca-177cef"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"407aca0a-b02b-084c-6149-e2d6e5","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"a6e3482b-fc67-894e-7362-156b3a"},{"uuid":"8275c144-d531-93ca-dd90-f4f50e","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"a6e3482b-fc67-894e-7362-156b3a"}]}
+  ],
+  constraints: [
+    {"uuid":"478baecb-a570-8bce-e01a-3d58bd","type":"SetEqualityConstraint","shapes":[],"role_sequences":[["ccc865b0-56b4-f9f7-5c18-8fe537","cbc53eae-51a2-2de8-eb5f-395c11","4792ee48-a10e-673a-c928-6c660d"],["094c2804-c27f-fa3e-4084-78df2d","9e8e534c-72ff-3141-6258-286026","1f4d6b6e-5840-4297-ef5b-369ef1"]]}
+  ]
+}

@@ -1,0 +1,37 @@
+{ model: 'OneRoleNesting',
+diagrams: [
+
+  ],
+  object_types: [
+    {"uuid":"5199cade-0548-3dfd-5aca-fb52e5","name":"Accuracy Level","shapes":[],"supertype":"31e713ed-0a94-4d24-c869-3dfa60"},
+    {"uuid":"9ed15a14-2f14-8dc1-c730-484635","name":"Accuracy","shapes":[],"ref_mode":".Level"},
+    {"uuid":"7a8bd231-bf35-1ed1-060c-522298","name":"Auto Counter","shapes":[]},
+    {"uuid":"8da84344-ce69-2164-7825-aebc65","name":"Birth","shapes":[],"objectifies":"1635510b-a1be-c26a-7a81-e42f29"},
+    {"uuid":"492324d4-b9fe-e94f-21aa-cf5694","name":"Date","shapes":[]},
+    {"uuid":"e4954a31-a5f0-daa0-33d7-183ce6","name":"Death","shapes":[],"objectifies":"f892f1cc-4ed9-7941-27d8-ac19d2"},
+    {"uuid":"f767d08c-0138-854f-9e19-43bcac","name":"Doctor","shapes":[],"supertypes":[["166a8f92-3858-5a29-200f-5831a8","59787f3e-9966-5bfb-10e0-22d900"]]},
+    {"uuid":"1cb528ae-86a8-9c6e-e407-bbb750","name":"Event Date","shapes":[],"ref_mode":"ymd"},
+    {"uuid":"50829891-2f31-d79f-285f-589b01","name":"Party Id","shapes":[],"supertype":"7a8bd231-bf35-1ed1-060c-522298"},
+    {"uuid":"532f3e60-cacd-b681-5e8f-89c04c","name":"Party Moniker","shapes":[],"objectifies":"b604fb38-ddcf-694a-885b-027af8"},
+    {"uuid":"b79f8450-608f-adab-dbae-ab69dc","name":"Party Name","shapes":[],"supertype":"eca7b4cc-43e6-8bf2-7c4c-f09a22"},
+    {"uuid":"34077a14-e590-e4dd-99ad-6b0115","name":"Party","shapes":[],"ref_mode":".Id","independent":true},
+    {"uuid":"166a8f92-3858-5a29-200f-5831a8","name":"Person","shapes":[],"supertypes":[["34077a14-e590-e4dd-99ad-6b0115","3a69e99f-4cf9-d3c6-0408-b3d01f"]]},
+    {"uuid":"31e713ed-0a94-4d24-c869-3dfa60","name":"Signed Integer","shapes":[]},
+    {"uuid":"eca7b4cc-43e6-8bf2-7c4c-f09a22","name":"String","shapes":[]},
+    {"uuid":"83a8acec-81e1-de84-7728-e9673b","name":"ymd","shapes":[],"supertype":"492324d4-b9fe-e94f-21aa-cf5694"}
+  ],
+  fact_types: [
+    {"uuid":"f892f1cc-4ed9-7941-27d8-ac19d2","objectified_as":"e4954a31-a5f0-daa0-33d7-183ce6","roles":[{"uuid":"88d86327-0fc6-8088-5ca3-a3f4f9","player":"166a8f92-3858-5a29-200f-5831a8"}],"readings":[["0","{0} died"]],"shapes":[],"constraints":[{"uuid":"f358e06d-8fc8-7c7d-2c41-c60aec","min":1,"max":1,"is_preferred":true,"mandatory":true,"role":"88d86327-0fc6-8088-5ca3-a3f4f9"}]},
+    {"uuid":"1635510b-a1be-c26a-7a81-e42f29","objectified_as":"8da84344-ce69-2164-7825-aebc65","roles":[{"uuid":"2a6f99a7-6cc4-d548-3145-9e99c0","player":"166a8f92-3858-5a29-200f-5831a8"},{"uuid":"18ad2610-392b-135a-682b-c016cd","player":"1cb528ae-86a8-9c6e-e407-bbb750"}],"readings":[["01","{0} was born on {1}"]],"shapes":[],"constraints":[{"uuid":"474b3119-cb8c-ed3a-0d5e-662306","min":1,"max":1,"is_preferred":true,"mandatory":true,"role":"2a6f99a7-6cc4-d548-3145-9e99c0"}]},
+    {"uuid":"b604fb38-ddcf-694a-885b-027af8","objectified_as":"532f3e60-cacd-b681-5e8f-89c04c","roles":[{"uuid":"3fd1ecff-e506-5ea6-c81f-2ab5ed","player":"34077a14-e590-e4dd-99ad-6b0115"},{"uuid":"ef630d7e-8598-2cb1-cdbc-662694","player":"b79f8450-608f-adab-dbae-ab69dc"}],"readings":[["01","{0} is called {1}"]],"shapes":[],"constraints":[{"uuid":"cab6132a-07e8-20d8-b737-eaadc9","min":1,"max":1,"is_preferred":true,"mandatory":true,"role":"3fd1ecff-e506-5ea6-c81f-2ab5ed"}]},
+    {"uuid":"046a39b6-53c6-9e28-e7a5-954d6b","roles":[{"uuid":"cc96722c-5193-015e-3ba7-ba8c6b","player":"e4954a31-a5f0-daa0-33d7-183ce6"},{"uuid":"90fd0abd-311a-2ac7-1446-6b7f8c","player":"1cb528ae-86a8-9c6e-e407-bbb750"}],"readings":[["01","{0} occurred on death-{1}"]],"shapes":[],"constraints":[{"uuid":"d8db5eb3-5ce6-e7ac-5df3-2e2d37","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"90fd0abd-311a-2ac7-1446-6b7f8c"}]},
+    {"uuid":"ecad77ad-c928-55eb-b2a3-2a270e","roles":[{"uuid":"0982ac43-5eb7-bc8b-d43e-ce3826","player":"8da84344-ce69-2164-7825-aebc65"},{"uuid":"46fdd5e4-e95c-28a4-97bc-cc0ca7","player":"f767d08c-0138-854f-9e19-43bcac"}],"readings":[["01","{0} was assisted by attending-{1}"],["10","{0} attended {1}"]],"shapes":[],"constraints":[{"uuid":"0a1646d4-4368-0342-0bfa-a41368","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"46fdd5e4-e95c-28a4-97bc-cc0ca7"}]},
+    {"uuid":"dc5affb8-e1d7-5614-cddd-9899af","roles":[{"uuid":"99bf0adc-6a87-5f89-c2ea-6004a0","player":"34077a14-e590-e4dd-99ad-6b0115"},{"uuid":"8a7064fc-1acf-c68f-704f-00507e","player":"50829891-2f31-d79f-285f-589b01"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"00e58bd3-9b1e-f8cb-476e-5ce628","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"99bf0adc-6a87-5f89-c2ea-6004a0"},{"uuid":"1f742900-9f09-05b7-556c-ccbe4b","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"99bf0adc-6a87-5f89-c2ea-6004a0"}]},
+    {"uuid":"3e6be676-028e-fcac-2998-b3813d","roles":[{"uuid":"7dd4e15e-e563-3969-8aa1-95d657","player":"532f3e60-cacd-b681-5e8f-89c04c"},{"uuid":"72d6391c-33d1-a46b-40e9-3bd207","player":"9ed15a14-2f14-8dc1-c730-484635"}],"readings":[["01","{0} has {1}"]],"shapes":[],"constraints":[{"uuid":"2511c2e7-a817-12d6-22cf-e53ad3","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"7dd4e15e-e563-3969-8aa1-95d657"}]},
+    {"uuid":"c7cd0712-941a-b6a7-d4a3-6e8413","roles":[{"uuid":"7f37a088-8f21-62f9-9b6c-2440aa","player":"1cb528ae-86a8-9c6e-e407-bbb750"},{"uuid":"6c7f9b8c-1989-629c-29fc-04d7f3","player":"83a8acec-81e1-de84-7728-e9673b"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"82b6d7df-bb9e-a1f7-9ccd-81aa07","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"7f37a088-8f21-62f9-9b6c-2440aa"},{"uuid":"dc5de9a6-57b8-cbd1-1890-34866c","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"7f37a088-8f21-62f9-9b6c-2440aa"}]},
+    {"uuid":"c2c3008c-4a91-1231-3c1d-9f791f","roles":[{"uuid":"1b362e11-5b5b-dd51-47e3-bf51bd","player":"9ed15a14-2f14-8dc1-c730-484635"},{"uuid":"267648e8-b5ea-75b5-f373-6bd76c","player":"5199cade-0548-3dfd-5aca-fb52e5"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"d597f33a-2c27-4256-dad4-1a1861","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"1b362e11-5b5b-dd51-47e3-bf51bd"},{"uuid":"cb2247aa-e817-7451-d845-73d278","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"1b362e11-5b5b-dd51-47e3-bf51bd"}]}
+  ],
+  constraints: [
+
+  ]
+}
