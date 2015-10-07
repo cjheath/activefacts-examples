@@ -1,0 +1,411 @@
+{
+  "types": {
+    "Acceptable Substitution": {
+      "is_main": true,
+      "id": "40e49157-6450-4d2c-b85b-3c299e492663",
+      "functions": [
+        {
+          "title": "involving Product",
+          "type": "Product",
+          "where": "this Product may be substituted by some alternate-Product in some Season"
+        },
+        {
+          "title": "involving Alternate Product",
+          "type": "Product",
+          "where": "this alternate-Product is an acceptable substitute for some Product in some Season"
+        },
+        {
+          "title": "involving Season",
+          "type": "Season",
+          "where": "some Product may be substituted by some alternate-Product in this Season"
+        }
+      ]
+    },
+    "Cost": {
+      "is_main": false,
+      "id": "716e46dc-38dc-4517-ae5f-2e455f8fcac3",
+      "functions": [
+        {
+          "title": "all Production Forecast",
+          "type": "Production Forecast",
+          "where": "some Production Forecast predicts this Cost",
+          "role_id": "f99606fa-b75f-4e02-8a57-de57761158ea",
+          "is_list": true
+        },
+        {
+          "title": "all Transport Route",
+          "type": "Transport Route",
+          "where": "some Transport Route incurs this Cost per kl",
+          "role_id": "d7613018-f6b0-49fa-ad78-3d698da6d72b",
+          "is_list": true
+        }
+      ]
+    },
+    "Month": {
+      "is_main": true,
+      "id": "4b128c89-e64d-42c9-8fb0-1e8e72cb0712",
+      "functions": [
+        {
+          "title": "Month Nr",
+          "type": "Month Nr",
+          "where": "this Month has one Month Nr",
+          "role_id": "60d15497-91ac-446e-9374-bc0793d43ba3"
+        },
+        {
+          "title": "Season",
+          "type": "Season",
+          "where": "this Month is in one Season",
+          "role_id": "b6dba1ae-390b-4304-be5e-4d7807963439"
+        },
+        {
+          "title": "all Supply Period",
+          "type": "Supply Period",
+          "where": "some Supply Period is in this Month",
+          "role_id": "66608cb1-e637-4c3f-be7a-4447ec82b4f5",
+          "is_list": true
+        }
+      ]
+    },
+    "Month Nr": {
+      "is_main": false,
+      "id": "6e14a2ab-fd39-43ed-8fb6-f0e6f25c70bb",
+      "functions": [
+        {
+          "title": "Month",
+          "type": "Month",
+          "where": "this Month Nr is of one Month",
+          "role_id": "740d8591-6f51-4d81-9009-26768683d00e"
+        }
+      ]
+    },
+    "Product": {
+      "is_main": true,
+      "id": "aaf81a10-5093-45a8-94d8-efe6cb17445e",
+      "functions": [
+        {
+          "title": "Product Name",
+          "type": "Product Name",
+          "where": "this Product has one Product Name",
+          "role_id": "1dacaac2-41c9-43a5-8fdc-b6d95352c058"
+        },
+        {
+          "title": "all Acceptable Substitution",
+          "type": "Acceptable Substitution",
+          "where": "this Product may be substituted by some alternate-Product in some Season",
+          "role_id": "7138d862-b11b-4625-bb6d-7d63ea39b9b9",
+          "is_list": true
+        },
+        {
+          "title": "all Acceptable Substitution",
+          "type": "Acceptable Substitution",
+          "where": "this alternate-Product is an acceptable substitute for some Product in some Season",
+          "role_id": "09681795-a2c5-4429-9709-d5a9a993c077",
+          "is_list": true
+        },
+        {
+          "title": "all Production Forecast",
+          "type": "Production Forecast",
+          "where": "some Refinery in some Supply Period will make this Product in some Quantity",
+          "role_id": "c6b420de-fdf1-4cc5-ae5d-1eb300d133cd",
+          "is_list": true
+        },
+        {
+          "title": "all Regional Demand",
+          "type": "Regional Demand",
+          "where": "some Region in some Supply Period will need this Product in some Quantity",
+          "role_id": "5753937f-6ed8-40c6-bc99-82b16ebf6f60",
+          "is_list": true
+        }
+      ]
+    },
+    "Product Name": {
+      "is_main": false,
+      "id": "0792678a-f609-44c9-80ed-3ffa964b310e",
+      "functions": [
+        {
+          "title": "Product",
+          "type": "Product",
+          "where": "this Product Name is of one Product",
+          "role_id": "3ad2fc0a-a2e4-437a-b3a7-6595e6d00a1b"
+        }
+      ]
+    },
+    "Production Forecast": {
+      "is_main": true,
+      "id": "fde0132b-695f-44f9-bdb9-5732f7b31118",
+      "functions": [
+        {
+          "title": "involving Refinery",
+          "type": "Refinery",
+          "where": "this Refinery in some Supply Period will make some Product in some Quantity"
+        },
+        {
+          "title": "involving Supply Period",
+          "type": "Supply Period",
+          "where": "some Refinery in this Supply Period will make some Product in some Quantity"
+        },
+        {
+          "title": "involving Product",
+          "type": "Product",
+          "where": "some Refinery in some Supply Period will make this Product in some Quantity"
+        },
+        {
+          "title": "involving Quantity",
+          "type": "Quantity",
+          "where": "some Refinery in some Supply Period will make some Product in this Quantity"
+        },
+        {
+          "title": "Cost",
+          "type": "Cost",
+          "where": "this Production Forecast predicts one Cost",
+          "role_id": "5efdf306-1211-4ecd-b3cc-6db6e01c4e6d"
+        }
+      ]
+    },
+    "Quantity": {
+      "is_main": false,
+      "id": "8279123e-1c02-42e9-9ffb-880abe057917",
+      "functions": [
+        {
+          "title": "all Production Forecast",
+          "type": "Production Forecast",
+          "where": "some Refinery in some Supply Period will make some Product in this Quantity",
+          "role_id": "1ceab24c-c108-455f-9681-105090f7f21d",
+          "is_list": true
+        },
+        {
+          "title": "all Regional Demand",
+          "type": "Regional Demand",
+          "where": "some Region in some Supply Period will need some Product in this Quantity",
+          "role_id": "770d2abd-a25a-4262-8e6f-825a5cb163f4",
+          "is_list": true
+        }
+      ]
+    },
+    "Refinery": {
+      "is_main": true,
+      "id": "5d9f65d2-d38f-4aee-8ee3-464d56f3891f",
+      "functions": [
+        {
+          "title": "Refinery Name",
+          "type": "Refinery Name",
+          "where": "this Refinery has one Refinery Name",
+          "role_id": "cbbbeebd-8444-426e-a63f-85ae318ecc20"
+        },
+        {
+          "title": "all Production Forecast",
+          "type": "Production Forecast",
+          "where": "this Refinery in some Supply Period will make some Product in some Quantity",
+          "role_id": "aae4cb21-a2cd-4225-a035-d0aeaf490337",
+          "is_list": true
+        },
+        {
+          "title": "all Transport Route",
+          "type": "Transport Route",
+          "where": "some Transport Method transportation is available from this Refinery to some Region",
+          "role_id": "b8a2d8e9-adf3-49ee-97c7-4e27be294d72",
+          "is_list": true
+        }
+      ]
+    },
+    "Refinery Name": {
+      "is_main": false,
+      "id": "dd09ebcd-b9f2-4780-9a03-e9208aa94bbb",
+      "functions": [
+        {
+          "title": "Refinery",
+          "type": "Refinery",
+          "where": "this Refinery Name is of one Refinery",
+          "role_id": "29eef4b5-5ddf-4c0e-a2bd-21f4785ae6a9"
+        }
+      ]
+    },
+    "Region": {
+      "is_main": true,
+      "id": "27effba9-2a82-40cc-be4a-2d681811afd4",
+      "functions": [
+        {
+          "title": "Region Name",
+          "type": "Region Name",
+          "where": "this Region has one Region Name",
+          "role_id": "8cdf335c-8622-4e68-9c8d-76161b3474b9"
+        },
+        {
+          "title": "all Regional Demand",
+          "type": "Regional Demand",
+          "where": "this Region in some Supply Period will need some Product in some Quantity",
+          "role_id": "32b3f496-e1a0-4ea8-ab52-7f7ea27d6f5e",
+          "is_list": true
+        },
+        {
+          "title": "all Transport Route",
+          "type": "Transport Route",
+          "where": "some Transport Method transportation is available from some Refinery to this Region",
+          "role_id": "15758b1e-8f4e-423c-9537-7ada53a0bb57",
+          "is_list": true
+        }
+      ]
+    },
+    "Region Name": {
+      "is_main": false,
+      "id": "a7d2f321-c1ec-4e71-9fe9-af622757ed9d",
+      "functions": [
+        {
+          "title": "Region",
+          "type": "Region",
+          "where": "this Region Name is of one Region",
+          "role_id": "1ad30fff-5230-4b7c-a340-df62d5f1c21e"
+        }
+      ]
+    },
+    "Regional Demand": {
+      "is_main": true,
+      "id": "c2d03b37-b913-4597-bb6b-ac2b971898cd",
+      "functions": [
+        {
+          "title": "involving Region",
+          "type": "Region",
+          "where": "this Region in some Supply Period will need some Product in some Quantity"
+        },
+        {
+          "title": "involving Supply Period",
+          "type": "Supply Period",
+          "where": "some Region in this Supply Period will need some Product in some Quantity"
+        },
+        {
+          "title": "involving Product",
+          "type": "Product",
+          "where": "some Region in some Supply Period will need this Product in some Quantity"
+        },
+        {
+          "title": "involving Quantity",
+          "type": "Quantity",
+          "where": "some Region in some Supply Period will need some Product in this Quantity"
+        }
+      ]
+    },
+    "Season": {
+      "is_main": false,
+      "id": "db77e3b4-3412-46fa-be0f-5eba35639115",
+      "functions": [
+        {
+          "title": "all Month",
+          "type": "Month",
+          "where": "some Month is in this Season",
+          "role_id": "cc597414-58f0-4ae4-8818-52f08b99fa00",
+          "is_list": true
+        },
+        {
+          "title": "all Acceptable Substitution",
+          "type": "Acceptable Substitution",
+          "where": "some Product may be substituted by some alternate-Product in this Season",
+          "role_id": "a99e4013-6692-49fa-8beb-613e2d83a87d",
+          "is_list": true
+        }
+      ]
+    },
+    "Supply Period": {
+      "is_main": true,
+      "id": "b8aedd69-21f5-4285-a7a5-fd3f079bf290",
+      "functions": [
+        {
+          "title": "all Production Forecast",
+          "type": "Production Forecast",
+          "where": "some Refinery in this Supply Period will make some Product in some Quantity",
+          "role_id": "d922f32f-6c9c-40e1-8062-2e0c9c3398f9",
+          "is_list": true
+        },
+        {
+          "title": "all Regional Demand",
+          "type": "Regional Demand",
+          "where": "some Region in this Supply Period will need some Product in some Quantity",
+          "role_id": "75a88f4f-007d-4f19-8edb-8e8e0b81122e",
+          "is_list": true
+        },
+        {
+          "title": "Month",
+          "type": "Month",
+          "where": "this Supply Period is in one Month",
+          "role_id": "a284c9c8-f5cf-4f4d-9645-8ec72fa68b3d"
+        },
+        {
+          "title": "Year",
+          "type": "Year",
+          "where": "this Supply Period is in one Year",
+          "role_id": "4f5fdced-0d4e-4e2f-8963-09d7e8905684"
+        }
+      ]
+    },
+    "Transport Method": {
+      "is_main": false,
+      "id": "62d8c19f-e40e-45b5-9b57-66e0b0134b4b",
+      "functions": [
+        {
+          "title": "all Transport Route",
+          "type": "Transport Route",
+          "where": "this Transport Method transportation is available from some Refinery to some Region",
+          "role_id": "8b46afa0-9f94-4739-a573-2e2dcaff6951",
+          "is_list": true
+        }
+      ]
+    },
+    "Transport Route": {
+      "is_main": true,
+      "id": "0c7f3e46-84dc-416a-8ee5-659c4b9ed4db",
+      "functions": [
+        {
+          "title": "involving Transport Method",
+          "type": "Transport Method",
+          "where": "this Transport Method transportation is available from some Refinery to some Region"
+        },
+        {
+          "title": "involving Refinery",
+          "type": "Refinery",
+          "where": "some Transport Method transportation is available from this Refinery to some Region"
+        },
+        {
+          "title": "involving Region",
+          "type": "Region",
+          "where": "some Transport Method transportation is available from some Refinery to this Region"
+        },
+        {
+          "title": "Cost",
+          "type": "Cost",
+          "where": "this Transport Route incurs one Cost per kl",
+          "role_id": "8ca58acf-67b4-4dff-ae7b-59e59a8632ef"
+        }
+      ]
+    },
+    "Year": {
+      "is_main": false,
+      "id": "a3f9303c-6fd9-42f8-b30d-ea0c41f32c82",
+      "functions": [
+        {
+          "title": "all Supply Period",
+          "type": "Supply Period",
+          "where": "some Supply Period is in this Year",
+          "role_id": "bfb58f99-dd83-4458-9c72-bd67943e88bd",
+          "is_list": true
+        },
+        {
+          "title": "Year Nr",
+          "type": "Year Nr",
+          "where": "this Year has one Year Nr",
+          "role_id": "b9487343-5c56-40fc-bd20-4f547d6f0ff6"
+        }
+      ]
+    },
+    "Year Nr": {
+      "is_main": false,
+      "id": "e28c77da-08ea-45a5-883b-5db08b734d49",
+      "functions": [
+        {
+          "title": "Year",
+          "type": "Year",
+          "where": "this Year Nr is of one Year",
+          "role_id": "d0cf514c-5fe1-40ed-85d0-bff9018fae5f"
+        }
+      ]
+    }
+  }
+}

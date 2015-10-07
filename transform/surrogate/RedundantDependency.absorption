@@ -1,0 +1,3 @@
+Address: Address.Id[*], Legislative.District.Number, Legislative.District.State.Or.Province.Id, Postal.Code, State.Or.Province.Id
+Politician: Legislative.District.Number[1], Legislative.District.State.Or.Province.Id[1], Politician.Id[*]
+State Or Province: State.Or.Province.Id[*]

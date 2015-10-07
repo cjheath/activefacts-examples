@@ -1,0 +1,894 @@
+
+module Concernz
+  module Aggregation
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'aggregation_id'
+
+      # Aggregation involves Variable
+      belongs_to :aggregated_variable, :class_name => 'Variable', :foreign_key => :aggregated_variable_id
+
+      # Aggregation involves Variable
+      belongs_to :variable, :foreign_key => :variable_id
+
+      validates :aggregate_code, :presence => true
+      validates :variable_id, :presence => true
+      validates :aggregated_variable_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module AllowedRange
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'allowed_range_id'
+
+      # Allowed Range involves Value Constraint and Value Constraint is a kind of Constraint
+      belongs_to :constraint_via_value_constraint, :class_name => 'Constraint', :foreign_key => :value_constraint_concept_guid
+
+      # Allowed Range involves Value Range and maybe Value Range has maximum-Bound and Bound has Value
+      belongs_to :value_via_value_range_maximum_bound, :class_name => 'Value', :foreign_key => :value_range_maximum_bound_value_id
+
+      # Allowed Range involves Value Range and maybe Value Range has minimum-Bound and Bound has Value
+      belongs_to :value_via_value_range_minimum_bound, :class_name => 'Value', :foreign_key => :value_range_minimum_bound_value_id
+
+      validates :value_constraint_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module AlternativeSet
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # maybe Alternative Set covers Step
+      has_many :steps, :class_name => 'Step', :foreign_key => :alternative_set_guid, :dependent => :destroy
+    end
+  end
+end
+
+module Concernz
+  module Component
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # maybe Component belongs to parent-Mapping and Mapping is a kind of Component
+      belongs_to :component_via_mapping, :class_name => 'Component', :foreign_key => :mapping_guid
+
+      # maybe Component is a Mapping and maybe Mapping projects Composite and Composite belongs to Composition
+      belongs_to :composition_via_mapping_composite, :class_name => 'Composition', :foreign_key => :mapping_composition_guid
+
+      # maybe Component is a Mapping and Mapping represents Object Type
+      belongs_to :object_type_via_mapping, :class_name => 'ObjectType', :foreign_key => :mapping_object_type_id
+
+      # maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses to child-Role
+      belongs_to :child_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_child_role_id
+
+      # maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is nested under index-Role
+      belongs_to :index_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_index_role_id
+
+      # maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role
+      belongs_to :parent_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_parent_role_id
+
+      # maybe Component is an Indicator and Indicator indicates Role played
+      belongs_to :role_via_indicator, :class_name => 'Role', :foreign_key => :indicator_role_id
+
+      # Component is a Mapping and maybe Mapping contains Component
+      has_many :members_via_mapping, :class_name => 'Component', :foreign_key => :mapping_guid, :dependent => :destroy
+
+      # Component is a Discriminator and Discriminator is involved in Discriminated Role
+      has_many :discriminated_roles_via_discriminator, :class_name => 'DiscriminatedRole', :foreign_key => :discriminator_guid, :dependent => :destroy
+    end
+  end
+end
+
+module Concernz
+  module Composition
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # Composition contains Composite and maybe Composite consists of Mapping and maybe Mapping is a kind of Component
+      has_many :components_via_mapping_composite, :class_name => 'Component', :foreign_key => :mapping_composition_guid, :dependent => :destroy
+
+      validates :name, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Concept
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # maybe Context Note is an instance of Concept and maybe Context Note applies to relevant-Concept
+      belongs_to :relevant_concept_via_context_note, :class_name => 'Concept', :foreign_key => :context_note_relevant_concept_guid
+
+      # maybe Instance is an instance of Concept and maybe Instance objectifies Fact and Fact is an instance of Concept
+      belongs_to :concept_via_instance_fact, :class_name => 'Concept', :foreign_key => :instance_fact_concept_guid
+
+      # maybe Fact is an instance of Concept and Fact is of Fact Type
+      belongs_to :fact_type_via_fact, :class_name => 'FactType', :foreign_key => :fact_type_concept_guid
+
+      # maybe Instance is an instance of Concept and Instance is of Object Type
+      belongs_to :object_type_via_instance, :class_name => 'ObjectType', :foreign_key => :instance_object_type_id
+
+      # maybe Fact is an instance of Concept and Fact belongs to Population
+      belongs_to :population_via_fact, :class_name => 'Population', :foreign_key => :fact_population_id
+
+      # maybe Instance is an instance of Concept and Instance belongs to Population
+      belongs_to :population_via_instance, :class_name => 'Population', :foreign_key => :instance_population_id
+
+      # maybe Instance is an instance of Concept and maybe Instance has Value
+      belongs_to :value_via_instance, :class_name => 'Value', :foreign_key => :instance_value_id
+
+      # Concept is involved in Concept Annotation
+      has_many :concept_annotations, :class_name => 'ConceptAnnotation', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # maybe Concept has Context Note and maybe Context Note is an instance of Concept
+      has_many :concepts_via_context_note, :class_name => 'Concept', :foreign_key => :context_note_relevant_concept_guid, :dependent => :destroy
+
+      # Fact is an instance of Concept and maybe Fact is objectified as Instance and maybe Instance is an instance of Concept
+      has_one :concept_via_instance_fact, :class_name => 'Concept', :foreign_key => :instance_fact_concept_guid, :dependent => :destroy
+
+      # Constraint is an instance of Concept
+      has_one :constraint, :class_name => 'Constraint', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # Context Note is an instance of Concept and Context Note is involved in Context According To
+      has_many :context_according_tos_via_context_note, :class_name => 'ContextAccordingTo', :foreign_key => :context_note_concept_guid, :dependent => :destroy
+
+      # Context Note is an instance of Concept and Context Note was added by Agreement and Agreement is involved in Context Agreed By
+      has_many :context_agreed_bies_via_agreement_context_note, :class_name => 'ContextAgreedBy', :foreign_key => :agreement_context_note_concept_guid, :dependent => :destroy
+
+      # Unit is an instance of Concept and Unit is involved in Derivation
+      has_many :derivations_via_unit, :class_name => 'Derivation', :foreign_key => :base_unit_concept_guid, :dependent => :destroy
+
+      # Unit is an instance of Concept and Unit is involved in Derivation
+      has_many :derivations_via_unit, :class_name => 'Derivation', :foreign_key => :derived_unit_concept_guid, :dependent => :destroy
+
+      # Fact Type is an instance of Concept
+      has_one :fact_type, :class_name => 'FactType', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # Object Type is an instance of Concept
+      has_one :object_type, :class_name => 'ObjectType', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # Unit is an instance of Concept and maybe Value Type is of Unit and maybe Value Type is a kind of Domain Object Type and maybe Domain Object Type is a kind of Object Type
+      has_many :object_types_via_domain_object_type_value_type_unit, :class_name => 'ObjectType', :foreign_key => :value_type_unit_concept_guid, :dependent => :destroy
+
+      # Population is an instance of Concept
+      has_one :population, :class_name => 'Population', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # Fact is an instance of Concept and Fact includes Role Value
+      has_many :role_values_via_fact, :class_name => 'RoleValue', :foreign_key => :fact_concept_guid, :dependent => :destroy
+
+      # Instance is an instance of Concept and Instance plays Role Value
+      has_many :role_values_via_instance, :class_name => 'RoleValue', :foreign_key => :instance_concept_guid, :dependent => :destroy
+
+      # Role is an instance of Concept
+      has_one :role, :class_name => 'Role', :foreign_key => :concept_guid, :dependent => :destroy
+
+      # Context Note is an instance of Concept and Model Note Shape is for Context Note and maybe Model Note Shape is a kind of Shape
+      has_many :shapes_via_model_note_shape_context_note, :class_name => 'Shape', :foreign_key => :model_note_shape_context_note_concept_guid, :dependent => :destroy
+
+      # Unit is an instance of Concept and maybe Unit is of Value
+      has_many :values_via_unit, :class_name => 'Value', :foreign_key => :unit_concept_guid, :dependent => :destroy
+
+      # Query is an instance of Concept and Query includes Variable
+      has_many :variables_via_query, :class_name => 'Variable', :foreign_key => :query_concept_guid, :dependent => :destroy
+    end
+  end
+end
+
+module Concernz
+  module ConceptAnnotation
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'concept_annotation_id'
+
+      # Concept Annotation involves Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      validates :concept_guid, :presence => true
+      validates :mapping_annotation, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Constraint
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'concept_guid'
+
+      # Constraint is an instance of Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      # maybe Constraint is a Ring Constraint and maybe Ring Constraint has other-Role
+      belongs_to :other_role_via_ring_constraint, :class_name => 'Role', :foreign_key => :ring_constraint_other_role_id
+
+      # maybe Constraint is a Ring Constraint and maybe Ring Constraint has Role
+      belongs_to :role_via_ring_constraint, :class_name => 'Role', :foreign_key => :ring_constraint_role_id
+
+      # maybe Constraint is a Value Constraint and maybe Value Constraint applies to Role
+      belongs_to :role_via_value_constraint, :class_name => 'Role', :foreign_key => :value_constraint_role_id
+
+      # maybe Constraint is a Presence Constraint and Presence Constraint covers Role Sequence
+      belongs_to :role_sequence_via_presence_constraint, :class_name => 'RoleSequence', :foreign_key => :presence_constraint_role_sequence_guid
+
+      # maybe Constraint is a Set Constraint and maybe Set Constraint is a Subset Constraint and Subset Constraint covers subset-Role Sequence
+      belongs_to :subset_role_sequence_via_set_constraint_subset_constraint, :class_name => 'RoleSequence', :foreign_key => :subset_constraint_subset_role_sequence_guid
+
+      # maybe Constraint is a Set Constraint and maybe Set Constraint is a Subset Constraint and Subset Constraint covers superset-Role Sequence
+      belongs_to :superset_role_sequence_via_set_constraint_subset_constraint, :class_name => 'RoleSequence', :foreign_key => :subset_constraint_superset_role_sequence_guid
+
+      # Constraint is a Value Constraint and Value Constraint is involved in Allowed Range
+      has_many :allowed_ranges_via_value_constraint, :class_name => 'AllowedRange', :foreign_key => :value_constraint_concept_guid, :dependent => :destroy
+
+      # Constraint is a Value Constraint and maybe Value Constraint constrains Value Type and maybe Value Type is a kind of Domain Object Type and maybe Domain Object Type is a kind of Object Type
+      has_one :object_type_via_domain_object_type_value_type_value_constraint, :class_name => 'ObjectType', :foreign_key => :value_type_value_constraint_concept_guid, :dependent => :destroy
+
+      # Constraint is a Set Constraint and Set Constraint is a Set Comparison Constraint and Set Comparison Constraint is involved in Set Comparison Roles
+      has_many :set_comparison_roles_via_set_comparison_constraint_set_constraint, :class_name => 'SetComparisonRoles', :foreign_key => :set_comparison_constraint_concept_guid, :dependent => :destroy
+
+      # Constraint Shape is for Constraint and maybe Constraint Shape is a kind of Shape
+      has_many :shapes_via_constraint_shape, :class_name => 'Shape', :foreign_key => :constraint_shape_constraint_concept_guid, :dependent => :destroy
+
+      validates :concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module ContextAccordingTo
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'context_according_to_id'
+
+      # Context According To involves Context Note and Context Note is an instance of Concept
+      belongs_to :concept_via_context_note, :class_name => 'Concept', :foreign_key => :context_note_concept_guid
+
+      validates :agent_name, :presence => true
+      validates :context_note_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module ContextAgreedBy
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'context_agreed_by_id'
+
+      # Context Agreed By involves Agreement and Agreement covers Context Note and Context Note is an instance of Concept
+      belongs_to :concept_via_agreement_context_note, :class_name => 'Concept', :foreign_key => :agreement_context_note_concept_guid
+
+      validates :agent_name, :presence => true
+      validates :agreement_context_note_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Derivation
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'derivation_id'
+
+      # Derivation involves Unit and Unit is an instance of Concept
+      belongs_to :concept_via_unit, :class_name => 'Concept', :foreign_key => :base_unit_concept_guid
+
+      # Derivation involves Unit and Unit is an instance of Concept
+      belongs_to :concept_via_unit, :class_name => 'Concept', :foreign_key => :derived_unit_concept_guid
+
+      validates :base_unit_concept_guid, :presence => true
+      validates :derived_unit_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Diagram
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'diagram_id'
+
+      # Diagram is an ORM Diagram and ORM Diagram includes Shape
+      has_many :shapes_via_orm_diagram, :class_name => 'Shape', :foreign_key => :orm_diagram_id, :dependent => :destroy
+
+      validates :name, :presence => true
+      validates :vocabulary_name, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module DiscriminatedRole
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'discriminated_role_id'
+
+      # Discriminated Role involves Discriminator and Discriminator is a kind of Component
+      belongs_to :component_via_discriminator, :class_name => 'Component', :foreign_key => :discriminator_guid
+
+      # Discriminated Role involves Role
+      belongs_to :role, :foreign_key => :role_id
+
+      # Discriminated Role involves Value
+      belongs_to :value, :foreign_key => :value_id
+
+      validates :discriminator_guid, :presence => true
+      validates :role_id, :presence => true
+      validates :value_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module FactType
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'concept_guid'
+
+      # Fact Type is an instance of Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      # maybe Fact Type is nested as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :entity_type_object_type_id
+
+      # maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_type_inheritance_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :type_inheritance_subtype_object_type_id
+
+      # maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_type_inheritance_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :type_inheritance_supertype_object_type_id
+
+      # Fact is of Fact Type and maybe Fact is an instance of Concept
+      has_many :concepts_via_fact, :class_name => 'Concept', :foreign_key => :fact_type_concept_guid, :dependent => :destroy
+
+      # Fact Type has Reading
+      has_many :readings, :class_name => 'Reading', :foreign_key => :fact_type_concept_guid, :dependent => :destroy
+
+      # Fact Type contains Role
+      has_many :roles, :class_name => 'Role', :foreign_key => :fact_type_concept_guid, :dependent => :destroy
+
+      # Fact Type is a Link Fact Type and maybe Link Fact Type has implying-Role
+      has_one :implying_role_via_link_fact_type, :class_name => 'Role', :foreign_key => :link_fact_type_concept_guid, :dependent => :destroy
+
+      # Fact Type has Fact Type Shape and maybe Fact Type Shape is a kind of Shape
+      has_many :shapes_via_fact_type_shape, :class_name => 'Shape', :foreign_key => :fact_type_shape_fact_type_concept_guid, :dependent => :destroy
+
+      # Fact Type directs Step
+      has_many :steps, :class_name => 'Step', :foreign_key => :fact_type_concept_guid, :dependent => :destroy
+
+      validates :concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module ObjectType
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'object_type_id'
+
+      # Object Type is an instance of Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      # maybe Object Type is a Domain Object Type and maybe Domain Object Type is a Value Type and maybe Value Type is of Unit and Unit is an instance of Concept
+      belongs_to :concept_via_domain_object_type_value_type_unit, :class_name => 'Concept', :foreign_key => :value_type_unit_concept_guid
+
+      # maybe Object Type is a Domain Object Type and maybe Domain Object Type is a Value Type and maybe Value Type has Value Constraint and Value Constraint is a kind of Constraint
+      belongs_to :constraint_via_domain_object_type_value_type_value_constraint, :class_name => 'Constraint', :foreign_key => :value_type_value_constraint_concept_guid
+
+      # maybe Object Type is a Domain Object Type and maybe Domain Object Type is a Value Type and maybe Value Type is subtype of super-Value Type and Value Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_domain_object_type_value_type_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :value_type_supertype_object_type_id
+
+      # Mapping represents Object Type and maybe Mapping is a kind of Component
+      has_many :components_via_mapping, :class_name => 'Component', :foreign_key => :mapping_object_type_id, :dependent => :destroy
+
+      # Instance is of Object Type and maybe Instance is an instance of Concept
+      has_many :concepts_via_instance, :class_name => 'Concept', :foreign_key => :instance_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and maybe Entity Type nests Fact Type
+      has_one :fact_type_via_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :entity_type_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and Entity Type is involved in Type Inheritance and maybe Type Inheritance is a kind of Fact Type
+      has_many :fact_types_via_type_inheritance_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :type_inheritance_subtype_object_type_id, :dependent => :destroy
+      has_many :entity_types, :through => :fact_types_via_type_inheritance_entity_type_domain_object_type
+
+      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and Entity Type is involved in Type Inheritance and maybe Type Inheritance is a kind of Fact Type
+      has_many :fact_types_via_type_inheritance_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :type_inheritance_supertype_object_type_id, :dependent => :destroy
+      has_many :entity_types, :through => :fact_types_via_type_inheritance_entity_type_domain_object_type
+
+      # Object Type is a Domain Object Type and Domain Object Type is a Value Type and maybe Value Type is supertype of Value Type and maybe Value Type is a kind of Domain Object Type and maybe Domain Object Type is a kind of Object Type
+      has_many :object_types_via_domain_object_type_value_type_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :value_type_supertype_object_type_id, :dependent => :destroy
+
+      # Object Type plays Role
+      has_many :roles, :class_name => 'Role', :foreign_key => :object_type_id, :dependent => :destroy
+
+      # Object Type has Object Type Shape and maybe Object Type Shape is a kind of Shape
+      has_many :shapes_via_object_type_shape, :class_name => 'Shape', :foreign_key => :object_type_shape_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is a Value Type and Value Type is involved in Value Type Parameter Restriction
+      has_many :value_type_parameter_restrictions_via_value_type_domain_object_type, :class_name => 'ValueTypeParameterRestriction', :foreign_key => :value_type_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is a Value Type and Value Type Parameter requires value of facet-Value Type
+      has_many :value_type_parameters_via_value_type_domain_object_type, :class_name => 'ValueTypeParameter', :foreign_key => :facet_value_type_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is a Value Type and Value Type is involved in Value Type Parameter
+      has_many :value_type_parameters_via_value_type_domain_object_type, :class_name => 'ValueTypeParameter', :foreign_key => :value_type_object_type_id, :dependent => :destroy
+
+      # Object Type is a Domain Object Type and Domain Object Type is a Value Type and Value Type has Value
+      has_many :values_via_value_type_domain_object_type, :class_name => 'Value', :foreign_key => :value_type_object_type_id, :dependent => :destroy
+
+      # Object Type is referenced in Variable
+      has_many :variables, :class_name => 'Variable', :foreign_key => :object_type_id, :dependent => :destroy
+
+      validates :concept_guid, :presence => true
+      validates :name, :presence => true
+      validates :vocabulary_name, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Play
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'play_id'
+
+      # Play involves Role
+      belongs_to :role, :foreign_key => :role_id
+
+      # Play involves Step
+      belongs_to :step, :foreign_key => :step_guid
+
+      # Play involves Variable
+      belongs_to :variable, :foreign_key => :variable_id
+
+      # maybe Play projects Role Ref
+      has_one :role_ref, :class_name => 'RoleRef', :foreign_key => :play_id, :dependent => :destroy
+
+      validates :role_id, :presence => true
+      validates :step_guid, :presence => true
+      validates :variable_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Population
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'population_id'
+
+      # Population is an instance of Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      # Population includes Fact and maybe Fact is an instance of Concept
+      has_many :concepts_via_fact, :class_name => 'Concept', :foreign_key => :fact_population_id, :dependent => :destroy
+
+      # Population includes Instance and maybe Instance is an instance of Concept
+      has_many :concepts_via_instance, :class_name => 'Concept', :foreign_key => :instance_population_id, :dependent => :destroy
+
+      # Population includes Role Value
+      has_many :role_values, :class_name => 'RoleValue', :foreign_key => :population_id, :dependent => :destroy
+
+      validates :concept_guid, :presence => true
+      validates :name, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Reading
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'reading_id'
+
+      # Reading is for Fact Type
+      belongs_to :fact_type, :foreign_key => :fact_type_concept_guid
+
+      # Reading is in Role Sequence
+      belongs_to :role_sequence, :foreign_key => :role_sequence_guid
+
+      # Reading has Reading Shape and maybe Reading Shape is a kind of Shape
+      has_many :shapes_via_reading_shape, :class_name => 'Shape', :foreign_key => :reading_shape_reading_id, :dependent => :destroy
+
+      validates :fact_type_concept_guid, :presence => true
+      validates :ordinal, :presence => true
+      validates :role_sequence_guid, :presence => true
+      validates :text, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Role
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'role_id'
+
+      # Role is an instance of Concept
+      belongs_to :concept, :foreign_key => :concept_guid
+
+      # maybe implying-Role implies Link Fact Type and Link Fact Type is a kind of Fact Type
+      belongs_to :fact_type_via_link_fact_type, :class_name => 'FactType', :foreign_key => :link_fact_type_concept_guid
+
+      # Role belongs to Fact Type
+      belongs_to :fact_type, :foreign_key => :fact_type_concept_guid
+
+      # Role is played by Object Type
+      belongs_to :object_type, :foreign_key => :object_type_id
+
+      # Absorption traverses to child-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
+      has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_child_role_id, :dependent => :destroy
+
+      # maybe Absorption is nested under index-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
+      has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_index_role_id, :dependent => :destroy
+
+      # Absorption traverses from parent-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
+      has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_parent_role_id, :dependent => :destroy
+
+      # Indicator indicates Role played and maybe Indicator is a kind of Component
+      has_many :components_via_indicator, :class_name => 'Component', :foreign_key => :indicator_role_id, :dependent => :destroy
+
+      # maybe other-Role is of Ring Constraint and maybe Ring Constraint is a kind of Constraint
+      has_many :constraints_via_ring_constraint, :class_name => 'Constraint', :foreign_key => :ring_constraint_other_role_id, :dependent => :destroy
+
+      # maybe Role is of Ring Constraint and maybe Ring Constraint is a kind of Constraint
+      has_many :constraints_via_ring_constraint, :class_name => 'Constraint', :foreign_key => :ring_constraint_role_id, :dependent => :destroy
+
+      # maybe Role has role-Value Constraint and maybe Value Constraint is a kind of Constraint
+      has_one :constraint_via_value_constraint, :class_name => 'Constraint', :foreign_key => :value_constraint_role_id, :dependent => :destroy
+
+      # Role is involved in Discriminated Role
+      has_many :discriminated_roles, :class_name => 'DiscriminatedRole', :foreign_key => :role_id, :dependent => :destroy
+
+      # Role is involved in Play
+      has_many :plays, :class_name => 'Play', :foreign_key => :role_id, :dependent => :destroy
+
+      # Role is involved in Role Display
+      has_many :role_displays, :class_name => 'RoleDisplay', :foreign_key => :role_id, :dependent => :destroy
+
+      # Role is involved in Role Ref
+      has_many :role_refs, :class_name => 'RoleRef', :foreign_key => :role_id, :dependent => :destroy
+
+      # Role Value is of Role
+      has_many :role_values, :class_name => 'RoleValue', :foreign_key => :role_id, :dependent => :destroy
+
+      # maybe Role is projected from Variable
+      has_one :variable, :class_name => 'Variable', :foreign_key => :projection_id, :dependent => :destroy
+
+      validates :concept_guid, :presence => true
+      validates :fact_type_concept_guid, :presence => true
+      validates :object_type_id, :presence => true
+      validates :ordinal, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module RoleDisplay
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'role_display_id'
+
+      # Role Display involves Role
+      belongs_to :role, :foreign_key => :role_id
+
+      # Role Display involves Fact Type Shape and Fact Type Shape is a kind of Shape
+      belongs_to :shape_via_fact_type_shape, :class_name => 'Shape', :foreign_key => :fact_type_shape_guid
+
+      # Role Display has Role Name Shape and maybe Role Name Shape is a kind of Shape
+      has_one :shape_via_role_name_shape, :class_name => 'Shape', :foreign_key => :role_name_shape_role_display_id, :dependent => :destroy
+
+      # maybe Role Display has Value Constraint Shape and maybe Value Constraint Shape is a kind of Constraint Shape and maybe Constraint Shape is a kind of Shape
+      has_one :shape_via_constraint_shape_value_constraint_shape, :class_name => 'Shape', :foreign_key => :value_constraint_shape_role_display_id, :dependent => :destroy
+
+      validates :fact_type_shape_guid, :presence => true
+      validates :ordinal, :presence => true
+      validates :role_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module RoleRef
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'role_ref_id'
+
+      # maybe Role Ref is projected from Play
+      belongs_to :play, :foreign_key => :play_id
+
+      # Role Ref involves Role
+      belongs_to :role, :foreign_key => :role_id
+
+      # Role Ref involves Role Sequence
+      belongs_to :role_sequence, :foreign_key => :role_sequence_guid
+
+      validates :ordinal, :presence => true
+      validates :role_id, :presence => true
+      validates :role_sequence_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module RoleSequence
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # Presence Constraint covers Role Sequence and maybe Presence Constraint is a kind of Constraint
+      has_many :constraints_via_presence_constraint, :class_name => 'Constraint', :foreign_key => :presence_constraint_role_sequence_guid, :dependent => :destroy
+
+      # Subset Constraint covers subset-Role Sequence and maybe Subset Constraint is a kind of Set Constraint and maybe Set Constraint is a kind of Constraint
+      has_many :constraints_via_set_constraint_subset_constraint, :class_name => 'Constraint', :foreign_key => :subset_constraint_subset_role_sequence_guid, :dependent => :destroy
+
+      # Subset Constraint covers superset-Role Sequence and maybe Subset Constraint is a kind of Set Constraint and maybe Set Constraint is a kind of Constraint
+      has_many :constraints_via_set_constraint_subset_constraint, :class_name => 'Constraint', :foreign_key => :subset_constraint_superset_role_sequence_guid, :dependent => :destroy
+
+      # Role Sequence is for Reading
+      has_many :readings, :class_name => 'Reading', :foreign_key => :role_sequence_guid, :dependent => :destroy
+
+      # Role Sequence is involved in Role Ref
+      has_many :role_refs, :class_name => 'RoleRef', :foreign_key => :role_sequence_guid, :dependent => :destroy
+
+      # Role Sequence is involved in Set Comparison Roles
+      has_many :set_comparison_roles, :class_name => 'SetComparisonRoles', :foreign_key => :role_sequence_guid, :dependent => :destroy
+    end
+  end
+end
+
+module Concernz
+  module RoleValue
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'role_value_id'
+
+      # Role Value fulfils Fact and Fact is an instance of Concept
+      belongs_to :concept_via_fact, :class_name => 'Concept', :foreign_key => :fact_concept_guid
+
+      # Role Value is of Instance and Instance is an instance of Concept
+      belongs_to :concept_via_instance, :class_name => 'Concept', :foreign_key => :instance_concept_guid
+
+      # Role Value belongs to Population
+      belongs_to :population, :foreign_key => :population_id
+
+      # Role Value is of Role
+      belongs_to :role, :foreign_key => :role_id
+
+      validates :fact_concept_guid, :presence => true
+      validates :instance_concept_guid, :presence => true
+      validates :population_id, :presence => true
+      validates :role_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module SetComparisonRoles
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'set_comparison_roles_id'
+
+      # Set Comparison Roles involves Set Comparison Constraint and Set Comparison Constraint is a kind of Set Constraint and Set Constraint is a kind of Constraint
+      belongs_to :constraint_via_set_comparison_constraint_set_constraint, :class_name => 'Constraint', :foreign_key => :set_comparison_constraint_concept_guid
+
+      # Set Comparison Roles involves Role Sequence
+      belongs_to :role_sequence, :foreign_key => :role_sequence_guid
+
+      validates :ordinal, :presence => true
+      validates :role_sequence_guid, :presence => true
+      validates :set_comparison_constraint_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Shape
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # maybe Shape is a Model Note Shape and Model Note Shape is for Context Note and Context Note is an instance of Concept
+      belongs_to :concept_via_model_note_shape_context_note, :class_name => 'Concept', :foreign_key => :model_note_shape_context_note_concept_guid
+
+      # maybe Shape is a Constraint Shape and Constraint Shape is for Constraint
+      belongs_to :constraint_via_constraint_shape, :class_name => 'Constraint', :foreign_key => :constraint_shape_constraint_concept_guid
+
+      # Shape is in ORM Diagram and ORM Diagram is a kind of Diagram
+      belongs_to :diagram_via_orm_diagram, :class_name => 'Diagram', :foreign_key => :orm_diagram_id
+
+      # maybe Shape is a Fact Type Shape and Fact Type Shape is for Fact Type
+      belongs_to :fact_type_via_fact_type_shape, :class_name => 'FactType', :foreign_key => :fact_type_shape_fact_type_concept_guid
+
+      # maybe Shape is an Object Type Shape and Object Type Shape is for Object Type
+      belongs_to :object_type_via_object_type_shape, :class_name => 'ObjectType', :foreign_key => :object_type_shape_object_type_id
+
+      # maybe Shape is a Reading Shape and Reading Shape is for Reading
+      belongs_to :reading_via_reading_shape, :class_name => 'Reading', :foreign_key => :reading_shape_reading_id
+
+      # maybe Shape is a Constraint Shape and maybe Constraint Shape is a Value Constraint Shape and maybe Value Constraint Shape is for Role Display
+      belongs_to :role_display_via_constraint_shape_value_constraint_shape, :class_name => 'RoleDisplay', :foreign_key => :value_constraint_shape_role_display_id
+
+      # maybe Shape is a Role Name Shape and Role Name Shape is for Role Display
+      belongs_to :role_display_via_role_name_shape, :class_name => 'RoleDisplay', :foreign_key => :role_name_shape_role_display_id
+
+      # maybe Shape is a Constraint Shape and maybe Constraint Shape is a Ring Constraint Shape and Ring Constraint Shape is attached to Fact Type Shape and Fact Type Shape is a kind of Shape
+      belongs_to :shape_via_constraint_shape_ring_constraint_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :ring_constraint_shape_fact_type_shape_guid
+
+      # maybe Shape is a Constraint Shape and maybe Constraint Shape is a Value Constraint Shape and maybe Value Constraint Shape is for Object Type Shape and Object Type Shape is a kind of Shape
+      belongs_to :shape_via_constraint_shape_value_constraint_shape_object_type_shape, :class_name => 'Shape', :foreign_key => :value_constraint_shape_object_type_shape_guid
+
+      # maybe Shape is an Objectified Fact Type Name Shape and Objectified Fact Type Name Shape is for Fact Type Shape and Fact Type Shape is a kind of Shape
+      belongs_to :shape_via_objectified_fact_type_name_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :objectified_fact_type_name_shape_fact_type_shape_guid
+
+      # maybe Shape is a Reading Shape and Reading Shape is for Fact Type Shape and Fact Type Shape is a kind of Shape
+      belongs_to :shape_via_reading_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :reading_shape_fact_type_shape_guid
+
+      # Shape is a Fact Type Shape and Fact Type Shape is involved in Role Display
+      has_many :role_displays_via_fact_type_shape, :class_name => 'RoleDisplay', :foreign_key => :fact_type_shape_guid, :dependent => :destroy
+
+      # Shape is a Fact Type Shape and Fact Type Shape has Objectified Fact Type Name Shape and maybe Objectified Fact Type Name Shape is a kind of Shape
+      has_one :shape_via_objectified_fact_type_name_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :objectified_fact_type_name_shape_fact_type_shape_guid, :dependent => :destroy
+
+      # Shape is a Fact Type Shape and Fact Type Shape has Reading Shape and maybe Reading Shape is a kind of Shape
+      has_one :shape_via_reading_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :reading_shape_fact_type_shape_guid, :dependent => :destroy
+
+      # Shape is a Fact Type Shape and Ring Constraint Shape is attached to Fact Type Shape and maybe Ring Constraint Shape is a kind of Constraint Shape and maybe Constraint Shape is a kind of Shape
+      has_many :shapes_via_constraint_shape_ring_constraint_shape_fact_type_shape, :class_name => 'Shape', :foreign_key => :ring_constraint_shape_fact_type_shape_guid, :dependent => :destroy
+
+      # Shape is an Object Type Shape and maybe Object Type Shape has Value Constraint Shape and maybe Value Constraint Shape is a kind of Constraint Shape and maybe Constraint Shape is a kind of Shape
+      has_many :shapes_via_constraint_shape_value_constraint_shape_object_type_shape, :class_name => 'Shape', :foreign_key => :value_constraint_shape_object_type_shape_guid, :dependent => :destroy
+
+      validates :orm_diagram_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Step
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'guid'
+
+      # maybe Step falls under Alternative Set
+      belongs_to :alternative_set, :foreign_key => :alternative_set_guid
+
+      # Step specifies Fact Type
+      belongs_to :fact_type, :foreign_key => :fact_type_concept_guid
+
+      # Step is involved in Play
+      has_many :plays, :class_name => 'Play', :foreign_key => :step_guid, :dependent => :destroy
+
+      # maybe Step nests as Variable
+      has_one :objectification_variable, :class_name => 'Variable', :foreign_key => :step_guid, :dependent => :destroy
+
+      validates :fact_type_concept_guid, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Value
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'value_id'
+
+      # maybe Value is in Unit and Unit is an instance of Concept
+      belongs_to :concept_via_unit, :class_name => 'Concept', :foreign_key => :unit_concept_guid
+
+      # Value is of Value Type and Value Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :value_type_object_type_id
+
+      # Value is of Bound and maybe Value Range has maximum-Bound and Value Range is involved in Allowed Range
+      has_many :allowed_ranges_via_value_range_maximum_bound, :class_name => 'AllowedRange', :foreign_key => :value_range_maximum_bound_value_id, :dependent => :destroy
+
+      # Value is of Bound and maybe Value Range has minimum-Bound and Value Range is involved in Allowed Range
+      has_many :allowed_ranges_via_value_range_minimum_bound, :class_name => 'AllowedRange', :foreign_key => :value_range_minimum_bound_value_id, :dependent => :destroy
+
+      # maybe Instance has Value and maybe Instance is an instance of Concept
+      has_many :concepts_via_instance, :class_name => 'Concept', :foreign_key => :instance_value_id, :dependent => :destroy
+
+      # Value is involved in Discriminated Role
+      has_many :discriminated_roles, :class_name => 'DiscriminatedRole', :foreign_key => :value_id, :dependent => :destroy
+
+      # Value Type Parameter Restriction has Value
+      has_many :value_type_parameter_restrictions, :class_name => 'ValueTypeParameterRestriction', :foreign_key => :value_id, :dependent => :destroy
+
+      # maybe Variable is bound to Value
+      has_many :variables, :class_name => 'Variable', :foreign_key => :value_id, :dependent => :destroy
+
+      validates :literal, :presence => true
+      validates :value_type_object_type_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module ValueTypeParameter
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'value_type_parameter_id'
+
+      # Value Type Parameter requires value of facet-Value Type and Value Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :facet_value_type_object_type_id
+
+      # Value Type Parameter involves Value Type and Value Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :value_type_object_type_id
+
+      # Value Type Parameter is involved in Value Type Parameter Restriction
+      has_many :value_type_parameter_restrictions, :class_name => 'ValueTypeParameterRestriction', :foreign_key => :value_type_parameter_id, :dependent => :destroy
+
+      validates :name, :presence => true
+      validates :value_type_object_type_id, :presence => true
+      validates :facet_value_type_object_type_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module ValueTypeParameterRestriction
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'value_type_parameter_restriction_id'
+
+      # Value Type Parameter Restriction involves Value Type and Value Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      belongs_to :object_type_via_value_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :value_type_object_type_id
+
+      # Value Type Parameter Restriction has Value
+      belongs_to :value, :foreign_key => :value_id
+
+      # Value Type Parameter Restriction involves Value Type Parameter
+      belongs_to :value_type_parameter, :foreign_key => :value_type_parameter_id
+
+      validates :value_id, :presence => true
+      validates :value_type_object_type_id, :presence => true
+      validates :value_type_parameter_id, :presence => true
+    end
+  end
+end
+
+module Concernz
+  module Variable
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'variable_id'
+
+      # Variable is in Query and Query is an instance of Concept
+      belongs_to :concept_via_query, :class_name => 'Concept', :foreign_key => :query_concept_guid
+
+      # Variable is for Object Type
+      belongs_to :object_type, :foreign_key => :object_type_id
+
+      # maybe Variable projects Role
+      belongs_to :projection, :class_name => 'Role', :foreign_key => :projection_id
+
+      # maybe Variable matches nesting over Step
+      belongs_to :step, :foreign_key => :step_guid
+
+      # maybe Variable is bound to Value
+      belongs_to :value, :foreign_key => :value_id
+
+      # Variable is involved in Aggregation
+      has_many :aggregations, :class_name => 'Aggregation', :foreign_key => :aggregated_variable_id, :dependent => :destroy
+
+      # Variable is involved in Aggregation
+      has_many :aggregations, :class_name => 'Aggregation', :foreign_key => :variable_id, :dependent => :destroy
+
+      # Variable is involved in Play
+      has_many :plays, :class_name => 'Play', :foreign_key => :variable_id, :dependent => :destroy
+
+      validates :object_type_id, :presence => true
+      validates :ordinal, :presence => true
+      validates :query_concept_guid, :presence => true
+    end
+  end
+end

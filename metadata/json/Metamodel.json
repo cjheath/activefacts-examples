@@ -1,0 +1,3214 @@
+{
+  "types": {
+    "Absorption": {
+      "is_main": false,
+      "id": "fe8d478e-5bf2-4c25-a316-05ae6ef0029a",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "as Mapping",
+          "type": "Mapping"
+        },
+        {
+          "title": "Absorption flattens",
+          "type": "boolean",
+          "where": "this Absorption flattens",
+          "role_id": "9a8e90ed-e7ab-410f-92ff-a5064c18bbeb"
+        },
+        {
+          "title": "Index Role",
+          "type": "Role",
+          "where": "this Absorption is nested under one index-Role",
+          "role_id": "bbb1e2bf-eef4-432f-b128-ce7774527ab1"
+        },
+        {
+          "title": "Parent Role",
+          "type": "Role",
+          "where": "this Absorption traverses from one parent-Role",
+          "role_id": "2db78e5c-58ac-4f20-ae64-cf432abbf4b4"
+        },
+        {
+          "title": "Child Role",
+          "type": "Role",
+          "where": "this Absorption traverses to one child-Role",
+          "role_id": "454d05fe-c842-4fff-8826-f04174a5b5e3"
+        }
+      ]
+    },
+    "Adjective": {
+      "is_main": false,
+      "id": "f1716337-8d79-4896-953a-338b1a45dee5",
+      "functions": [
+        {
+          "title": "all Role Ref as Leading Adjective",
+          "type": "Role Ref",
+          "where": "some Role Ref has this leading-Adjective",
+          "role_id": "474cbe22-36a0-4eaf-9f5d-9c2163787f2c",
+          "is_list": true
+        },
+        {
+          "title": "all Role Ref as Trailing Adjective",
+          "type": "Role Ref",
+          "where": "some Role Ref has this trailing-Adjective",
+          "role_id": "a5e812e5-2716-4c84-a5b5-bf57a4fc657f",
+          "is_list": true
+        }
+      ]
+    },
+    "Agent": {
+      "is_main": false,
+      "id": "69c33967-327d-4639-96d9-ef91ca91f775",
+      "functions": [
+        {
+          "title": "Agent Name",
+          "type": "Agent Name",
+          "where": "this Agent has one Agent Name",
+          "role_id": "7995da8c-9a86-4304-955e-a29fc48dedbc"
+        },
+        {
+          "title": "all Agreement",
+          "type": "Agreement",
+          "where": "this Agent agreed on some Agreement",
+          "role_id": "c83c8d5e-436e-4fec-9e3e-019beb3e8ffb",
+          "is_list": true
+        },
+        {
+          "title": "all Context According To",
+          "type": "Context According To",
+          "where": "this Agent claims some Context Note",
+          "role_id": "2209ff3a-cad2-42f1-99e7-e9a292998431",
+          "is_list": true
+        },
+        {
+          "title": "all Enforcement",
+          "type": "Enforcement",
+          "where": "some Enforcement notifies this Agent",
+          "role_id": "7d4f4a3b-9760-4f7e-8cc8-1589263df034",
+          "is_list": true
+        }
+      ]
+    },
+    "Agent Name": {
+      "is_main": false,
+      "id": "9fcb398b-c22e-4a7d-9054-712970760ce0",
+      "functions": [
+        {
+          "title": "Agent",
+          "type": "Agent",
+          "where": "this Agent Name is of one Agent",
+          "role_id": "02d3a383-7c0a-48b3-9ca6-60adeef24999"
+        }
+      ]
+    },
+    "Aggregate": {
+      "is_main": false,
+      "id": "156e6c96-427a-45c3-a51c-a9fa5ecdfc10",
+      "functions": [
+        {
+          "title": "Aggregate Code",
+          "type": "Aggregate Code",
+          "where": "this Aggregate has one Aggregate Code",
+          "role_id": "2b425b38-20bb-4448-9011-6d58e7f62947"
+        },
+        {
+          "title": "all Aggregation",
+          "type": "Aggregation",
+          "where": "this Aggregate of some aggregated-Variable is bound as some Variable",
+          "role_id": "401ceb4f-5825-499c-ba24-efbd59f639c2",
+          "is_list": true
+        }
+      ]
+    },
+    "Aggregate Code": {
+      "is_main": false,
+      "id": "cceb2c34-a5ad-40c7-b032-f2efd88e9f4c",
+      "functions": [
+        {
+          "title": "Aggregate",
+          "type": "Aggregate",
+          "where": "this Aggregate Code is of one Aggregate",
+          "role_id": "8ec14e0b-da74-4dc9-888e-e968a0dbb0c4"
+        }
+      ]
+    },
+    "Aggregation": {
+      "is_main": true,
+      "id": "ae4388c3-8f48-4ea1-854a-dcd6b40c30b6",
+      "functions": [
+        {
+          "title": "involving Variable",
+          "type": "Variable",
+          "where": "this Variable is bound to some Aggregate over some aggregated-Variable"
+        },
+        {
+          "title": "involving Aggregate",
+          "type": "Aggregate",
+          "where": "this Aggregate of some aggregated-Variable is bound as some Variable"
+        },
+        {
+          "title": "involving Aggregated Variable",
+          "type": "Variable",
+          "where": "some Variable is bound to some Aggregate over this aggregated-Variable"
+        }
+      ]
+    },
+    "Agreement": {
+      "is_main": false,
+      "id": "e29f702b-df99-48ac-955d-3e50f21c83e7",
+      "functions": [
+        {
+          "title": "Date",
+          "type": "Date",
+          "where": "this Agreement was on one Date",
+          "role_id": "f3d57aa3-dc4c-49e1-9347-16cb67e936c0"
+        },
+        {
+          "title": "all Agent",
+          "type": "Agent",
+          "where": "this Agreement was reached by some Agent",
+          "role_id": "2a305051-5ab5-4f84-b38a-90eeeb05151c",
+          "is_list": true
+        },
+        {
+          "title": "Context Note",
+          "type": "Context Note",
+          "where": "this Agreement covers one Context Note",
+          "role_id": "0191bc2f-1ccf-4835-a7b8-db6b883b51c8"
+        }
+      ]
+    },
+    "Alternative Set": {
+      "is_main": true,
+      "id": "4476b2c0-dce0-4959-81f8-cf94b36ce121",
+      "functions": [
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Alternative Set has one Guid",
+          "role_id": "159123f0-bdfc-4997-84da-e2b7f534bb24"
+        },
+        {
+          "title": "Alternative Set members are exclusive",
+          "type": "boolean",
+          "where": "this Alternative Set members are exclusive",
+          "role_id": "7d17a256-3598-4bd0-a0ae-938be5a190a6"
+        },
+        {
+          "title": "all Step",
+          "type": "Step",
+          "where": "this Alternative Set covers some Step",
+          "role_id": "f3fcc543-8ba7-4bb0-98a6-f1953900fb7c",
+          "is_list": true
+        }
+      ]
+    },
+    "Annotation": {
+      "is_main": false,
+      "id": "9078f455-cd52-4462-afd7-90cc35e8d245",
+      "functions": [
+        {
+          "title": "all Concept",
+          "type": "Concept",
+          "where": "this Annotation applies to some Concept",
+          "role_id": "a2384b0b-858e-44bc-b5fd-c825309ac352",
+          "is_list": true
+        }
+      ]
+    },
+    "Assimilation": {
+      "is_main": false,
+      "id": "dcf48f4d-1906-4e4c-8d1d-80b96d92a075",
+      "functions": [
+        {
+          "title": "all Type Inheritance",
+          "type": "Type Inheritance",
+          "where": "this Assimilation applies to some Type Inheritance",
+          "role_id": "eb0974d7-21a1-41a5-bd59-626529add1c0",
+          "is_list": true
+        }
+      ]
+    },
+    "Bound": {
+      "is_main": false,
+      "id": "425ef12f-3080-4dfb-b7b2-138a4f80836d",
+      "functions": [
+        {
+          "title": "Value",
+          "type": "Value",
+          "where": "this Bound has one Value",
+          "role_id": "0b5971c9-6be5-47da-b377-bfb538b4cfd7"
+        },
+        {
+          "title": "Bound is inclusive",
+          "type": "boolean",
+          "where": "this Bound is inclusive",
+          "role_id": "8b4ef1eb-a7ae-4cbf-8b21-dcac58ed68e8"
+        },
+        {
+          "title": "all Value Range as Maximum Bound",
+          "type": "Value Range",
+          "where": "some Value Range has this maximum-Bound",
+          "role_id": "4cd5fc29-a55d-41b6-990f-50395c4d1581",
+          "is_list": true
+        },
+        {
+          "title": "all Value Range as Minimum Bound",
+          "type": "Value Range",
+          "where": "some Value Range has this minimum-Bound",
+          "role_id": "3319d75e-4b3b-489f-a748-30052ca796b2",
+          "is_list": true
+        }
+      ]
+    },
+    "Coefficient": {
+      "is_main": false,
+      "id": "376013d8-7a15-471e-b71a-9cf872031e79",
+      "functions": [
+        {
+          "title": "Denominator",
+          "type": "Denominator",
+          "where": "this Coefficient has one Denominator",
+          "role_id": "1a74bc39-6394-4968-a62a-3adfba5d26b2"
+        },
+        {
+          "title": "Numerator",
+          "type": "Numerator",
+          "where": "this Coefficient has one Numerator",
+          "role_id": "014cc259-02f7-4b71-80f9-5eb12064c6c2"
+        },
+        {
+          "title": "Coefficient is precise",
+          "type": "boolean",
+          "where": "this Coefficient is precise",
+          "role_id": "44b585c6-2abe-4785-b496-1cf375488ac7"
+        },
+        {
+          "title": "all Unit",
+          "type": "Unit",
+          "where": "some Unit has this Coefficient",
+          "role_id": "a983e0b5-87ae-42c4-b381-b4d9220afe32",
+          "is_list": true
+        }
+      ]
+    },
+    "Component": {
+      "is_main": true,
+      "id": "bc1e20d5-ec55-4667-8938-76d516d7e1af",
+      "functions": [
+        {
+          "title": "as Absorption",
+          "type": "Absorption"
+        },
+        {
+          "title": "as Discriminator",
+          "type": "Discriminator"
+        },
+        {
+          "title": "as Indicator",
+          "type": "Indicator"
+        },
+        {
+          "title": "as Injection",
+          "type": "Injection"
+        },
+        {
+          "title": "as Mapping",
+          "type": "Mapping"
+        },
+        {
+          "title": "as Nesting",
+          "type": "Nesting"
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Component has one Guid",
+          "role_id": "46f560df-88ac-4fd9-a500-3114e9824370"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Component projects one Name",
+          "role_id": "1bf38136-17d2-4b93-b80b-45e9725fbd94"
+        },
+        {
+          "title": "Mapping",
+          "type": "Mapping",
+          "where": "this Member belongs to one parent-Mapping",
+          "role_id": "286cb5a3-7514-4de1-abc2-aa20c502d321"
+        }
+      ]
+    },
+    "Composite": {
+      "is_main": false,
+      "id": "4cbd1886-450d-4585-b9ee-45f4036a0588",
+      "functions": [
+        {
+          "title": "Composition",
+          "type": "Composition",
+          "where": "this Composite belongs to one Composition",
+          "role_id": "2cb743f6-da91-4ffe-b056-18b386adbed2"
+        },
+        {
+          "title": "Mapping",
+          "type": "Mapping",
+          "where": "this Composite consists of one Mapping",
+          "role_id": "c5cc4128-1107-44d6-ab73-e9250cc8596c"
+        }
+      ]
+    },
+    "Composition": {
+      "is_main": true,
+      "id": "99cf40b0-8b6a-4eb5-8192-26539fe4ff16",
+      "functions": [
+        {
+          "title": "all Composite",
+          "type": "Composite",
+          "where": "this Composition contains some Composite",
+          "role_id": "f5f3a550-8220-42f1-a59d-ce7549302559",
+          "is_list": true
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Composition has one Guid",
+          "role_id": "c97cafe3-2d67-468c-a056-aa1e410d1027"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Composition is called one Name",
+          "role_id": "0516874a-e0ee-4178-ada2-360c49ba069b"
+        }
+      ]
+    },
+    "Concept": {
+      "is_main": true,
+      "id": "ae2713f2-ae9a-4fc4-813c-eb3bac921773",
+      "functions": [
+        {
+          "title": "Topic",
+          "type": "Topic",
+          "where": "this Concept belongs to one Topic",
+          "role_id": "0e6dbb4c-cde7-4f86-96b8-9ae87436663d"
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Concept has one Guid",
+          "role_id": "a2ad37e8-a490-4bef-b855-e0c70ac07bd4"
+        },
+        {
+          "title": "all Mapping Annotation",
+          "type": "Annotation",
+          "where": "this Concept has some mapping-Annotation",
+          "role_id": "ba2bc3cc-5e38-4cbc-835a-08617a137537",
+          "is_list": true
+        },
+        {
+          "title": "Implication Rule",
+          "type": "Implication Rule",
+          "where": "this Concept is implied by one Implication Rule",
+          "role_id": "6d090aab-0f4a-4a40-87ba-116fdf34ab55"
+        },
+        {
+          "title": "Constraint",
+          "type": "Constraint",
+          "where": "one Constraint is an instance of this Concept",
+          "role_id": "179c127f-bc4e-4934-815e-43d83a1a38ec"
+        },
+        {
+          "title": "all Context Note",
+          "type": "Context Note",
+          "where": "this Concept has some Context Note",
+          "role_id": "927b10c4-568c-4591-96c3-7a7fc3e308b6",
+          "is_list": true
+        },
+        {
+          "title": "Context Note",
+          "type": "Context Note",
+          "where": "one Context Note is an instance of this Concept",
+          "role_id": "44d1f4e1-1301-4c8f-bea7-78e8c625a236"
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "one Fact Type is an instance of this Concept",
+          "role_id": "0bf4ab09-294b-47a8-ab5a-1f2982773f1f"
+        },
+        {
+          "title": "Fact",
+          "type": "Fact",
+          "where": "one Fact is an instance of this Concept",
+          "role_id": "c6c54667-73b5-4a8d-b138-0a34e220dcf0"
+        },
+        {
+          "title": "Instance",
+          "type": "Instance",
+          "where": "one Instance is an instance of this Concept",
+          "role_id": "1e1f0a7e-35c4-4264-a6e5-85ce8af09958"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "one Object Type is an instance of this Concept",
+          "role_id": "2fd41a96-afe6-4545-9576-7acb4f214ff5"
+        },
+        {
+          "title": "Population",
+          "type": "Population",
+          "where": "one Population is an instance of this Concept",
+          "role_id": "5d9217b2-7171-4246-a9fb-055b67a8db87"
+        },
+        {
+          "title": "Query",
+          "type": "Query",
+          "where": "one Query is an instance of this Concept",
+          "role_id": "184362c3-8f9b-4ab3-b676-90df0f61d564"
+        },
+        {
+          "title": "Role",
+          "type": "Role",
+          "where": "one Role is an instance of this Concept",
+          "role_id": "f169883a-9a8b-40b2-9a79-d234b130872b"
+        },
+        {
+          "title": "Unit",
+          "type": "Unit",
+          "where": "one Unit is an instance of this Concept",
+          "role_id": "f3b0503d-564b-4692-bd5f-50066a97cdea"
+        }
+      ]
+    },
+    "Constraint": {
+      "is_main": true,
+      "id": "2469db90-7732-43b3-9bf8-84561182b4ee",
+      "functions": [
+        {
+          "title": "as Presence Constraint",
+          "type": "Presence Constraint"
+        },
+        {
+          "title": "as Ring Constraint",
+          "type": "Ring Constraint"
+        },
+        {
+          "title": "as Set Comparison Constraint",
+          "type": "Set Comparison Constraint"
+        },
+        {
+          "title": "as Set Constraint",
+          "type": "Set Constraint"
+        },
+        {
+          "title": "as Set Equality Constraint",
+          "type": "Set Equality Constraint"
+        },
+        {
+          "title": "as Set Exclusion Constraint",
+          "type": "Set Exclusion Constraint"
+        },
+        {
+          "title": "as Subset Constraint",
+          "type": "Subset Constraint"
+        },
+        {
+          "title": "as Value Constraint",
+          "type": "Value Constraint"
+        },
+        {
+          "title": "all Constraint Shape",
+          "type": "Constraint Shape",
+          "where": "some Constraint Shape is for this Constraint",
+          "role_id": "71402b39-2f7c-4d12-80c4-bffda4e87690",
+          "is_list": true
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Constraint is an instance of one Concept",
+          "role_id": "4526e3ac-0fa7-42df-bf03-d49c14d647cb"
+        },
+        {
+          "title": "Enforcement",
+          "type": "Enforcement",
+          "where": "this Constraint requires one Enforcement",
+          "role_id": "d6ff389e-6345-415a-8572-34d5988e3545"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Constraint is called one Name",
+          "role_id": "a6476a46-7125-49cc-aa95-e4ca4b8ff5ba"
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "this Constraint belongs to one Vocabulary",
+          "role_id": "d4fb190d-df5a-4285-bf5d-56a1182f21ec"
+        }
+      ]
+    },
+    "Constraint Shape": {
+      "is_main": false,
+      "id": "3f25fe9e-8b37-40fd-b1a2-16ec2358d488",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "as Ring Constraint Shape",
+          "type": "Ring Constraint Shape"
+        },
+        {
+          "title": "as Value Constraint Shape",
+          "type": "Value Constraint Shape"
+        },
+        {
+          "title": "Constraint",
+          "type": "Constraint",
+          "where": "this Constraint Shape is for one Constraint",
+          "role_id": "3eb85599-c4b3-4195-8e46-d7fa82080d4b"
+        }
+      ]
+    },
+    "Context According To": {
+      "is_main": true,
+      "id": "64792a10-80e8-4d7d-b842-81948f06f56b",
+      "functions": [
+        {
+          "title": "involving Context Note",
+          "type": "Context Note",
+          "where": "this Context Note is according to some Agent"
+        },
+        {
+          "title": "involving Agent",
+          "type": "Agent",
+          "where": "this Agent claims some Context Note"
+        },
+        {
+          "title": "Date",
+          "type": "Date",
+          "where": "this Context According To was lodged on one Date",
+          "role_id": "abaa1a07-572f-4d7f-b341-1a5646fdcde8"
+        }
+      ]
+    },
+    "Context Note": {
+      "is_main": false,
+      "id": "6dae537d-6abe-4920-92c2-412e7dc754c6",
+      "functions": [
+        {
+          "title": "Relevant Concept",
+          "type": "Concept",
+          "where": "this Context Note applies to one relevant-Concept",
+          "role_id": "21cb7346-72c7-4703-8e4b-b06107452bbe"
+        },
+        {
+          "title": "Context Note Kind",
+          "type": "Context Note Kind",
+          "where": "this Context Note has one Context Note Kind",
+          "role_id": "b1d5ab11-840a-434a-94b6-269fd73f60f6"
+        },
+        {
+          "title": "Discussion",
+          "type": "Discussion",
+          "where": "this Context Note has one Discussion",
+          "role_id": "447b082f-4cb8-4add-a21a-086e170da3bd"
+        },
+        {
+          "title": "all Context According To",
+          "type": "Context According To",
+          "where": "this Context Note is according to some Agent",
+          "role_id": "ac7bdf87-5b8f-4b06-b3bd-770a9eaae3d2",
+          "is_list": true
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Context Note is an instance of one Concept",
+          "role_id": "c488d041-26c8-490b-899e-f6a714d4297f"
+        },
+        {
+          "title": "Agreement",
+          "type": "Agreement",
+          "where": "this Context Note was added by one Agreement",
+          "role_id": "56e00e04-ed1c-4650-b7c1-a9975536051e"
+        },
+        {
+          "title": "all Model Note Shape",
+          "type": "Model Note Shape",
+          "where": "some Model Note Shape is for this Context Note",
+          "role_id": "561b961d-ad64-4e8d-aa6c-dc11dbf1efd7",
+          "is_list": true
+        }
+      ]
+    },
+    "Context Note Kind": {
+      "is_main": false,
+      "id": "a3a9734a-98f3-4c95-a142-87f3855b7753",
+      "functions": [
+        {
+          "title": "all Context Note",
+          "type": "Context Note",
+          "where": "this Context Note Kind is of some Context Note",
+          "role_id": "2722abf9-ffc8-44ba-b55c-4b0acd46ba04",
+          "is_list": true
+        }
+      ]
+    },
+    "Date": {
+      "is_main": false,
+      "id": "0da85a31-f196-4ba1-a996-bd9899bb7a0c",
+      "functions": [
+        {
+          "title": "all Agreement",
+          "type": "Agreement",
+          "where": "this Date is of some Agreement",
+          "role_id": "379381f6-e22b-4700-9009-b72bb3a45537",
+          "is_list": true
+        },
+        {
+          "title": "all Context According To",
+          "type": "Context According To",
+          "where": "some Context According To was lodged on this Date",
+          "role_id": "92249b40-1d90-46a5-a81b-112f67a362b6",
+          "is_list": true
+        }
+      ]
+    },
+    "Denominator": {
+      "is_main": false,
+      "id": "8a208c59-bed9-4380-ae87-bc568c2a54f6",
+      "functions": [
+        {
+          "title": "all Coefficient",
+          "type": "Coefficient",
+          "where": "some Coefficient has this Denominator",
+          "role_id": "e12f052a-cb6d-480f-bddf-a914cdec6294",
+          "is_list": true
+        }
+      ]
+    },
+    "Derivation": {
+      "is_main": true,
+      "id": "faf19ab5-7d59-4402-9686-e2409937f3bd",
+      "functions": [
+        {
+          "title": "involving Derived Unit",
+          "type": "Unit",
+          "where": "this Derived Unit is derived from some Base Unit"
+        },
+        {
+          "title": "involving Base Unit",
+          "type": "Unit",
+          "where": "some Derived Unit is derived from this Base Unit"
+        },
+        {
+          "title": "Exponent",
+          "type": "Exponent",
+          "where": "this Derivation has one Exponent",
+          "role_id": "c8f9d0c5-638f-4835-b7c5-033897295314"
+        }
+      ]
+    },
+    "Diagram": {
+      "is_main": true,
+      "id": "863d6f13-6168-4a25-953d-2949d08035fd",
+      "functions": [
+        {
+          "title": "as ORM Diagram",
+          "type": "ORM Diagram"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Diagram is called one Name",
+          "role_id": "e08ea848-9463-47b7-a34e-449793eb0a6b"
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "this Diagram is for one Vocabulary",
+          "role_id": "33001ff5-0643-4eb3-a1a0-359f49848183"
+        }
+      ]
+    },
+    "Discriminated Role": {
+      "is_main": true,
+      "id": "12cbe16c-13eb-4cbe-93b6-35f470ccb8f3",
+      "functions": [
+        {
+          "title": "involving Discriminator",
+          "type": "Discriminator",
+          "where": "this Discriminator distinguishes some Role using some Value"
+        },
+        {
+          "title": "involving Role",
+          "type": "Role",
+          "where": "this Role is indicated by some Value for some Discriminator"
+        },
+        {
+          "title": "involving Value",
+          "type": "Value",
+          "where": "some Discriminator distinguishes some Role using this Value"
+        }
+      ]
+    },
+    "Discriminator": {
+      "is_main": false,
+      "id": "2453cb92-4372-4af9-bdb3-9b0ca5e633fb",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "all Discriminated Role",
+          "type": "Discriminated Role",
+          "where": "this Discriminator distinguishes some Role using some Value",
+          "role_id": "b4075ed7-94a7-4deb-bdab-9e0180bfcd9a",
+          "is_list": true
+        }
+      ]
+    },
+    "Discussion": {
+      "is_main": false,
+      "id": "09675b47-249a-43c1-8a22-f11cb0c2d45e",
+      "functions": [
+        {
+          "title": "all Context Note",
+          "type": "Context Note",
+          "where": "this Discussion is for some Context Note",
+          "role_id": "e108ddab-5750-45bb-9171-abe5b82f0e6b",
+          "is_list": true
+        }
+      ]
+    },
+    "Display Role Names Setting": {
+      "is_main": false,
+      "id": "21236c17-c947-4c1a-be65-09a0c3b73372",
+      "functions": [
+        {
+          "title": "all Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "some Fact Type Shape has this Display Role Names Setting",
+          "role_id": "234f5b64-a303-4659-85fd-6d113df58904",
+          "is_list": true
+        }
+      ]
+    },
+    "Domain Object Type": {
+      "is_main": false,
+      "id": "cba19572-b9e8-45fe-a080-18efddda851f",
+      "functions": [
+        {
+          "title": "as Object Type",
+          "type": "Object Type"
+        },
+        {
+          "title": "as Entity Type",
+          "type": "Entity Type"
+        },
+        {
+          "title": "as Implicit Boolean Value Type",
+          "type": "Implicit Boolean Value Type"
+        },
+        {
+          "title": "as Value Type",
+          "type": "Value Type"
+        }
+      ]
+    },
+    "Enforcement": {
+      "is_main": false,
+      "id": "9b13335b-cbc1-4747-aece-bd049e3f3938",
+      "functions": [
+        {
+          "title": "Constraint",
+          "type": "Constraint",
+          "where": "this Enforcement applies to one Constraint",
+          "role_id": "92399f74-8ddd-4b64-8bd5-0df5da89fd2c"
+        },
+        {
+          "title": "Enforcement Code",
+          "type": "Enforcement Code",
+          "where": "this Enforcement has one Enforcement Code",
+          "role_id": "ecf515dd-4544-4208-80b3-a749781d5105"
+        },
+        {
+          "title": "Agent",
+          "type": "Agent",
+          "where": "this Enforcement notifies one Agent",
+          "role_id": "938d35cb-7640-4188-8ecb-d1ea99b77a2e"
+        }
+      ]
+    },
+    "Enforcement Code": {
+      "is_main": false,
+      "id": "05305c62-7302-4f36-9969-94e1b12fad49",
+      "functions": [
+        {
+          "title": "all Enforcement",
+          "type": "Enforcement",
+          "where": "this Enforcement Code is of some Enforcement",
+          "role_id": "60b51ebe-e59a-478f-b75f-7aeba605c573",
+          "is_list": true
+        }
+      ]
+    },
+    "Entity Type": {
+      "is_main": false,
+      "id": "f6ff9ff2-2111-432a-9d24-6e479c241a00",
+      "functions": [
+        {
+          "title": "as Domain Object Type",
+          "type": "Domain Object Type"
+        },
+        {
+          "title": "as Object Type",
+          "type": "Object Type"
+        },
+        {
+          "title": "all Type Inheritance",
+          "type": "Type Inheritance",
+          "where": "this Subtype is subtype of some Supertype",
+          "role_id": "f9b1ae4d-87ce-40c8-a343-b697cab1af59",
+          "is_list": true
+        },
+        {
+          "title": "all Type Inheritance",
+          "type": "Type Inheritance",
+          "where": "this Supertype is supertype of some Subtype",
+          "role_id": "a1cabec1-f23b-4a20-8a7d-763ea0809f3b",
+          "is_list": true
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Entity Type nests one Fact Type",
+          "role_id": "7ecffccb-240d-4617-b299-f6118b9baf70"
+        }
+      ]
+    },
+    "Ephemera URL": {
+      "is_main": false,
+      "id": "a198993f-0c69-4cf7-ba82-ce3b3d4e0c5a",
+      "functions": [
+        {
+          "title": "all Unit",
+          "type": "Unit",
+          "where": "this Ephemera URL provides some Unit coefficient",
+          "role_id": "2ddcbd01-40ed-4a9d-82ff-aebe6614d3c6",
+          "is_list": true
+        }
+      ]
+    },
+    "Exponent": {
+      "is_main": false,
+      "id": "40f2053c-9ef4-4371-bb28-05caa0318f63",
+      "functions": [
+        {
+          "title": "all Derivation",
+          "type": "Derivation",
+          "where": "some Derivation has this Exponent",
+          "role_id": "81620d66-8a99-432b-bfe5-322b3e82ba08",
+          "is_list": true
+        }
+      ]
+    },
+    "Fact": {
+      "is_main": false,
+      "id": "f26e584f-7869-4d2c-a148-3754c43bd31a",
+      "functions": [
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Fact is an instance of one Concept",
+          "role_id": "2777b0f4-fedd-4aa9-8b87-5e976cfbcb64"
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Fact is of one Fact Type",
+          "role_id": "697b2bd2-7cae-46a7-b231-586f5d5d31cc"
+        },
+        {
+          "title": "Instance",
+          "type": "Instance",
+          "where": "this Fact is objectified as one Instance",
+          "role_id": "2e64f3fa-215f-479c-89e0-71bc9805184b"
+        },
+        {
+          "title": "Population",
+          "type": "Population",
+          "where": "this Fact belongs to one Population",
+          "role_id": "1bab6138-c329-4837-9a6b-3fa72efe175d"
+        },
+        {
+          "title": "all Role Value",
+          "type": "Role Value",
+          "where": "this Fact includes some Role Value",
+          "role_id": "7be78e4d-4d25-4f59-92c3-b7a3beb9b005",
+          "is_list": true
+        }
+      ]
+    },
+    "Fact Type": {
+      "is_main": true,
+      "id": "792e166d-b815-4ef4-88de-c9a63ccc1682",
+      "functions": [
+        {
+          "title": "as Link Fact Type",
+          "type": "Link Fact Type"
+        },
+        {
+          "title": "as Type Inheritance",
+          "type": "Type Inheritance"
+        },
+        {
+          "title": "Entity Type",
+          "type": "Entity Type",
+          "where": "this Fact Type is nested as one Entity Type",
+          "role_id": "7547b3d5-7c89-4771-b2fd-6efdcf476614"
+        },
+        {
+          "title": "all Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "this Fact Type has some Fact Type Shape",
+          "role_id": "1e8fd527-57ea-476e-b796-d7d6defe6d44",
+          "is_list": true
+        },
+        {
+          "title": "all Reading",
+          "type": "Reading",
+          "where": "this Fact Type has some Reading",
+          "role_id": "c551c672-c603-4d2d-9d86-023a38bc5024",
+          "is_list": true
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Fact Type is an instance of one Concept",
+          "role_id": "ba08510e-ff39-4859-aeaa-90b477bec97b"
+        },
+        {
+          "title": "all Fact",
+          "type": "Fact",
+          "where": "some Fact is of this Fact Type",
+          "role_id": "e67d3680-67b0-4d01-8893-fa49f785c0dc",
+          "is_list": true
+        },
+        {
+          "title": "all Role",
+          "type": "Role",
+          "where": "this Fact Type contains some Role",
+          "role_id": "69f074e6-246f-49ec-9452-b8741e58a257",
+          "is_list": true
+        },
+        {
+          "title": "all Step",
+          "type": "Step",
+          "where": "this Fact Type directs some Step",
+          "role_id": "46285e97-36ba-4c71-891b-982f62822575",
+          "is_list": true
+        }
+      ]
+    },
+    "Fact Type Shape": {
+      "is_main": false,
+      "id": "c4029b68-55ac-4976-aa98-c6c8a0812b4c",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "all Role Display",
+          "type": "Role Display",
+          "where": "this Fact Type Shape displays some Role in some Ordinal position",
+          "role_id": "857314b0-2bba-4b4f-88ec-2ceb5c82a151",
+          "is_list": true
+        },
+        {
+          "title": "Display Role Names Setting",
+          "type": "Display Role Names Setting",
+          "where": "this Fact Type Shape has one Display Role Names Setting",
+          "role_id": "baecc630-eaf6-44e4-823a-7dc469e18ab0"
+        },
+        {
+          "title": "Reading Shape",
+          "type": "Reading Shape",
+          "where": "this Fact Type Shape has one Reading Shape",
+          "role_id": "8606ab20-6def-4b7c-9a9c-8daf7eeda173"
+        },
+        {
+          "title": "Rotation Setting",
+          "type": "Rotation Setting",
+          "where": "this Fact Type Shape has one Rotation Setting",
+          "role_id": "e14a8c57-b13a-4cbf-9fac-24a34df7bee9"
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Fact Type Shape is for one Fact Type",
+          "role_id": "6173480f-8c1c-4f0d-a35b-c9bc085ed387"
+        },
+        {
+          "title": "Objectified Fact Type Name Shape",
+          "type": "Objectified Fact Type Name Shape",
+          "where": "this Fact Type Shape has one Objectified Fact Type Name Shape",
+          "role_id": "d7ed5c14-b835-4cdd-8793-38edcc5bf080"
+        },
+        {
+          "title": "all Ring Constraint Shape",
+          "type": "Ring Constraint Shape",
+          "where": "some Ring Constraint Shape is attached to this Fact Type Shape",
+          "role_id": "359bb216-31d6-4947-93a4-6d5ea9140b0d",
+          "is_list": true
+        }
+      ]
+    },
+    "Frequency": {
+      "is_main": false,
+      "id": "7785321b-7e02-45bc-ad3c-72ae2ffded96",
+      "functions": [
+        {
+          "title": "all Presence Constraint as Max Frequency",
+          "type": "Presence Constraint",
+          "where": "some Presence Constraint has this max-Frequency",
+          "role_id": "0d169f73-8d9f-450d-b337-b946def9a113",
+          "is_list": true
+        },
+        {
+          "title": "all Presence Constraint as Min Frequency",
+          "type": "Presence Constraint",
+          "where": "some Presence Constraint has this min-Frequency",
+          "role_id": "7226144f-911d-44eb-9dbb-34f379d63a32",
+          "is_list": true
+        }
+      ]
+    },
+    "Guid": {
+      "is_main": false,
+      "id": "d4112c11-eecb-4911-b12d-1496d22d6cf3",
+      "functions": [
+        {
+          "title": "Alternative Set",
+          "type": "Alternative Set",
+          "where": "this Guid is of one Alternative Set",
+          "role_id": "8a86554d-73ac-4326-b530-4b8a698a8b35"
+        },
+        {
+          "title": "Component",
+          "type": "Component",
+          "where": "this Guid is of one Component",
+          "role_id": "c6a4bcb8-0107-4f9c-a535-ae1833b0e5b5"
+        },
+        {
+          "title": "Composition",
+          "type": "Composition",
+          "where": "this Guid is of one Composition",
+          "role_id": "adb24b1f-f2d5-4d12-a321-60d3a1f27f79"
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Guid is of one Concept",
+          "role_id": "daf2bfc3-2278-42b3-ab61-069b40a74709"
+        },
+        {
+          "title": "Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Guid is of one Role Sequence",
+          "role_id": "3daa88ee-5bd3-4f01-93b3-2c10c1518365"
+        },
+        {
+          "title": "Shape",
+          "type": "Shape",
+          "where": "this Guid is of one Shape",
+          "role_id": "89effce3-4ba3-40ee-a202-007e081f2111"
+        },
+        {
+          "title": "Step",
+          "type": "Step",
+          "where": "this Guid is of one Step",
+          "role_id": "e491e677-a6e7-479c-a5e6-e8ed4abaa987"
+        }
+      ]
+    },
+    "Implication Rule": {
+      "is_main": false,
+      "id": "2946d526-e9e2-4443-82c6-10f4b4508dc5",
+      "functions": [
+        {
+          "title": "all Concept",
+          "type": "Concept",
+          "where": "some Concept is implied by this Implication Rule",
+          "role_id": "3a8d7d97-4d4a-42df-a834-262f24fdba12",
+          "is_list": true
+        },
+        {
+          "title": "Implication Rule Name",
+          "type": "Implication Rule Name",
+          "where": "this Implication Rule has one Implication Rule Name",
+          "role_id": "5cc39480-7b09-42a2-933c-aee656d0b20e"
+        }
+      ]
+    },
+    "Implication Rule Name": {
+      "is_main": false,
+      "id": "dc22e3d7-08c7-42ca-bf08-22c3a11e6bee",
+      "functions": [
+        {
+          "title": "Implication Rule",
+          "type": "Implication Rule",
+          "where": "this Implication Rule Name is of one Implication Rule",
+          "role_id": "ac782792-b4bf-4450-8786-94718b8c499d"
+        }
+      ]
+    },
+    "Implicit Boolean Value Type": {
+      "is_main": false,
+      "id": "ce112532-5798-4b76-bd0a-eb436ca901fa",
+      "functions": [
+        {
+          "title": "as Domain Object Type",
+          "type": "Domain Object Type"
+        },
+        {
+          "title": "as Object Type",
+          "type": "Object Type"
+        },
+        {
+          "title": "as Value Type",
+          "type": "Value Type"
+        }
+      ]
+    },
+    "Indicator": {
+      "is_main": false,
+      "id": "e894383e-b18b-4c1e-aff3-b4e8d1446464",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "Role",
+          "type": "Role",
+          "where": "this Indicator indicates one Role played",
+          "role_id": "797f180e-ad29-474e-9207-80bf64b2c593"
+        }
+      ]
+    },
+    "Injection": {
+      "is_main": false,
+      "id": "2cf96802-d1e0-4fc2-b76d-086b7c09c423",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "as Mapping",
+          "type": "Mapping"
+        }
+      ]
+    },
+    "Instance": {
+      "is_main": false,
+      "id": "0c49713f-0318-456b-a8a7-b7f409d25cbe",
+      "functions": [
+        {
+          "title": "Value",
+          "type": "Value",
+          "where": "this Instance has one Value",
+          "role_id": "74d59729-ef33-4211-9d70-0214d2677654"
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Instance is an instance of one Concept",
+          "role_id": "df2d530f-7778-4bc3-b629-8ba64d90f163"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "this Instance is of one Object Type",
+          "role_id": "5f455527-05ab-44f0-be71-44f55d6497f9"
+        },
+        {
+          "title": "Fact",
+          "type": "Fact",
+          "where": "this Instance objectifies one Fact",
+          "role_id": "7a23b705-457c-459d-9369-67caeaa29379"
+        },
+        {
+          "title": "all Role Value",
+          "type": "Role Value",
+          "where": "this Instance plays some Role Value",
+          "role_id": "68e61cb2-d1d6-4e9a-805c-733fa1616b93",
+          "is_list": true
+        },
+        {
+          "title": "Population",
+          "type": "Population",
+          "where": "this Instance belongs to one Population",
+          "role_id": "23407a47-dc4c-4356-befe-51600efa081e"
+        }
+      ]
+    },
+    "Length": {
+      "is_main": false,
+      "id": "66378ba8-6d1c-4211-bea6-5fdc2131d6a9",
+      "functions": [
+        {
+          "title": "all Value Type",
+          "type": "Value Type",
+          "where": "this Length is of some Value Type",
+          "role_id": "83a649b0-f5b1-4d96-a88f-ea1e0a726d83",
+          "is_list": true
+        }
+      ]
+    },
+    "Link Fact Type": {
+      "is_main": false,
+      "id": "358d6209-b9a8-436d-a313-4d8bffb7d359",
+      "functions": [
+        {
+          "title": "as Fact Type",
+          "type": "Fact Type"
+        },
+        {
+          "title": "Implying Role",
+          "type": "Role",
+          "where": "this Link Fact Type has one implying-Role",
+          "role_id": "7c5ba158-2f3c-4ae3-b290-9d3a5690a676"
+        }
+      ]
+    },
+    "Literal": {
+      "is_main": false,
+      "id": "c28fd6ce-663c-48fe-bc22-ecfcd7686d22",
+      "functions": [
+        {
+          "title": "all Value",
+          "type": "Value",
+          "where": "this Literal represents some Value",
+          "role_id": "c22c94d1-5bc8-488f-83ac-c0a6360da56d",
+          "is_list": true
+        }
+      ]
+    },
+    "Location": {
+      "is_main": false,
+      "id": "52124cad-66d9-4f1a-8012-884fb3c45c05",
+      "functions": [
+        {
+          "title": "X",
+          "type": "X",
+          "where": "this Location is at one X",
+          "role_id": "f5010e93-8575-445e-8277-5cb5f6606f33"
+        },
+        {
+          "title": "Y",
+          "type": "Y",
+          "where": "this Location is at one Y",
+          "role_id": "c709cede-8c4e-4eba-ae33-f3296fcf9eca"
+        },
+        {
+          "title": "all Shape",
+          "type": "Shape",
+          "where": "some Shape is at this Location",
+          "role_id": "005fe80b-0805-4194-ab0f-55f8090044a7",
+          "is_list": true
+        }
+      ]
+    },
+    "Mapping": {
+      "is_main": false,
+      "id": "dc9db4bc-6e98-4a18-929c-3a4439ad9637",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "as Absorption",
+          "type": "Absorption"
+        },
+        {
+          "title": "as Injection",
+          "type": "Injection"
+        },
+        {
+          "title": "as Nesting",
+          "type": "Nesting"
+        },
+        {
+          "title": "all Member",
+          "type": "Component",
+          "where": "this Mapping contains some Member",
+          "role_id": "db852122-9eb5-4ef0-9d84-b93e541c4de6",
+          "is_list": true
+        },
+        {
+          "title": "Composite",
+          "type": "Composite",
+          "where": "this Mapping projects one Composite",
+          "role_id": "3f1caa11-b5e3-4323-85d7-5756c8b81ddd"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "this Mapping represents one Object Type",
+          "role_id": "afdcb944-939f-4033-a94c-5a61590de4eb"
+        }
+      ]
+    },
+    "Model Note Shape": {
+      "is_main": false,
+      "id": "3007f4e5-bf6f-440b-88b5-899dc24fe049",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Context Note",
+          "type": "Context Note",
+          "where": "this Model Note Shape is for one Context Note",
+          "role_id": "acfc9e14-49e6-4fac-988a-d8aa536dac4b"
+        }
+      ]
+    },
+    "Name": {
+      "is_main": false,
+      "id": "320ec865-6e0a-4513-8895-ec3148348f13",
+      "functions": [
+        {
+          "title": "all Component",
+          "type": "Component",
+          "where": "some Component projects this Name",
+          "role_id": "a3403c99-128c-4aaa-b7bb-162b7bc4441c",
+          "is_list": true
+        },
+        {
+          "title": "Composition",
+          "type": "Composition",
+          "where": "this Name is of one Composition",
+          "role_id": "28eaa94a-7217-4dde-b320-acaa5d78f88e"
+        },
+        {
+          "title": "all Diagram",
+          "type": "Diagram",
+          "where": "this Name is of some Diagram",
+          "role_id": "396fadce-4b46-44cb-90e5-070f98d5dff0",
+          "is_list": true
+        },
+        {
+          "title": "all Constraint",
+          "type": "Constraint",
+          "where": "this Name is of some Constraint",
+          "role_id": "86d7dc07-7722-4424-97b2-d729b526b14a",
+          "is_list": true
+        },
+        {
+          "title": "Unit",
+          "type": "Unit",
+          "where": "this Name is of one Unit",
+          "role_id": "a1bb6429-bca3-46ca-92f5-2a77d065b82a"
+        },
+        {
+          "title": "all Object Type",
+          "type": "Object Type",
+          "where": "some Object Type is called this Name",
+          "role_id": "5f414dbc-743b-453d-91b0-3547fbcfdf04",
+          "is_list": true
+        },
+        {
+          "title": "all Population",
+          "type": "Population",
+          "where": "this Name is of some Population",
+          "role_id": "b822797c-ea5e-403e-a204-5afc04a38e37",
+          "is_list": true
+        },
+        {
+          "title": "all Role",
+          "type": "Role",
+          "where": "this role-Name is name of some Role",
+          "role_id": "dcbabd03-eda1-4f4f-8e7f-c1c5d20a04ce",
+          "is_list": true
+        },
+        {
+          "title": "Topic",
+          "type": "Topic",
+          "where": "this topic-Name is of one Topic",
+          "role_id": "89f3042a-e24f-468c-9795-455880b10521"
+        },
+        {
+          "title": "Plural Named Unit",
+          "type": "Unit",
+          "where": "this plural-Name is of one Plural Named Unit",
+          "role_id": "9b79b3d4-8545-4e55-8dee-086dedbde9d2"
+        },
+        {
+          "title": "all Value Type Parameter",
+          "type": "Value Type Parameter",
+          "where": "this Name is a facet of some Value Type",
+          "role_id": "52b86835-5a35-42de-a914-5551cbead755",
+          "is_list": true
+        },
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "this Name is of some Variable",
+          "role_id": "2c24fac6-3ea8-4c0a-8c7e-6ee006f023bf",
+          "is_list": true
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "one Vocabulary is called this Name",
+          "role_id": "89774f35-6f6f-458f-b142-63c84709319a"
+        }
+      ]
+    },
+    "Nesting": {
+      "is_main": false,
+      "id": "6de90212-4c52-4b28-8892-532f28ad621a",
+      "functions": [
+        {
+          "title": "as Component",
+          "type": "Component"
+        },
+        {
+          "title": "as Mapping",
+          "type": "Mapping"
+        }
+      ]
+    },
+    "Numerator": {
+      "is_main": false,
+      "id": "c22bbb35-f44e-41fe-a796-754ff902041a",
+      "functions": [
+        {
+          "title": "all Coefficient",
+          "type": "Coefficient",
+          "where": "some Coefficient has this Numerator",
+          "role_id": "a10da411-ba5e-455c-8ecf-96482a683dbe",
+          "is_list": true
+        }
+      ]
+    },
+    "ORM Diagram": {
+      "is_main": false,
+      "id": "a2fadfe3-eb1f-42ad-8c9c-e3da34bcd1dd",
+      "functions": [
+        {
+          "title": "as Diagram",
+          "type": "Diagram"
+        },
+        {
+          "title": "all Shape",
+          "type": "Shape",
+          "where": "this ORM Diagram includes some Shape",
+          "role_id": "99b4a015-58bc-4ddc-85a4-6ae43586e254",
+          "is_list": true
+        }
+      ]
+    },
+    "Object Type": {
+      "is_main": true,
+      "id": "7f8d48ae-b7ea-4f73-9efb-11bd80a20f7c",
+      "functions": [
+        {
+          "title": "as Domain Object Type",
+          "type": "Domain Object Type"
+        },
+        {
+          "title": "as Entity Type",
+          "type": "Entity Type"
+        },
+        {
+          "title": "as Implicit Boolean Value Type",
+          "type": "Implicit Boolean Value Type"
+        },
+        {
+          "title": "as Value Type",
+          "type": "Value Type"
+        },
+        {
+          "title": "all Instance",
+          "type": "Instance",
+          "where": "some Instance is of this Object Type",
+          "role_id": "5cfbeba9-d601-4b99-a961-38d596dc2462",
+          "is_list": true
+        },
+        {
+          "title": "all Mapping",
+          "type": "Mapping",
+          "where": "some Mapping represents this Object Type",
+          "role_id": "fcb762f6-bc74-4339-b828-cbe4f5e298db",
+          "is_list": true
+        },
+        {
+          "title": "all Object Type Shape",
+          "type": "Object Type Shape",
+          "where": "this Object Type has some Object Type Shape",
+          "role_id": "39dea521-353b-4c62-87ab-36bdd1174304",
+          "is_list": true
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "this Object Type belongs to one Vocabulary",
+          "role_id": "cbb8af81-e40f-4d48-bd41-8b9ed196105e"
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Object Type is an instance of one Concept",
+          "role_id": "f6fc2148-2c0d-43bf-9e80-ed4d90368905"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Object Type is called one Name",
+          "role_id": "b7e9f530-5bd6-416e-921a-f051d4eaf28d"
+        },
+        {
+          "title": "Object Type is independent",
+          "type": "boolean",
+          "where": "this Object Type is independent",
+          "role_id": "95e0c7c1-2c0b-4ad0-96fd-c6ae94423fad"
+        },
+        {
+          "title": "all Role",
+          "type": "Role",
+          "where": "this Object Type plays some Role",
+          "role_id": "e6a2c87f-2157-42a8-9c17-1fe1d8fbff56",
+          "is_list": true
+        },
+        {
+          "title": "Pronoun",
+          "type": "Pronoun",
+          "where": "this Object Type uses one Pronoun",
+          "role_id": "4346b22a-21b4-48e5-8e30-39d908f0818a"
+        },
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "this Object Type is referenced in some Variable",
+          "role_id": "ead7c4ed-3423-4cd3-80d9-2f377a249d6c",
+          "is_list": true
+        }
+      ]
+    },
+    "Object Type Shape": {
+      "is_main": false,
+      "id": "5768468d-21d9-4d08-b404-b503d7c68358",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Object Type Shape has expanded reference mode",
+          "type": "boolean",
+          "where": "this Object Type Shape has expanded reference mode",
+          "role_id": "41c592b6-e09d-4b02-9c68-f0d8abdf63c0"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "this Object Type Shape is for one Object Type",
+          "role_id": "fd68b3c1-e778-44ac-b928-d4ebb69e327f"
+        },
+        {
+          "title": "all Value Constraint Shape",
+          "type": "Value Constraint Shape",
+          "where": "this Object Type Shape has some Value Constraint Shape",
+          "role_id": "a890ab70-f248-434d-8c4b-238774311e4a",
+          "is_list": true
+        }
+      ]
+    },
+    "Objectified Fact Type Name Shape": {
+      "is_main": false,
+      "id": "c58bbc94-06fe-4d7b-88a4-4b7b3d1ca68d",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "this Objectified Fact Type Name Shape is for one Fact Type Shape",
+          "role_id": "ec12f9ac-01af-4f4d-a5e9-cbfde5752d47"
+        }
+      ]
+    },
+    "Offset": {
+      "is_main": false,
+      "id": "141d7919-bdbf-44a6-8fc8-913fc3254c07",
+      "functions": [
+        {
+          "title": "all Unit",
+          "type": "Unit",
+          "where": "some Unit has this Offset",
+          "role_id": "c27f0d96-46fe-451a-b001-3ec8da309a26",
+          "is_list": true
+        }
+      ]
+    },
+    "Ordinal": {
+      "is_main": false,
+      "id": "f065d545-e2f4-4588-a946-cc5a00ef5a5c",
+      "functions": [
+        {
+          "title": "all Role Display",
+          "type": "Role Display",
+          "where": "some Fact Type Shape displays some Role in this Ordinal position",
+          "role_id": "ab162fa5-7c73-4d09-9a4c-029cbcead7af",
+          "is_list": true
+        },
+        {
+          "title": "all Reading",
+          "type": "Reading",
+          "where": "this Ordinal reading for fact type is some Reading",
+          "role_id": "4d73e44f-9dc0-4fa2-8854-83de63b9e351",
+          "is_list": true
+        },
+        {
+          "title": "all Role Ref",
+          "type": "Role Ref",
+          "where": "some Role Sequence in this Ordinal position includes some Role",
+          "role_id": "ce6aac26-47e8-4e1c-b7c0-b07ea70cccaf",
+          "is_list": true
+        },
+        {
+          "title": "all Role",
+          "type": "Role",
+          "where": "this Ordinal applies to some Role",
+          "role_id": "d75e577f-ab16-4765-875f-577ee933d40d",
+          "is_list": true
+        },
+        {
+          "title": "all Set Comparison Roles",
+          "type": "Set Comparison Roles",
+          "where": "in this Ordinal position some Set Comparison Constraint has some Role Sequence",
+          "role_id": "a93ef648-0f3e-438c-b8cf-89269c2ea858",
+          "is_list": true
+        },
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "some Variable has this Ordinal position",
+          "role_id": "620a92ad-8dbf-45dc-a317-80cebd4869bf",
+          "is_list": true
+        }
+      ]
+    },
+    "Play": {
+      "is_main": true,
+      "id": "779c15d4-ad8b-4d89-bb3a-323f802f37b2",
+      "functions": [
+        {
+          "title": "involving Variable",
+          "type": "Variable",
+          "where": "this Variable is restricted by some Role of some Step"
+        },
+        {
+          "title": "involving Role",
+          "type": "Role",
+          "where": "some Variable is restricted by this Role of some Step"
+        },
+        {
+          "title": "involving Step",
+          "type": "Step",
+          "where": "this Step contains some Role restricting some Variable"
+        },
+        {
+          "title": "Play is input",
+          "type": "boolean",
+          "where": "this Play is input",
+          "role_id": "73b36d79-41fd-4f22-b1e1-7b9976b5d357"
+        },
+        {
+          "title": "Role Ref",
+          "type": "Role Ref",
+          "where": "this Play projects one Role Ref",
+          "role_id": "5da08ecf-692d-462e-a7a4-fef1c0dbf723"
+        }
+      ]
+    },
+    "Population": {
+      "is_main": true,
+      "id": "f31db767-97d0-44a0-8de3-db8c493dede2",
+      "functions": [
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Population has one Name",
+          "role_id": "93be9af1-6a61-4ce9-a7ab-818a02f37e68"
+        },
+        {
+          "title": "all Fact",
+          "type": "Fact",
+          "where": "this Population includes some Fact",
+          "role_id": "f87e0ead-2e94-453b-a97d-c990ef0fc163",
+          "is_list": true
+        },
+        {
+          "title": "all Instance",
+          "type": "Instance",
+          "where": "this Population includes some Instance",
+          "role_id": "b5ea1cde-7cec-4c24-bed9-4cbb2302f0f4",
+          "is_list": true
+        },
+        {
+          "title": "all Role Value",
+          "type": "Role Value",
+          "where": "this Population includes some Role Value",
+          "role_id": "839f9356-741e-4a89-b6b5-5a97e0293ad6",
+          "is_list": true
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Population is an instance of one Concept",
+          "role_id": "2a466d8f-3052-4d99-b9b1-e57c8b2ce79c"
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "this Population belongs to one Vocabulary",
+          "role_id": "79d7e324-92fa-40d4-a1a0-5e02d8a68c1e"
+        }
+      ]
+    },
+    "Presence Constraint": {
+      "is_main": false,
+      "id": "0ec64e91-fc7a-4aa8-8627-e494cb7ed400",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Presence Constraint covers one Role Sequence",
+          "role_id": "b282d3dd-466f-4a12-822b-5ce257c69260"
+        },
+        {
+          "title": "Max Frequency",
+          "type": "Frequency",
+          "where": "this Presence Constraint has one max-Frequency",
+          "role_id": "9471def0-db1f-435a-8c30-10e0cf850218"
+        },
+        {
+          "title": "Min Frequency",
+          "type": "Frequency",
+          "where": "this Presence Constraint has one min-Frequency",
+          "role_id": "98ef523a-acb4-4a10-8de1-77e8ecb308ea"
+        },
+        {
+          "title": "Presence Constraint is mandatory",
+          "type": "boolean",
+          "where": "this Presence Constraint is mandatory",
+          "role_id": "d5ed132d-1e13-453e-b60f-3d2e95b9800e"
+        },
+        {
+          "title": "Presence Constraint is preferred identifier",
+          "type": "boolean",
+          "where": "this Presence Constraint is preferred identifier",
+          "role_id": "e0419d92-ee35-4073-887f-287b2feba6db"
+        }
+      ]
+    },
+    "Pronoun": {
+      "is_main": false,
+      "id": "001749cb-6209-4209-be68-b886bbbf6feb",
+      "functions": [
+        {
+          "title": "all Object Type",
+          "type": "Object Type",
+          "where": "some Object Type uses this Pronoun",
+          "role_id": "d535f1a5-514f-443f-b3fe-650656476f12",
+          "is_list": true
+        }
+      ]
+    },
+    "Query": {
+      "is_main": false,
+      "id": "9732cb43-6e2f-486d-a1af-e8a292e73a1c",
+      "functions": [
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "this Query includes some Variable",
+          "role_id": "688ac693-af08-499d-9561-0d1ade62d71a",
+          "is_list": true
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Query is an instance of one Concept",
+          "role_id": "5ac27b07-3370-4af1-a3bf-b975e155c686"
+        }
+      ]
+    },
+    "Reading": {
+      "is_main": true,
+      "id": "1faa39e8-008b-4667-8e74-496605e8757f",
+      "functions": [
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Reading is for one Fact Type",
+          "role_id": "156b19ac-273b-44cc-908c-de057389927d"
+        },
+        {
+          "title": "all Reading Shape",
+          "type": "Reading Shape",
+          "where": "this Reading has some Reading Shape",
+          "role_id": "1b675fcf-434e-4a3e-8530-ebec1840dca1",
+          "is_list": true
+        },
+        {
+          "title": "Text",
+          "type": "Text",
+          "where": "this Reading has one Text",
+          "role_id": "8f956197-35c5-4177-b611-679974281a7f"
+        },
+        {
+          "title": "Ordinal",
+          "type": "Ordinal",
+          "where": "this Reading is in one Ordinal position",
+          "role_id": "5e70a871-fa96-4799-8256-f437726a2c36"
+        },
+        {
+          "title": "Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Reading is in one Role Sequence",
+          "role_id": "437c9616-621b-4e30-810e-0e5f386dbf42"
+        },
+        {
+          "title": "Reading is negative",
+          "type": "boolean",
+          "where": "this Reading is negative",
+          "role_id": "d1bdaab4-ba40-442b-b1d2-db361b767999"
+        }
+      ]
+    },
+    "Reading Shape": {
+      "is_main": false,
+      "id": "a06ece2e-0a4d-4acd-9ba6-60cc1900411c",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "this Reading Shape is for one Fact Type Shape",
+          "role_id": "550a892c-e45e-4bee-94bc-58fda7574e5a"
+        },
+        {
+          "title": "Reading",
+          "type": "Reading",
+          "where": "this Reading Shape is for one Reading",
+          "role_id": "cde58d31-75d5-450e-b008-8232f35eda45"
+        }
+      ]
+    },
+    "Regular Expression": {
+      "is_main": false,
+      "id": "e82610a5-9653-460b-827c-1adc1d53419a",
+      "functions": [
+        {
+          "title": "all Value Constraint",
+          "type": "Value Constraint",
+          "where": "some Value Constraint requires matching this Regular Expression",
+          "role_id": "96ddf914-731d-4298-a8ea-b00434c0e20b",
+          "is_list": true
+        }
+      ]
+    },
+    "Ring Constraint": {
+      "is_main": false,
+      "id": "a64f6413-6412-4b58-95a1-0154831cff17",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "Other Role",
+          "type": "Role",
+          "where": "this Ring Constraint has one other-Role",
+          "role_id": "560322ec-f7ad-48bd-b5d9-289663d67941"
+        },
+        {
+          "title": "Ring Type",
+          "type": "Ring Type",
+          "where": "this Ring Constraint is of one Ring Type",
+          "role_id": "a2f63933-d752-4210-a2ad-4247c802fcc8"
+        },
+        {
+          "title": "Role",
+          "type": "Role",
+          "where": "this Ring Constraint has one Role",
+          "role_id": "2c8f062d-5163-4084-b1b4-52f81f018041"
+        }
+      ]
+    },
+    "Ring Constraint Shape": {
+      "is_main": false,
+      "id": "f2ef45f0-5d47-4208-8dcf-b04db4c2abb4",
+      "functions": [
+        {
+          "title": "as Constraint Shape",
+          "type": "Constraint Shape"
+        },
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "this Ring Constraint Shape is attached to one Fact Type Shape",
+          "role_id": "e600b1bb-d568-468f-ab57-830f9a19d9ec"
+        }
+      ]
+    },
+    "Ring Type": {
+      "is_main": false,
+      "id": "89b1b13d-9d47-4985-a3e7-7365b49b8c3d",
+      "functions": [
+        {
+          "title": "all Ring Constraint",
+          "type": "Ring Constraint",
+          "where": "some Ring Constraint is of this Ring Type",
+          "role_id": "f9926dab-9ed1-48db-b954-7c5487a38fd4",
+          "is_list": true
+        }
+      ]
+    },
+    "Role": {
+      "is_main": true,
+      "id": "f58bb34d-5644-4f27-bbb7-1f3429e73822",
+      "functions": [
+        {
+          "title": "all Absorption as Index Role",
+          "type": "Absorption",
+          "where": "some Absorption is nested under this index-Role",
+          "role_id": "1ab68095-165b-4da0-8342-41b0447ab5e6",
+          "is_list": true
+        },
+        {
+          "title": "all Absorption as Parent Role",
+          "type": "Absorption",
+          "where": "some Absorption traverses from this parent-Role",
+          "role_id": "fd9400f8-2e8b-42ac-bac4-239a256af3d0",
+          "is_list": true
+        },
+        {
+          "title": "all Absorption as Child Role",
+          "type": "Absorption",
+          "where": "some Absorption traverses to this child-Role",
+          "role_id": "ac27b473-2eb8-4f81-b9ea-cf71d2268f90",
+          "is_list": true
+        },
+        {
+          "title": "all Discriminated Role",
+          "type": "Discriminated Role",
+          "where": "this Role is indicated by some Value for some Discriminator",
+          "role_id": "517500b7-fd4c-40c5-a1a3-4b55817dca44",
+          "is_list": true
+        },
+        {
+          "title": "all Role Display",
+          "type": "Role Display",
+          "where": "some Fact Type Shape displays this Role in some Ordinal position",
+          "role_id": "1eae21c6-31f4-40eb-a78a-6e51228a1593",
+          "is_list": true
+        },
+        {
+          "title": "all Indicator",
+          "type": "Indicator",
+          "where": "some Indicator indicates this Role played",
+          "role_id": "6c225e5b-e2ae-42c9-8417-f86438e75299",
+          "is_list": true
+        },
+        {
+          "title": "Link Fact Type",
+          "type": "Link Fact Type",
+          "where": "this implying-Role implies one Link Fact Type",
+          "role_id": "7819b93c-669d-4182-a85e-42f99cb5924c"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "this Role is played by one Object Type",
+          "role_id": "2d223606-0dcd-4e52-b57d-4e0e0467adff"
+        },
+        {
+          "title": "all Ring Constraint as Other Role",
+          "type": "Ring Constraint",
+          "where": "this other-Role is of some Ring Constraint",
+          "role_id": "47c27923-c64e-48d5-81a6-75dda9eaa509",
+          "is_list": true
+        },
+        {
+          "title": "all Role Ref",
+          "type": "Role Ref",
+          "where": "this Role is in some Role Sequence in some Ordinal place",
+          "role_id": "37844895-e5d6-4341-b02a-cf2ce573ee41",
+          "is_list": true
+        },
+        {
+          "title": "all Role Value",
+          "type": "Role Value",
+          "where": "some Role Value is of this Role",
+          "role_id": "6a10754d-0cf4-493d-b8bd-9379e815759b",
+          "is_list": true
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Role belongs to one Fact Type",
+          "role_id": "2f574992-ec9d-463a-b58a-08018c15cd42"
+        },
+        {
+          "title": "Ordinal",
+          "type": "Ordinal",
+          "where": "this Role fills one Ordinal",
+          "role_id": "a3146d70-d950-43d3-a60d-0f511da94511"
+        },
+        {
+          "title": "Role Name",
+          "type": "Name",
+          "where": "this Role has one role-Name",
+          "role_id": "988cf855-be27-4423-8213-6fde8f2ebb51"
+        },
+        {
+          "title": "Role Value Constraint",
+          "type": "Value Constraint",
+          "where": "this Role has one role-Value Constraint",
+          "role_id": "318fba06-4c5a-4c79-8f45-63d37a555dc5"
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Role is an instance of one Concept",
+          "role_id": "e4b19695-37d2-4ed2-8942-e529ae270b13"
+        },
+        {
+          "title": "all Ring Constraint as Role",
+          "type": "Ring Constraint",
+          "where": "this Role is of some Ring Constraint",
+          "role_id": "e21d5bfc-3b19-434b-9328-1b2cb9beb48b",
+          "is_list": true
+        },
+        {
+          "title": "all Play",
+          "type": "Play",
+          "where": "some Variable is restricted by this Role of some Step",
+          "role_id": "8aee901e-637b-4ae2-8903-53e13ce2c4c0",
+          "is_list": true
+        },
+        {
+          "title": "Variable",
+          "type": "Variable",
+          "where": "this Projection is projected from one Variable",
+          "role_id": "20f4b678-8369-4936-a7a9-3e7b79319dcd"
+        }
+      ]
+    },
+    "Role Display": {
+      "is_main": true,
+      "id": "9a885317-7992-4f2b-9df2-e95fb11efba5",
+      "functions": [
+        {
+          "title": "involving Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "this Fact Type Shape displays some Role in some Ordinal position"
+        },
+        {
+          "title": "involving Role",
+          "type": "Role",
+          "where": "some Fact Type Shape displays this Role in some Ordinal position"
+        },
+        {
+          "title": "involving Ordinal",
+          "type": "Ordinal",
+          "where": "some Fact Type Shape displays some Role in this Ordinal position"
+        },
+        {
+          "title": "Value Constraint Shape",
+          "type": "Value Constraint Shape",
+          "where": "this Role Display has one Value Constraint Shape",
+          "role_id": "fcc9f7bd-2fc2-4178-982b-108b448c8f12"
+        },
+        {
+          "title": "Role Name Shape",
+          "type": "Role Name Shape",
+          "where": "this Role Display has one Role Name Shape",
+          "role_id": "14ab30a7-7b34-442e-a899-78dcba4802ee"
+        }
+      ]
+    },
+    "Role Name Shape": {
+      "is_main": false,
+      "id": "83e3f51f-e30a-42bc-a9fd-2f65c2c657a4",
+      "functions": [
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Role Display",
+          "type": "Role Display",
+          "where": "this Role Name Shape is for one Role Display",
+          "role_id": "7abe2868-7cf3-453c-879a-b39820c68f13"
+        }
+      ]
+    },
+    "Role Ref": {
+      "is_main": true,
+      "id": "4b5c4866-a4e9-4ad0-9e74-ee6a49e8458b",
+      "functions": [
+        {
+          "title": "involving Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Role Sequence in some Ordinal position includes some Role"
+        },
+        {
+          "title": "involving Ordinal",
+          "type": "Ordinal",
+          "where": "some Role Sequence in this Ordinal position includes some Role"
+        },
+        {
+          "title": "involving Role",
+          "type": "Role",
+          "where": "this Role is in some Role Sequence in some Ordinal place"
+        },
+        {
+          "title": "Play",
+          "type": "Play",
+          "where": "this Role Ref is projected from one Play",
+          "role_id": "4bd6941a-4dbf-4047-ad21-cfe88ef9fb37"
+        },
+        {
+          "title": "Leading Adjective",
+          "type": "Adjective",
+          "where": "this Role Ref has one leading-Adjective",
+          "role_id": "b2442264-d086-449e-9f97-3d5b57be5a51"
+        },
+        {
+          "title": "Trailing Adjective",
+          "type": "Adjective",
+          "where": "this Role Ref has one trailing-Adjective",
+          "role_id": "43ad26fa-4e5f-4a32-bcd1-26ec2481f176"
+        }
+      ]
+    },
+    "Role Sequence": {
+      "is_main": true,
+      "id": "ca539652-9219-410e-a5ae-3013a5bad526",
+      "functions": [
+        {
+          "title": "all Presence Constraint",
+          "type": "Presence Constraint",
+          "where": "some Presence Constraint covers this Role Sequence",
+          "role_id": "0f319626-5bfd-4702-b413-f79eaee5b98c",
+          "is_list": true
+        },
+        {
+          "title": "all Reading",
+          "type": "Reading",
+          "where": "this Role Sequence is for some Reading",
+          "role_id": "f3d79225-3692-478e-a391-34693c77b353",
+          "is_list": true
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Role Sequence has one Guid",
+          "role_id": "1a0cf528-031b-4354-b4e1-d0f6c727816d"
+        },
+        {
+          "title": "Role Sequence has unused dependency to force table in norma",
+          "type": "boolean",
+          "where": "this Role Sequence has unused dependency to force table in norma",
+          "role_id": "c1125688-5e37-4fc2-99a2-fda1e5878382"
+        },
+        {
+          "title": "all Role Ref",
+          "type": "Role Ref",
+          "where": "this Role Sequence in some Ordinal position includes some Role",
+          "role_id": "21226f5f-8f5b-4d56-bfc0-9672e85f1364",
+          "is_list": true
+        },
+        {
+          "title": "all Set Comparison Roles",
+          "type": "Set Comparison Roles",
+          "where": "this Role Sequence is some Ordinal in some Set Comparison Constraint",
+          "role_id": "610a42c4-8a4b-412b-9c4b-656365e6457f",
+          "is_list": true
+        },
+        {
+          "title": "all Subset Constraint as Subset Role Sequence",
+          "type": "Subset Constraint",
+          "where": "some Subset Constraint covers this subset-Role Sequence",
+          "role_id": "fdaa0b17-4a2c-4ebd-9a89-8326afe78d14",
+          "is_list": true
+        },
+        {
+          "title": "all Subset Constraint as Superset Role Sequence",
+          "type": "Subset Constraint",
+          "where": "some Subset Constraint covers this superset-Role Sequence",
+          "role_id": "b12f0c3e-c40a-44dc-b689-08c6f29ce2d2",
+          "is_list": true
+        }
+      ]
+    },
+    "Role Value": {
+      "is_main": true,
+      "id": "3651a045-f59a-4e20-9987-2088f534184c",
+      "functions": [
+        {
+          "title": "Instance",
+          "type": "Instance",
+          "where": "this Role Value is of one Instance",
+          "role_id": "2bae2347-ab63-4705-ace1-c1134b97014e"
+        },
+        {
+          "title": "Population",
+          "type": "Population",
+          "where": "this Role Value belongs to one Population",
+          "role_id": "4bf1734f-b45c-49a9-b465-eb8368857d9b"
+        },
+        {
+          "title": "Fact",
+          "type": "Fact",
+          "where": "this Role Value fulfils one Fact",
+          "role_id": "1165b54e-f3a9-4099-aa2e-5be3dafd0636"
+        },
+        {
+          "title": "Role",
+          "type": "Role",
+          "where": "this Role Value is of one Role",
+          "role_id": "50bc8851-6911-4043-ad9b-d9e24b160594"
+        }
+      ]
+    },
+    "Rotation Setting": {
+      "is_main": false,
+      "id": "3c871593-963b-4cd3-9c29-f3236a9dd082",
+      "functions": [
+        {
+          "title": "all Fact Type Shape",
+          "type": "Fact Type Shape",
+          "where": "some Fact Type Shape has this Rotation Setting",
+          "role_id": "06956ed9-8cac-4212-a174-b09246f36433",
+          "is_list": true
+        }
+      ]
+    },
+    "Scale": {
+      "is_main": false,
+      "id": "efdfc65b-ae81-4bf9-9079-6f2de71d8c91",
+      "functions": [
+        {
+          "title": "all Value Type",
+          "type": "Value Type",
+          "where": "this Scale is of some Value Type",
+          "role_id": "fdc90240-0757-419e-9931-8e03a4b372d7",
+          "is_list": true
+        }
+      ]
+    },
+    "Set Comparison Constraint": {
+      "is_main": false,
+      "id": "79a5cc99-e0fe-48cb-a910-c0c1a5884fb5",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "as Set Constraint",
+          "type": "Set Constraint"
+        },
+        {
+          "title": "as Set Equality Constraint",
+          "type": "Set Equality Constraint"
+        },
+        {
+          "title": "as Set Exclusion Constraint",
+          "type": "Set Exclusion Constraint"
+        },
+        {
+          "title": "all Set Comparison Roles",
+          "type": "Set Comparison Roles",
+          "where": "this Set Comparison Constraint has in some Ordinal position some Role Sequence",
+          "role_id": "8481a26d-2ebe-4eeb-ac7d-a173aaec0fef",
+          "is_list": true
+        }
+      ]
+    },
+    "Set Comparison Roles": {
+      "is_main": true,
+      "id": "26663562-2ff9-4006-8016-2ddd29bbaaff",
+      "functions": [
+        {
+          "title": "involving Set Comparison Constraint",
+          "type": "Set Comparison Constraint",
+          "where": "this Set Comparison Constraint has in some Ordinal position some Role Sequence"
+        },
+        {
+          "title": "involving Ordinal",
+          "type": "Ordinal",
+          "where": "in this Ordinal position some Set Comparison Constraint has some Role Sequence"
+        },
+        {
+          "title": "involving Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Role Sequence is some Ordinal in some Set Comparison Constraint"
+        }
+      ]
+    },
+    "Set Constraint": {
+      "is_main": false,
+      "id": "5b9301e0-7eba-42f9-87fe-f1f1a01d121d",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "as Set Comparison Constraint",
+          "type": "Set Comparison Constraint"
+        },
+        {
+          "title": "as Set Equality Constraint",
+          "type": "Set Equality Constraint"
+        },
+        {
+          "title": "as Set Exclusion Constraint",
+          "type": "Set Exclusion Constraint"
+        },
+        {
+          "title": "as Subset Constraint",
+          "type": "Subset Constraint"
+        }
+      ]
+    },
+    "Set Equality Constraint": {
+      "is_main": false,
+      "id": "a526d9aa-15f4-45ff-ba10-6e1e41bb3c13",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "as Set Comparison Constraint",
+          "type": "Set Comparison Constraint"
+        },
+        {
+          "title": "as Set Constraint",
+          "type": "Set Constraint"
+        }
+      ]
+    },
+    "Set Exclusion Constraint": {
+      "is_main": false,
+      "id": "1529bc32-41bc-4584-8e59-26725e09f042",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "as Set Comparison Constraint",
+          "type": "Set Comparison Constraint"
+        },
+        {
+          "title": "as Set Constraint",
+          "type": "Set Constraint"
+        },
+        {
+          "title": "Set Exclusion Constraint is mandatory",
+          "type": "boolean",
+          "where": "this Set Exclusion Constraint is mandatory",
+          "role_id": "b15c5745-3739-4168-a05e-e8565ba3df9d"
+        }
+      ]
+    },
+    "Shape": {
+      "is_main": true,
+      "id": "bec06f3d-0f9b-4b5d-9cbd-2f2c610c02da",
+      "functions": [
+        {
+          "title": "as Constraint Shape",
+          "type": "Constraint Shape"
+        },
+        {
+          "title": "as Fact Type Shape",
+          "type": "Fact Type Shape"
+        },
+        {
+          "title": "as Model Note Shape",
+          "type": "Model Note Shape"
+        },
+        {
+          "title": "as Object Type Shape",
+          "type": "Object Type Shape"
+        },
+        {
+          "title": "as Objectified Fact Type Name Shape",
+          "type": "Objectified Fact Type Name Shape"
+        },
+        {
+          "title": "as Reading Shape",
+          "type": "Reading Shape"
+        },
+        {
+          "title": "as Ring Constraint Shape",
+          "type": "Ring Constraint Shape"
+        },
+        {
+          "title": "as Role Name Shape",
+          "type": "Role Name Shape"
+        },
+        {
+          "title": "as Value Constraint Shape",
+          "type": "Value Constraint Shape"
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Shape has one Guid",
+          "role_id": "01cb5f7e-65ac-4723-8dc8-9153926883d7"
+        },
+        {
+          "title": "Location",
+          "type": "Location",
+          "where": "this Shape is at one Location",
+          "role_id": "c9c2a033-4283-4054-9d25-44c64808bfd2"
+        },
+        {
+          "title": "Shape is expanded",
+          "type": "boolean",
+          "where": "this Shape is expanded",
+          "role_id": "e9b6faa3-8ede-4db3-9ed0-cba9c3913516"
+        },
+        {
+          "title": "ORM Diagram",
+          "type": "ORM Diagram",
+          "where": "this Shape is in one ORM Diagram",
+          "role_id": "32a95883-c616-4514-ac94-dec1cce72c06"
+        }
+      ]
+    },
+    "Step": {
+      "is_main": true,
+      "id": "124c0f51-2406-4d42-ab22-3d435bda1f1e",
+      "functions": [
+        {
+          "title": "Alternative Set",
+          "type": "Alternative Set",
+          "where": "this Step falls under one Alternative Set",
+          "role_id": "8bd07e89-98c3-423c-b2ba-1fd1febe568f"
+        },
+        {
+          "title": "Guid",
+          "type": "Guid",
+          "where": "this Step has one Guid",
+          "role_id": "fd4b3ae8-0582-465c-a875-60fc24239403"
+        },
+        {
+          "title": "Step is disallowed",
+          "type": "boolean",
+          "where": "this Step is disallowed",
+          "role_id": "6c558d36-5892-47b3-82ab-3419daf96df8"
+        },
+        {
+          "title": "Step is optional",
+          "type": "boolean",
+          "where": "this Step is optional",
+          "role_id": "6b2cbd21-95c0-4f18-846c-dc7e7a1c946d"
+        },
+        {
+          "title": "Fact Type",
+          "type": "Fact Type",
+          "where": "this Step specifies one Fact Type",
+          "role_id": "4c3c961e-ecb3-48de-bdf6-4fa2acbb9724"
+        },
+        {
+          "title": "all Play",
+          "type": "Play",
+          "where": "this Step contains some Role restricting some Variable",
+          "role_id": "d093ad30-b322-4b31-bc07-a3168d0012f5",
+          "is_list": true
+        },
+        {
+          "title": "Objectification Variable",
+          "type": "Variable",
+          "where": "this Step nests as one Objectification Variable",
+          "role_id": "891d1827-b679-4b5e-9cb0-ab885dbe983b"
+        }
+      ]
+    },
+    "Subscript": {
+      "is_main": false,
+      "id": "20a82d67-a92c-4a6c-8019-b76794c93263",
+      "functions": [
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "this Subscript is of some Variable",
+          "role_id": "3a7d7e7e-b0fa-45d6-8136-5bd442431e1d",
+          "is_list": true
+        }
+      ]
+    },
+    "Subset Constraint": {
+      "is_main": false,
+      "id": "e194ce13-281b-4c3f-9c20-0a3fdd827202",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "as Set Constraint",
+          "type": "Set Constraint"
+        },
+        {
+          "title": "Subset Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Subset Constraint covers one subset-Role Sequence",
+          "role_id": "0dbbf774-0558-4274-adde-0703c5e6bae3"
+        },
+        {
+          "title": "Superset Role Sequence",
+          "type": "Role Sequence",
+          "where": "this Subset Constraint covers one superset-Role Sequence",
+          "role_id": "f54d461a-2dfc-406a-95a5-c466ddbb9357"
+        }
+      ]
+    },
+    "Text": {
+      "is_main": false,
+      "id": "7c3dfee1-d47a-42af-a64b-2e68367c697b",
+      "functions": [
+        {
+          "title": "all Reading",
+          "type": "Reading",
+          "where": "some Reading has this Text",
+          "role_id": "65196bad-fca9-4e03-aeac-606435900f61",
+          "is_list": true
+        }
+      ]
+    },
+    "Topic": {
+      "is_main": false,
+      "id": "691a8214-dc83-425d-96f0-cae1b3708138",
+      "functions": [
+        {
+          "title": "all Concept",
+          "type": "Concept",
+          "where": "this Topic contains some Concept",
+          "role_id": "7423b261-c3a5-4f32-a281-cbe3f75b59b0",
+          "is_list": true
+        },
+        {
+          "title": "Topic Name",
+          "type": "Name",
+          "where": "this Topic has one topic-Name",
+          "role_id": "97023222-e8d7-446d-8c88-4e2b04e30c31"
+        }
+      ]
+    },
+    "Transaction Phase": {
+      "is_main": false,
+      "id": "e1d987f8-8ff2-4ee7-bc68-9765d754a74b",
+      "functions": [
+        {
+          "title": "all Value Type",
+          "type": "Value Type",
+          "where": "some Value Type is auto-assigned at this Transaction Phase",
+          "role_id": "472c0b27-74a4-4587-a164-66a785923647",
+          "is_list": true
+        }
+      ]
+    },
+    "Type Inheritance": {
+      "is_main": false,
+      "id": "1ad2accf-70ba-42f5-83a6-f3ec4c092147",
+      "functions": [
+        {
+          "title": "as Fact Type",
+          "type": "Fact Type"
+        },
+        {
+          "title": "involving Subtype",
+          "type": "Entity Type",
+          "where": "this Subtype is subtype of some Supertype"
+        },
+        {
+          "title": "involving Supertype",
+          "type": "Entity Type",
+          "where": "this Supertype is supertype of some Subtype"
+        },
+        {
+          "title": "Assimilation",
+          "type": "Assimilation",
+          "where": "this Type Inheritance uses one Assimilation",
+          "role_id": "209f2518-6336-42ff-9c36-d426242c45f3"
+        },
+        {
+          "title": "Type Inheritance provides identification",
+          "type": "boolean",
+          "where": "this Type Inheritance provides identification",
+          "role_id": "4e2d6c86-d507-4c49-bfd1-715739e0cc46"
+        }
+      ]
+    },
+    "Unit": {
+      "is_main": false,
+      "id": "1afe6069-20ab-413e-8f2b-96855227c5e2",
+      "functions": [
+        {
+          "title": "Ephemera URL",
+          "type": "Ephemera URL",
+          "where": "this Unit uses coefficient from one Ephemera URL",
+          "role_id": "a07efc30-a0b1-49dd-97e8-49629eea328b"
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Unit is called one Name",
+          "role_id": "4b29eda6-ac25-4e10-a6ba-09c00a531cbd"
+        },
+        {
+          "title": "Coefficient",
+          "type": "Coefficient",
+          "where": "this Unit has one Coefficient",
+          "role_id": "2e201b02-4457-41d5-bdfe-4cffc4d5f698"
+        },
+        {
+          "title": "Offset",
+          "type": "Offset",
+          "where": "this Unit has one Offset",
+          "role_id": "143eda44-9388-4d8b-bb57-5c7fd75e3ac8"
+        },
+        {
+          "title": "Plural Name",
+          "type": "Name",
+          "where": "this Plural Named Unit has one plural-Name",
+          "role_id": "746c76d3-7369-4a6c-b867-4eb8f09a063d"
+        },
+        {
+          "title": "Concept",
+          "type": "Concept",
+          "where": "this Unit is an instance of one Concept",
+          "role_id": "79eccd1e-2a6b-45ea-b453-8cd59deea798"
+        },
+        {
+          "title": "all Derivation",
+          "type": "Derivation",
+          "where": "this Derived Unit is derived from some Base Unit",
+          "role_id": "f21a18a7-ad03-4a58-b79d-d80528edb1ed",
+          "is_list": true
+        },
+        {
+          "title": "all Derivation",
+          "type": "Derivation",
+          "where": "some Derived Unit is derived from this Base Unit",
+          "role_id": "9ac2b019-e521-4fde-b6e2-842ec16b0334",
+          "is_list": true
+        },
+        {
+          "title": "Unit is fundamental",
+          "type": "boolean",
+          "where": "this Unit is fundamental",
+          "role_id": "43843dda-facf-401f-8c8f-4956c61dd843"
+        },
+        {
+          "title": "all Value Type",
+          "type": "Value Type",
+          "where": "some Value Type is of this Unit",
+          "role_id": "e35c1c36-5aa8-4990-991a-28a0be94da3e",
+          "is_list": true
+        },
+        {
+          "title": "all Value",
+          "type": "Value",
+          "where": "this Unit is of some Value",
+          "role_id": "a3949662-2a50-4a9f-a9fc-95f918bbc22f",
+          "is_list": true
+        },
+        {
+          "title": "Vocabulary",
+          "type": "Vocabulary",
+          "where": "this Unit is in one Vocabulary",
+          "role_id": "d86b40ab-d2ee-407c-97b1-5bf86221d2e9"
+        }
+      ]
+    },
+    "Value": {
+      "is_main": true,
+      "id": "f9c1ea1b-0a3c-4722-8a94-158b24eb850d",
+      "functions": [
+        {
+          "title": "all Bound",
+          "type": "Bound",
+          "where": "this Value is of some Bound",
+          "role_id": "0bae377c-de47-44ef-aa53-444f9a6c896c",
+          "is_list": true
+        },
+        {
+          "title": "all Discriminated Role",
+          "type": "Discriminated Role",
+          "where": "some Discriminator distinguishes some Role using this Value",
+          "role_id": "3a104df6-ee0d-4852-a160-f194d760ac64",
+          "is_list": true
+        },
+        {
+          "title": "all Instance",
+          "type": "Instance",
+          "where": "some Instance has this Value",
+          "role_id": "2bf1a874-78dd-41b4-b4a5-ee82da1512ca",
+          "is_list": true
+        },
+        {
+          "title": "all Value Type Parameter Restriction",
+          "type": "Value Type Parameter Restriction",
+          "where": "some Value Type Parameter Restriction has this Value",
+          "role_id": "7da8288c-bcb2-47a8-9e7b-d59c00b5e565",
+          "is_list": true
+        },
+        {
+          "title": "Unit",
+          "type": "Unit",
+          "where": "this Value is in one Unit",
+          "role_id": "329f9f23-90e4-423c-b871-d8a77c12121a"
+        },
+        {
+          "title": "Value is literal string",
+          "type": "boolean",
+          "where": "this Value is literal string",
+          "role_id": "13c47d1d-ec79-449e-b948-1244f19016c2"
+        },
+        {
+          "title": "Value Type",
+          "type": "Value Type",
+          "where": "this Value is of one Value Type",
+          "role_id": "f80b6f3b-d335-42e3-ab43-9f6979ddbaf4"
+        },
+        {
+          "title": "Literal",
+          "type": "Literal",
+          "where": "this Value is represented by one Literal",
+          "role_id": "96b2726e-5f5a-4921-a990-7a2a73dead18"
+        },
+        {
+          "title": "all Variable",
+          "type": "Variable",
+          "where": "some Variable is bound to this Value",
+          "role_id": "fb7b5278-88ac-4b7b-84b2-1623124009df",
+          "is_list": true
+        }
+      ]
+    },
+    "Value Constraint": {
+      "is_main": false,
+      "id": "fbdce19e-5659-429c-b447-11cad89d6817",
+      "functions": [
+        {
+          "title": "as Constraint",
+          "type": "Constraint"
+        },
+        {
+          "title": "Role",
+          "type": "Role",
+          "where": "this Value Constraint applies to one Role",
+          "role_id": "488207e3-5e62-447d-8c11-c9799c000eaf"
+        },
+        {
+          "title": "all Value Range",
+          "type": "Value Range",
+          "where": "this Value Constraint allows some Value Range",
+          "role_id": "26031ad2-b09c-4a0a-b446-3fedbb530ee3",
+          "is_list": true
+        },
+        {
+          "title": "Regular Expression",
+          "type": "Regular Expression",
+          "where": "this Value Constraint requires matching one Regular Expression",
+          "role_id": "757b354c-1277-4126-8957-7047eb4cb236"
+        },
+        {
+          "title": "Value Type",
+          "type": "Value Type",
+          "where": "this Value Constraint constrains one Value Type",
+          "role_id": "c71a8c56-4936-44b2-a028-4e63f7634fa7"
+        }
+      ]
+    },
+    "Value Constraint Shape": {
+      "is_main": false,
+      "id": "53748bc5-79bc-4610-b5cf-62cacce7d1ed",
+      "functions": [
+        {
+          "title": "as Constraint Shape",
+          "type": "Constraint Shape"
+        },
+        {
+          "title": "as Shape",
+          "type": "Shape"
+        },
+        {
+          "title": "Role Display",
+          "type": "Role Display",
+          "where": "this Value Constraint Shape is for one Role Display",
+          "role_id": "4a82e12e-63e6-426f-87f6-6299b9fa37cf"
+        },
+        {
+          "title": "Object Type Shape",
+          "type": "Object Type Shape",
+          "where": "this Value Constraint Shape is for one Object Type Shape",
+          "role_id": "6d990c18-61ad-469d-b434-f9e619b3fa56"
+        }
+      ]
+    },
+    "Value Range": {
+      "is_main": false,
+      "id": "d77f5d72-f9b9-43ae-94d3-293ffc2c375c",
+      "functions": [
+        {
+          "title": "all Value Constraint",
+          "type": "Value Constraint",
+          "where": "some Value Constraint allows this Value Range",
+          "role_id": "f8c27246-9c3c-4fae-8080-0b4f9c4b9c2b",
+          "is_list": true
+        },
+        {
+          "title": "Maximum Bound",
+          "type": "Bound",
+          "where": "this Value Range has one maximum-Bound",
+          "role_id": "54eabab1-c350-4303-ba5d-7886b04dbf7f"
+        },
+        {
+          "title": "Minimum Bound",
+          "type": "Bound",
+          "where": "this Value Range has one minimum-Bound",
+          "role_id": "28fb01bf-61b4-4733-8977-2cde10ae5aa7"
+        }
+      ]
+    },
+    "Value Type": {
+      "is_main": false,
+      "id": "6415d525-441e-4aa5-9aa4-ad8f8f4117ab",
+      "functions": [
+        {
+          "title": "as Domain Object Type",
+          "type": "Domain Object Type"
+        },
+        {
+          "title": "as Object Type",
+          "type": "Object Type"
+        },
+        {
+          "title": "as Implicit Boolean Value Type",
+          "type": "Implicit Boolean Value Type"
+        },
+        {
+          "title": "all Value Type Parameter as Facet Value Type",
+          "type": "Value Type Parameter",
+          "where": "some Value Type Parameter requires value of this facet-Value Type",
+          "role_id": "32afe17d-78c7-4f02-8d31-1976f1381686",
+          "is_list": true
+        },
+        {
+          "title": "Length",
+          "type": "Length",
+          "where": "this Value Type has one Length",
+          "role_id": "99cd49d7-33ab-4a19-b7b1-15c28933f121"
+        },
+        {
+          "title": "Scale",
+          "type": "Scale",
+          "where": "this Value Type has one Scale",
+          "role_id": "dfdc74cd-12df-4fb7-bc77-9b71ec331d5f"
+        },
+        {
+          "title": "Value Constraint",
+          "type": "Value Constraint",
+          "where": "this Value Type has one Value Constraint",
+          "role_id": "cd79d4f9-81f6-4e69-bf70-082f403c7d73"
+        },
+        {
+          "title": "all Value Type Parameter",
+          "type": "Value Type Parameter",
+          "where": "this Value Type has facet called some Name",
+          "role_id": "211ae142-c515-490f-945a-a357ec29a924",
+          "is_list": true
+        },
+        {
+          "title": "Transaction Phase",
+          "type": "Transaction Phase",
+          "where": "this Value Type is auto-assigned at one Transaction Phase",
+          "role_id": "2030a2cc-496b-4e57-bbc0-12f059b2fa3d"
+        },
+        {
+          "title": "Unit",
+          "type": "Unit",
+          "where": "this Value Type is of one Unit",
+          "role_id": "9002a509-6222-4fa7-b700-4f510dc879a0"
+        },
+        {
+          "title": "Supertype",
+          "type": "Value Type",
+          "where": "this Value Type is subtype of one Supertype",
+          "role_id": "62a58365-6808-4857-9a3b-91cfde333fe8"
+        },
+        {
+          "title": "all Value Type",
+          "type": "Value Type",
+          "where": "this Supertype is supertype of some Value Type",
+          "role_id": "447e915a-4e2a-4fe8-9c9e-df1c0605dc27",
+          "is_list": true
+        },
+        {
+          "title": "all Value Type Parameter Restriction",
+          "type": "Value Type Parameter Restriction",
+          "where": "this Value Type receives some Value Type Parameter",
+          "role_id": "9e94326e-8a9e-4964-993a-c28a2d3a068a",
+          "is_list": true
+        },
+        {
+          "title": "all Value",
+          "type": "Value",
+          "where": "this Value Type has some Value",
+          "role_id": "b732a0fc-df76-41a2-90c7-6ec839e7e8af",
+          "is_list": true
+        }
+      ]
+    },
+    "Value Type Parameter": {
+      "is_main": true,
+      "id": "dc27c995-4517-4965-b107-f189a90e65ec",
+      "functions": [
+        {
+          "title": "involving Value Type",
+          "type": "Value Type",
+          "where": "this Value Type has facet called some Name"
+        },
+        {
+          "title": "involving Name",
+          "type": "Name",
+          "where": "this Name is a facet of some Value Type"
+        },
+        {
+          "title": "Facet Value Type",
+          "type": "Value Type",
+          "where": "this Value Type Parameter requires value of one facet-Value Type",
+          "role_id": "56666983-6f82-43bf-95b3-ed5163ddb4ee"
+        },
+        {
+          "title": "all Value Type Parameter Restriction",
+          "type": "Value Type Parameter Restriction",
+          "where": "this Value Type Parameter applies to some Value Type",
+          "role_id": "cc663bc5-28dc-4027-9892-aa8f4e3e5e64",
+          "is_list": true
+        }
+      ]
+    },
+    "Value Type Parameter Restriction": {
+      "is_main": true,
+      "id": "5885954e-102a-46fd-ad6c-8f69dadb65e9",
+      "functions": [
+        {
+          "title": "involving Value Type",
+          "type": "Value Type",
+          "where": "this Value Type receives some Value Type Parameter"
+        },
+        {
+          "title": "involving Value Type Parameter",
+          "type": "Value Type Parameter",
+          "where": "this Value Type Parameter applies to some Value Type"
+        },
+        {
+          "title": "Value",
+          "type": "Value",
+          "where": "this Value Type Parameter Restriction has one Value",
+          "role_id": "cc5d5f9c-b9a8-4309-98ab-6430403a90e6"
+        }
+      ]
+    },
+    "Variable": {
+      "is_main": true,
+      "id": "3b50ca78-8028-4117-800e-8de6d05063fd",
+      "functions": [
+        {
+          "title": "Query",
+          "type": "Query",
+          "where": "this Variable is in one Query",
+          "role_id": "80189f68-962c-4714-979a-d67c67943e1b"
+        },
+        {
+          "title": "Ordinal",
+          "type": "Ordinal",
+          "where": "this Variable has one Ordinal position",
+          "role_id": "dc44d2a0-1d7e-4770-8b65-c73a4c5bc2a0"
+        },
+        {
+          "title": "Subscript",
+          "type": "Subscript",
+          "where": "this Variable has one Subscript",
+          "role_id": "28f96e9d-552f-456a-b1ff-92f0886c3439"
+        },
+        {
+          "title": "Role Name",
+          "type": "Name",
+          "where": "this Variable has one role-Name",
+          "role_id": "40193403-3d86-4423-9a62-281006419f4a"
+        },
+        {
+          "title": "all Aggregation",
+          "type": "Aggregation",
+          "where": "this Variable is bound to some Aggregate over some aggregated-Variable",
+          "role_id": "25ab9ea9-39da-431f-9179-fca1321f49d5",
+          "is_list": true
+        },
+        {
+          "title": "all Aggregation",
+          "type": "Aggregation",
+          "where": "some Variable is bound to some Aggregate over this aggregated-Variable",
+          "role_id": "876c3eb9-7883-4a1d-8556-9ed2a6ca6863",
+          "is_list": true
+        },
+        {
+          "title": "Value",
+          "type": "Value",
+          "where": "this Variable is bound to one Value",
+          "role_id": "038ce0d2-70b9-4c91-a1e2-2eef584b1bd2"
+        },
+        {
+          "title": "Object Type",
+          "type": "Object Type",
+          "where": "this Variable is for one Object Type",
+          "role_id": "ffe064a5-ae8a-459d-98f0-8fc50ad08fe2"
+        },
+        {
+          "title": "all Play",
+          "type": "Play",
+          "where": "this Variable is restricted by some Role of some Step",
+          "role_id": "42c94bcf-f603-491f-8cbd-b77905fcfd48",
+          "is_list": true
+        },
+        {
+          "title": "Step",
+          "type": "Step",
+          "where": "this Objectification Variable matches nesting over one Step",
+          "role_id": "12b9a687-f9de-41de-8a83-de40d07f367b"
+        },
+        {
+          "title": "Projection",
+          "type": "Role",
+          "where": "this Variable projects one Projection",
+          "role_id": "63765445-1926-4312-9d94-0e4841c7c8eb"
+        }
+      ]
+    },
+    "Vocabulary": {
+      "is_main": false,
+      "id": "2f5a7a0f-6cbe-421a-8009-480821925e99",
+      "functions": [
+        {
+          "title": "all Diagram",
+          "type": "Diagram",
+          "where": "this Vocabulary contains some Diagram",
+          "role_id": "2f6883b2-392b-487c-a67b-635da39e2ba8",
+          "is_list": true
+        },
+        {
+          "title": "all Object Type",
+          "type": "Object Type",
+          "where": "some Object Type belongs to this Vocabulary",
+          "role_id": "4d136830-7cdf-48d7-984f-21b99a4ef32e",
+          "is_list": true
+        },
+        {
+          "title": "all Constraint",
+          "type": "Constraint",
+          "where": "this Vocabulary contains some Constraint",
+          "role_id": "c876d0b2-54ee-4807-8dac-0d1a9b14405d",
+          "is_list": true
+        },
+        {
+          "title": "all Population",
+          "type": "Population",
+          "where": "this Vocabulary includes some Population",
+          "role_id": "e3bb5315-2ffd-4bc3-90fd-4abff547ee5f",
+          "is_list": true
+        },
+        {
+          "title": "all Unit",
+          "type": "Unit",
+          "where": "this Vocabulary includes some Unit",
+          "role_id": "19b0a24b-9ae2-418c-8f9e-1b851e0fe9ad",
+          "is_list": true
+        },
+        {
+          "title": "Name",
+          "type": "Name",
+          "where": "this Vocabulary is called one Name",
+          "role_id": "12165c88-a65c-48db-b41e-0b9fa32f1495"
+        }
+      ]
+    },
+    "X": {
+      "is_main": false,
+      "id": "f2358712-0bc0-4d59-ab1e-d29e31eb9e71",
+      "functions": [
+        {
+          "title": "all Location",
+          "type": "Location",
+          "where": "some Location is at this X",
+          "role_id": "7bbbd21b-5561-48bd-8717-40d1466c35dd",
+          "is_list": true
+        }
+      ]
+    },
+    "Y": {
+      "is_main": false,
+      "id": "8a701116-8e14-447e-b5ac-c783c578fba6",
+      "functions": [
+        {
+          "title": "all Location",
+          "type": "Location",
+          "where": "some Location is at this Y",
+          "role_id": "cef2cd06-acfb-4948-aca1-c5aa1eb25dba",
+          "is_list": true
+        }
+      ]
+    }
+  }
+}

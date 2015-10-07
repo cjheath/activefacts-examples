@@ -1,0 +1,15 @@
+{ model: 'SimplestUnary',
+diagrams: [
+    {"uuid":"34cd7ccf-68d8-3417-ebe2-b6ac02","name":"SimplestUnary"}
+  ],
+  object_types: [
+    {"uuid":"41079d31-f72a-3956-87ff-36679e","name":"Some String","shapes":[{"diagram":"34cd7ccf-68d8-3417-ebe2-b6ac02","is_expanded":true,"uuid":"8d8d537f-969b-77f9-dae9-e61e4d","x":157,"y":89}],"supertype":"111f8d5d-43af-4212-5cb3-a99700"},
+    {"uuid":"111f8d5d-43af-4212-5cb3-a99700","name":"String","shapes":[]}
+  ],
+  fact_types: [
+    {"uuid":"0f69b96a-34df-3263-a42e-55c22e","roles":[{"uuid":"b028d520-0f36-6113-5277-28ebb7","player":"41079d31-f72a-3956-87ff-36679e"}],"readings":[["0","{0} is long"]],"shapes":[{"diagram":"34cd7ccf-68d8-3417-ebe2-b6ac02","uuid":"85965962-724c-1db3-6090-38c80f","x":299,"y":89}],"constraints":[{"uuid":"12ccc3f3-1560-1daf-8c13-6ddd41","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":null}]}
+  ],
+  constraints: [
+
+  ]
+}
