@@ -71,17 +71,11 @@ context "CQL Loader" do
 	expected_text = File.open(expected_file) {|f| f.read }
 
 	broken = generate_failures[File.basename(actual_file, ".cql")]
-	if broken
-	  pending(broken) {
-	    subject { actual_text }
-	    it { should_not differ_from(expected_text) }
-	  }
-	else
-	  subject { actual_text }
-	  it { should_not differ_from(expected_text) }
-	  if expected_text == actual_text
-	    File.delete(actual_file)  # It succeeded, we don't need the file.
-	  end
+	pending(broken) if broken
+	subject { actual_text }
+	it { should_not differ_from(expected_text) }
+	if expected_text == actual_text
+	  File.delete(actual_file)  # It succeeded, we don't need the file.
 	end
       end
     end
