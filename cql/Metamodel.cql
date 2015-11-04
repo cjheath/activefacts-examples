@@ -53,6 +53,17 @@ Coefficient is identified by Numerator and Denominator and Coefficient is precis
 	Coefficient has one Denominator,
 	Coefficient is precise;
 
+Component is identified by Guid where
+	Component has one Guid,
+	Guid is of at most one Component;
+Component projects at most one Name;
+
+Composition is identified by Guid where
+	Composition has one Guid,
+	Guid is of at most one Composition;
+Composition is called one Name,
+	Name is of at most one Composition;
+
 Concept is identified by Guid where
 	Concept has one Guid,
 	Guid is of at most one Concept;
@@ -75,6 +86,8 @@ Context Note has one Discussion,
 Context Note applies to at most one relevant-Concept,
 	Concept has Context Note;
 
+Discriminator is a kind of Component;
+
 Enforcement is identified by Constraint where
 	Constraint requires at most one Enforcement,
 	Enforcement applies to one Constraint;
@@ -92,6 +105,8 @@ Fact is of one Fact Type;
 Implication Rule is identified by its Name;
 Concept is implied by at most one Implication Rule;
 
+Indicator is a kind of Component;
+
 Instance is identified by Concept where
 	Instance is an instance of one Concept;
 Instance objectifies at most one Fact,
@@ -102,6 +117,10 @@ Link Fact Type is a kind of Fact Type;
 Location is identified by X and Y where
 	Location is at one X,
 	Location is at one Y;
+
+Mapping is a kind of Component;
+Mapping (as Parent) contains Component (as Member) [acyclic, stronglyintransitive],
+	Member belongs to at most one Parent;
 
 Presence Constraint is a kind of Constraint;
 Presence Constraint has at most one max-Frequency restricted to {1..};
@@ -128,6 +147,7 @@ Role is identified by Fact Type and Ordinal where
 	Fact Type contains Role,
 	Role fills one Ordinal,
 	Ordinal applies to Role;
+Indicator indicates one Role played;
 Link Fact Type has one implying-Role,
 	implying-Role implies at most one Link Fact Type;
 Ring Constraint has at most one other-Role,
@@ -153,6 +173,8 @@ Role Value is identified by Fact and Role where
 	Role Value is of one Role;
 Instance plays Role Value,
 	Role Value is of one Instance;
+
+Scoping is a kind of Mapping;
 
 Set Constraint is a kind of Constraint;
 
@@ -229,6 +251,12 @@ Vocabulary contains Constraint,
 Vocabulary includes Unit,
 	Unit is in one Vocabulary;
 
+Absorption is a kind of Mapping;
+Absorption traverses to one child-Role;
+Absorption traverses from one parent-Role;
+Absorption is matched by at most one reverse-Absorption;
+Absorption flattens;
+
 Aggregation is where
 	Variable is bound to Aggregate over aggregated-Variable,
 	Aggregate of aggregated-Variable is bound as one Variable;
@@ -243,6 +271,12 @@ Bound is identified by Value and Bound is inclusive where
 	Bound has one Value,
 	Value is of at least one Bound,
 	Bound is inclusive;
+
+Composite is identified by Mapping where
+	Mapping projects at most one Composite,
+	Composite consists of one Mapping;
+Composition contains Composite,
+	Composite belongs to one Composition;
 
 Constraint Shape is a kind of Shape;
 Constraint Shape is for one Constraint;
@@ -266,14 +300,29 @@ Diagram is identified by Vocabulary and Name where
 	Diagram is called one Name,
 	Name is of Diagram;
 
+Discriminated Role is where
+	Discriminator distinguishes Role using one Value,
+	Role is indicated by Value for Discriminator;
+
 Fact Type Shape is a kind of Shape;
 Fact Type Shape has at most one Display Role Names Setting;
 Fact Type Shape is for one Fact Type,
 	Fact Type has Fact Type Shape;
 Fact Type Shape has at most one Rotation Setting;
 
+Injection is a kind of Mapping;
+
+Mirror Role is a kind of Role;
+Mirror Role is for at most one Role (as Base Role),
+	Base Role implies at most one Mirror Role;
+
 Model Note Shape is a kind of Shape;
 Model Note Shape is for one Context Note;
+
+Nesting is where
+	Absorption is nested under index-Role in Ordinal position,
+	Absorption in Ordinal position is nested under one Role,
+	Role keys nesting of Absorption at Ordinal priority;
 
 ORM Diagram is a kind of Diagram;
 Shape is in one ORM Diagram,
@@ -283,6 +332,7 @@ Object Type is identified by Vocabulary and Name where
 	Object Type belongs to one Vocabulary,
 	Object Type is called one Name;
 Instance is of one Object Type;
+Mapping represents one Object Type;
 Object Type is an instance of one Concept;
 Object Type uses at most one Pronoun;
 Object Type plays Role,
@@ -374,8 +424,8 @@ Allowed Range is where
 Domain Object Type is a kind of Object Type;
 
 Entity Type is a kind of Domain Object Type;
-Entity Type nests at most one Fact Type,
-	Fact Type is nested as at most one Entity Type;
+Entity Type objectifies at most one Fact Type,
+	Fact Type is objectified as at most one Entity Type;
 
 Type Inheritance is a kind of Fact Type identified by Subtype and Supertype where
 	Entity Type (as Subtype) is subtype of super-Entity Type (as Supertype) [acyclic, intransitive],
@@ -408,11 +458,14 @@ Value Type Parameter Restriction is where
 	Value Type Parameter applies to Value Type;
 Value Type Parameter Restriction has one Value;
 
-Implicit Boolean Value Type is a kind of Value Type;
-
 /*
  * Constraints:
  */
+either Component belongs to Mapping(1) or Component is a Mapping(2) that projects Composite but not both;
+for each Component exactly one of these holds:
+	Component is a Mapping,
+	Component is an Indicator,
+	Component is a Discriminator;
 for each Concept exactly one of these holds:
 	Object Type is an instance of Concept,
 	Fact Type is an instance of Concept,
@@ -424,12 +477,18 @@ for each Concept exactly one of these holds:
 	Fact is an instance of Concept,
 	Population is an instance of Concept,
 	Query is an instance of Concept;
+either Constraint Shape is a Ring Constraint Shape or Constraint Shape is a Value Constraint Shape but not both;
 for each Constraint exactly one of these holds:
 	Constraint is a Set Constraint,
 	Constraint is a Presence Constraint,
 	Constraint is a Ring Constraint,
 	Constraint is a Value Constraint;
 either Domain Object Type is a Value Type or Domain Object Type is an Entity Type but not both;
+for each Mapping exactly one of these holds:
+	Mapping is an Absorption,
+	Mapping is an Injection,
+	Mapping is a Scoping,
+	Mapping projects Composite;
 for each Role Sequence exactly one of these holds:
 	Role Sequence is for Reading,
 	Presence Constraint covers Role Sequence,
@@ -451,6 +510,9 @@ either Unit is fundamental or Unit is derived from base-Unit but not both;
 either Value Constraint Shape is for Object Type Shape or Value Constraint Shape is for Role Display but not both;
 either Value Constraint allows Value Range or Value Constraint requires matching Regular Expression but not both;
 either Value Constraint constrains Value Type or Value Constraint applies to Role but not both;
+for each Mapping at most one of these holds:
+	Mapping is an Absorption that flattens,
+	Mapping projects Composite;
 for each Instance at most one of these holds:
 	Instance has Value,
 	Instance objectifies Fact;
@@ -466,19 +528,32 @@ Step specifies Fact Type that contains Role
 Variable is for Object Type that plays Role
 	if and only if
 	Variable is restricted by Role of Step;
+/*
+Absorption traverses from parent Role that is played by Object Type and Mapping(1) is a kind of Component(2) and Mapping(1) is an Absorption
+	only if Member belongs to Mapping(2) that represents Object Type;
+Absorption traverses to child Role that is played by Object Type and Absorption is a kind of Mapping(2)
+	only if Mapping(1) represents Object Type;
+*/
 Presence Constraint is preferred identifier
 	only if Presence Constraint has max Frequency;
 Value Type has Scale
 	only if Value Type has Length;
 Variable matches nesting over Step
 	only if Variable is for Object Type and Step specifies Fact Type;
+each Absorption(1) occurs at most one time in
+	Absorption(2) is matched by reverse Absorption(1);
 either Agreement was reached by Agent or Agreement was on Date;
+// either Component projects Name or Component is some Absorption that flattens;
 each Concept occurs at most one time in
 	Object Type is an instance of Concept;
 each Concept occurs at most one time in
 	Population is an instance of Concept;
 each Concept occurs at most one time in
 	Role is an instance of Concept;
+each Discriminator occurs at least 2 times in
+	Discriminator distinguishes Role using Value;
+each combination Discriminator, Value occurs one time in
+	Discriminator distinguishes Role using Value;
 each combination Entity Type(1), Type Inheritance occurs at most one time in
 	Entity Type(1) is subtype of super Entity Type(2),
 	Type Inheritance provides identification;
@@ -500,68 +575,3 @@ each combination Vocabulary, Name occurs at most one time in
 each combination Vocabulary, Name occurs at most one time in
 	Unit is in Vocabulary,
 	Unit is called Name;
-
-/*
- * Compositions
- */
-Component is identified by Guid where
-	Component has one Guid,
-	Guid is of at most one Component;
-Component projects at most one Name;
-
-Composition is identified by Guid where
-	Composition has one Guid,
-	Guid is of at most one Composition;
-Composition is called one Name,
-	Name is of at most one Composition;
-
-Discriminator is a kind of Component;
-
-Indicator is a kind of Component;
-Indicator indicates one Role played;
-
-Mapping is a kind of Component;
-Mapping contains Component (as Member) [acyclic, stronglyintransitive],
-	Member belongs to at most one parent-Mapping;
-Mapping represents one Object Type;
-
-Nesting is a kind of Mapping;
-
-Absorption is a kind of Mapping;
-Absorption traverses to one child-Role;
-Absorption is nested under at most one index-Role;
-Absorption traverses from one parent-Role;
-Absorption flattens;
-
-Composite is identified by Mapping where
-	Mapping projects at most one Composite,
-	Composite consists of one Mapping;
-Composition contains Composite,
-	Composite belongs to one Composition;
-
-Discriminated Role is where
-	Discriminator distinguishes Role using one Value,
-	Role is indicated by Value for Discriminator;
-
-Injection is a kind of Mapping;
-for each Component exactly one of these holds:
-	that Component is a Mapping,
-	that Component is an Indicator,
-	that Component is a Discriminator;
-either Component is a Mapping(2) that projects some Composite or Component belongs to parent Mapping(1) but not both;
-for each Mapping exactly one of these holds:
-	that Mapping is an Absorption,
-	that Mapping is an Injection,
-	that Mapping is a Nesting,
-	that Mapping projects some Composite;
-for each Mapping at most one of these holds:
-	that Mapping projects some Composite,
-	that Mapping is an Absorption and that Absorption flattens;
-some Mapping represents some Object Type
-	if and only if
-	that Mapping is an Absorption that traverses to some child- Role and that Role is played by that Object Type;
-either Component projects some Name or that Component flattens;
-each Discriminator occurs at least 2 times in
-	Discriminator distinguishes Role using Value;
-each combination Discriminator, Value occurs one time in
-	Discriminator distinguishes Role using Value;

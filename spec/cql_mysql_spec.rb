@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/cql'
 require 'activefacts/generators/sql/mysql'
 
-ACTUAL_PATH = 'actual/sql/mysql'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_MYSQL_PATH = 'actual/sql/mysql'
+FileUtils.mkdir_p(ACTUAL_MYSQL_PATH)
 
 # Generate and return the SQL for the given vocabulary
-def generate(vocabulary)
+def generate_mysql(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::SQL::MYSQL.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -23,6 +23,7 @@ def generate(vocabulary)
 end
 
 context "CQL Loader" do
+
   load_failures = {
     "Airline" => "Contains unsupported queries",
     "CompanyQuery" => "Contains unsupported queries",
@@ -37,7 +38,7 @@ context "CQL Loader" do
 
   source_files.each do |source_file|
     expected_file = source_file.sub(%r{cql/(.*).cql\Z}, 'sql/mysql/\1.sql')
-    actual_file = source_file.sub(%r{cql/(.*).cql\Z}, ACTUAL_PATH+'/\1.sql')
+    actual_file = source_file.sub(%r{cql/(.*).cql\Z}, ACTUAL_MYSQL_PATH+'/\1.sql')
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
     describe "compiling #{source_file} to a model" do
@@ -62,7 +63,7 @@ context "CQL Loader" do
 
       context "and generating #{actual_file}" do
 	# Build and save the actual file:
-	actual_text = generate(vocabulary)
+	actual_text = generate_mysql(vocabulary)
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	pending("expected output file #{expected_file} not found") and next unless File.exists? expected_file
 	expected_text = File.open(expected_file) {|f| f.read }

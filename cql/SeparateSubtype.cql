@@ -22,7 +22,7 @@ Person is identified by its Name;
 Vehicle Incident is a kind of Incident [separate];
 
 Witness is a kind of Person;
-Witness saw Incident,
+Witness saw at least one Incident,
 	Incident was independently witnessed by at most one Witness;
 
 Driver is a kind of Person;

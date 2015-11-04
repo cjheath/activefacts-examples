@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/orm'
 require 'activefacts/generators/cql'
 
-ACTUAL_PATH = 'actual/orm/cql'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_ORM_CQL_PATH = 'actual/orm/cql'
+FileUtils.mkdir_p(ACTUAL_ORM_CQL_PATH)
 
 # Generate and return the CQL for the given vocabulary
-def generate(vocabulary)
+def generate_cql(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::CQL.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -23,6 +23,7 @@ def generate(vocabulary)
 end
 
 context "ORM Loader" do
+
   load_failures = {
     "SubtypePI" => "Has an illegal uniqueness constraint",
   }
@@ -38,7 +39,7 @@ context "ORM Loader" do
     base = File.basename(source_file, ".orm")
     expected_file = 'canonical/'+base+'.cql'
     expected_file = 'cql/'+base+'.cql' unless File.exists? expected_file
-    actual_file = ACTUAL_PATH+'/'+base+'.cql'
+    actual_file = ACTUAL_ORM_CQL_PATH+'/'+base+'.cql'
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
 
@@ -56,7 +57,7 @@ context "ORM Loader" do
 
       it "should generate the expected #{actual_file}" do
 	actual_text = nil
-	expect { actual_text = generate(vocabulary) }.to_not raise_error
+	expect { actual_text = generate_cql(vocabulary) }.to_not raise_error
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	unless File.exists? expected_file
 	  skip "expected output file #{expected_file} not found"

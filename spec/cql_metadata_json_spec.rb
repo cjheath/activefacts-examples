@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/cql'
 require 'activefacts/generators/metadata/json'
 
-ACTUAL_PATH = 'actual/metadata/json'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_METADATA_JSON_PATH = 'actual/metadata/json'
+FileUtils.mkdir_p(ACTUAL_METADATA_JSON_PATH)
 
 # Generate and return the JSON Metadata for the given vocabulary
-def generate(vocabulary)
+def generate_metadata_json(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::Metadata::JSON.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -31,6 +31,7 @@ def sequential_uuids t
 end
 
 context "CQL Loader" do
+
   load_failures = {
     "Airline" => "Contains queries, not supported",
     "CompanyQuery" => "Contains queries, not supported",
@@ -44,7 +45,7 @@ context "CQL Loader" do
 
   source_files.each do |source_file|
     expected_file = source_file.sub(%r{cql/(.*).cql\Z}, 'metadata/json/\1.json')
-    actual_file = source_file.sub(%r{cql/(.*).cql}, ACTUAL_PATH+'/\1.json')
+    actual_file = source_file.sub(%r{cql/(.*).cql}, ACTUAL_METADATA_JSON_PATH+'/\1.json')
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
     describe "compiling #{source_file} to a model" do
@@ -69,7 +70,7 @@ context "CQL Loader" do
 
       context "and generating #{actual_file}" do
 	# Build and save the actual file:
-	actual_text = generate(vocabulary)
+	actual_text = generate_metadata_json(vocabulary)
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	pending("expected output file #{expected_file} not found") and next unless File.exists? expected_file
 	expected_text = File.open(expected_file) {|f| f.read }

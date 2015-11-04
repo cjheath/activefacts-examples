@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/orm'
 require 'activefacts/generators/ruby'
 
-ACTUAL_PATH = 'actual/orm/ruby'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_ORM_RUBY_PATH = 'actual/orm/ruby'
+FileUtils.mkdir_p(ACTUAL_ORM_RUBY_PATH)
 
 # Generate and return the Ruby for the given vocabulary
-def generate(vocabulary)
+def generate_ruby(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::RUBY.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -30,6 +30,7 @@ class String
 end
 
 context "ORM Loader" do
+
   load_failures = {
     "SubtypePI" => "Has an illegal uniqueness constraint",
   }
@@ -44,7 +45,7 @@ context "ORM Loader" do
   source_files.each do |source_file|
     base = File.basename(source_file, ".orm")
     expected_file = source_file.sub(%r{orm/(.*).orm\Z}, 'ruby/\1.rb')
-    actual_file = source_file.sub(%r{orm/(.*).orm\Z}, ACTUAL_PATH+'/\1.rb')
+    actual_file = source_file.sub(%r{orm/(.*).orm\Z}, ACTUAL_ORM_RUBY_PATH+'/\1.rb')
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
 
@@ -62,7 +63,7 @@ context "ORM Loader" do
 
       it "should generate the expected #{actual_file}" do
 	actual_text = nil
-	expect { actual_text = generate(vocabulary) }.to_not raise_error
+	expect { actual_text = generate_ruby(vocabulary) }.to_not raise_error
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	unless File.exists? expected_file
 	  skip "expected output file #{expected_file} not found"

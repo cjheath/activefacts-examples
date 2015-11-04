@@ -177,8 +177,8 @@ module ::Metamodel
   class Component
     identified_by :guid
     one_to_one :guid, :mandatory => true        # See Guid.component
-    has_one :mapping, :counterpart => :member   # See Mapping.all_member
     has_one :name                               # See Name.all_component
+    has_one :parent, :class => "Mapping", :counterpart => :member  # See Mapping.all_member
   end
 
   class Composition
@@ -268,9 +268,6 @@ module ::Metamodel
     has_one :object_type, :mandatory => true    # See ObjectType.all_mapping
   end
 
-  class Nesting < Mapping
-  end
-
   class PresenceConstraint < Constraint
     maybe :is_mandatory
     maybe :is_preferred_identifier
@@ -321,6 +318,9 @@ module ::Metamodel
     has_one :instance, :mandatory => true       # See Instance.all_role_value
     has_one :population, :mandatory => true     # See Population.all_role_value
     has_one :role, :mandatory => true           # See Role.all_role_value
+  end
+
+  class Scoping < Mapping
   end
 
   class SetConstraint < Constraint
@@ -396,10 +396,11 @@ module ::Metamodel
   end
 
   class Absorption < Mapping
+    one_to_one :absorption, :counterpart => :reverse_absorption  # See Absorption.reverse_absorption
     has_one :child_role, :class => Role, :mandatory => true  # See Role.all_absorption_as_child_role
     maybe :flattens
-    has_one :index_role, :class => Role         # See Role.all_absorption_as_index_role
     has_one :parent_role, :class => Role, :mandatory => true  # See Role.all_absorption_as_parent_role
+    one_to_one :reverse_absorption, :class => Absorption  # See Absorption.absorption_as_reverse_absorption
   end
 
   class Aggregation
@@ -473,8 +474,19 @@ module ::Metamodel
   class Injection < Mapping
   end
 
+  class MirrorRole < Role
+    one_to_one :base_role, :class => Role       # See Role.mirror_role_as_base_role
+  end
+
   class ModelNoteShape < Shape
     has_one :context_note, :mandatory => true   # See ContextNote.all_model_note_shape
+  end
+
+  class Nesting
+    identified_by :absorption, :ordinal
+    has_one :absorption, :mandatory => true     # See Absorption.all_nesting
+    has_one :index_role, :class => Role, :mandatory => true  # See Role.all_nesting_as_index_role
+    has_one :ordinal, :mandatory => true        # See Ordinal.all_nesting
   end
 
   class ORMDiagram < Diagram
@@ -613,9 +625,6 @@ module ::Metamodel
     has_one :value_type, :mandatory => true     # See ValueType.all_value_type_parameter_restriction
     has_one :value_type_parameter, :mandatory => true  # See ValueTypeParameter.all_value_type_parameter_restriction
     has_one :value, :mandatory => true          # See Value.all_value_type_parameter_restriction
-  end
-
-  class ImplicitBooleanValueType < ValueType
   end
 
 end

@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/orm'
 require 'activefacts/generators/diagrams/json'
 
-ACTUAL_PATH = 'actual/diagrams/json'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_DIAGRAMS_JSON_PATH = 'actual/diagrams/json'
+FileUtils.mkdir_p(ACTUAL_DIAGRAMS_JSON_PATH)
 
 # Generate and return the JSON for the given vocabulary
-def generate(vocabulary)
+def generate_diagrams_json(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::Diagrams::JSON.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -31,6 +31,7 @@ def sequential_uuids t
 end
 
 context "ORM Loader" do
+
   load_failures = {
     "SubtypePI" => "Has an illegal uniqueness constraint",
   }
@@ -45,7 +46,7 @@ context "ORM Loader" do
   source_files.each do |source_file|
     base = File.basename(source_file, ".orm")
     expected_file = 'diagrams/json/'+base+'.json'
-    actual_file = ACTUAL_PATH+'/'+base+'.json'
+    actual_file = ACTUAL_DIAGRAMS_JSON_PATH+'/'+base+'.json'
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
 
@@ -63,7 +64,7 @@ context "ORM Loader" do
 
       it "should generate the expected #{actual_file}" do
 	actual_text = nil
-	expect { actual_text = generate(vocabulary) }.to_not raise_error
+	expect { actual_text = generate_diagrams_json(vocabulary) }.to_not raise_error
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	unless File.exists? expected_file
 	  skip "expected output file #{expected_file} not found"

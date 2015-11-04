@@ -1,9 +1,9 @@
 #
-# schema.rb auto-generated using ActiveFacts for Metamodel on 2015-10-08
+# schema.rb auto-generated using ActiveFacts for Metamodel on 2015-11-02
 #
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActiveRecord::Schema.define(:version => 20151008133030) do
+ActiveRecord::Schema.define(:version => 20151102200220) do
   enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
   create_table "aggregations", :id => false, :force => true do |t|
     t.column "aggregation_id", :primary_key, :null => false
@@ -33,17 +33,18 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
 
   create_table "components", :id => false, :force => true do |t|
     t.column "guid", :uuid, :default => 'gen_random_uuid()', :primary_key => true, :null => false
-    t.column "mapping_guid", :uuid, :null => true
+    t.column "parent_guid", :uuid, :null => true
     t.column "absorption_child_role_id", :integer, :null => true
     t.column "absorption_flattens", :boolean, :null => true
-    t.column "absorption_index_role_id", :integer, :null => true
     t.column "absorption_parent_role_id", :integer, :null => true
+    t.column "absorption_reverse_absorption_guid", :uuid, :null => true
     t.column "indicator_role_id", :integer, :null => true
     t.column "mapping_composition_guid", :uuid, :null => true
     t.column "mapping_object_type_id", :integer, :null => true
     t.column "name", :string, :limit => 64, :null => true
   end
 
+  add_index "components", ["absorption_reverse_absorption_guid"], :name => :index_components_on_absorption_reverse_absorption_guid
 
   create_table "compositions", :id => false, :force => true do |t|
     t.column "guid", :uuid, :default => 'gen_random_uuid()', :primary_key => true, :null => false
@@ -173,6 +174,15 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
   add_index "fact_types", ["type_inheritance_subtype_object_type_id", "type_inheritance_provides_identification"], :name => :index_fact_types_on_type_inheritance_subtype_object_t__04417c92
   add_index "fact_types", ["type_inheritance_subtype_object_type_id", "type_inheritance_supertype_object_type_id"], :name => :index_fact_types_on_type_inheritance_subtype_object_t__9c8eded7
 
+  create_table "nestings", :id => false, :force => true do |t|
+    t.column "nesting_id", :primary_key, :null => false
+    t.column "absorption_guid", :uuid, :null => false
+    t.column "index_role_id", :integer, :null => false
+    t.column "ordinal", :integer, :limit => 16, :null => false
+  end
+
+  add_index "nestings", ["absorption_guid", "ordinal"], :name => :index_nestings_on_absorption_guid_ordinal, :unique => true
+
   create_table "object_types", :id => false, :force => true do |t|
     t.column "object_type_id", :primary_key, :null => false
     t.column "concept_guid", :uuid, :null => false
@@ -229,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
     t.column "concept_guid", :uuid, :null => false
     t.column "fact_type_concept_guid", :uuid, :null => false
     t.column "link_fact_type_concept_guid", :uuid, :null => true
+    t.column "mirror_role_id", :integer, :null => true
     t.column "object_type_id", :integer, :null => false
     t.column "ordinal", :integer, :limit => 16, :null => false
     t.column "role_name", :string, :limit => 64, :null => true
@@ -237,6 +248,7 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
   add_index "roles", ["concept_guid"], :name => :index_roles_on_concept_guid, :unique => true
   add_index "roles", ["fact_type_concept_guid", "ordinal"], :name => :index_roles_on_fact_type_concept_guid_ordinal, :unique => true
   add_index "roles", ["link_fact_type_concept_guid"], :name => :index_roles_on_link_fact_type_concept_guid
+  add_index "roles", ["mirror_role_id"], :name => :index_roles_on_mirror_role_id
 
   create_table "role_displays", :id => false, :force => true do |t|
     t.column "role_display_id", :primary_key, :null => false
@@ -379,16 +391,15 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
     add_index :allowed_ranges, [:value_range_maximum_bound_value_id], :unique => false, :name => :index_allowed_ranges_on_value_range_maximum_bound_value_id
     add_foreign_key :allowed_ranges, :values, :column => :value_range_minimum_bound_value_id, :primary_key => :value_id, :on_delete => :cascade
     add_index :allowed_ranges, [:value_range_minimum_bound_value_id], :unique => false, :name => :index_allowed_ranges_on_value_range_minimum_bound_value_id
-    add_foreign_key :components, :components, :column => :mapping_guid, :primary_key => :guid, :on_delete => :cascade
-    add_index :components, [:mapping_guid], :unique => false, :name => :index_components_on_mapping_guid
+    add_foreign_key :components, :components, :column => :absorption_reverse_absorption_guid, :primary_key => :guid, :on_delete => :cascade
+    add_foreign_key :components, :components, :column => :parent_guid, :primary_key => :guid, :on_delete => :cascade
+    add_index :components, [:parent_guid], :unique => false, :name => :index_components_on_parent_guid
     add_foreign_key :components, :compositions, :column => :mapping_composition_guid, :primary_key => :guid, :on_delete => :cascade
     add_index :components, [:mapping_composition_guid], :unique => false, :name => :index_components_on_mapping_composition_guid
     add_foreign_key :components, :object_types, :column => :mapping_object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_index :components, [:mapping_object_type_id], :unique => false, :name => :index_components_on_mapping_object_type_id
     add_foreign_key :components, :roles, :column => :absorption_child_role_id, :primary_key => :role_id, :on_delete => :cascade
     add_index :components, [:absorption_child_role_id], :unique => false, :name => :index_components_on_absorption_child_role_id
-    add_foreign_key :components, :roles, :column => :absorption_index_role_id, :primary_key => :role_id, :on_delete => :cascade
-    add_index :components, [:absorption_index_role_id], :unique => false, :name => :index_components_on_absorption_index_role_id
     add_foreign_key :components, :roles, :column => :absorption_parent_role_id, :primary_key => :role_id, :on_delete => :cascade
     add_index :components, [:absorption_parent_role_id], :unique => false, :name => :index_components_on_absorption_parent_role_id
     add_foreign_key :components, :roles, :column => :indicator_role_id, :primary_key => :role_id, :on_delete => :cascade
@@ -435,17 +446,19 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
     add_foreign_key :discriminated_roles, :values, :column => :value_id, :primary_key => :value_id, :on_delete => :cascade
     add_index :discriminated_roles, [:value_id], :unique => false, :name => :index_discriminated_roles_on_value_id
     add_foreign_key :fact_types, :concepts, :column => :concept_guid, :primary_key => :guid, :on_delete => :cascade
-    add_index :fact_types, [:concept_guid], :unique => false, :name => :index_fact_types_on_concept_guid
     add_foreign_key :fact_types, :object_types, :column => :entity_type_object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_foreign_key :fact_types, :object_types, :column => :type_inheritance_subtype_object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_index :fact_types, [:type_inheritance_subtype_object_type_id], :unique => false, :name => :index_fact_types_on_type_inheritance_subtype_object_type_id
     add_foreign_key :fact_types, :object_types, :column => :type_inheritance_supertype_object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_index :fact_types, [:type_inheritance_supertype_object_type_id], :unique => false, :name => :index_fact_types_on_type_inheritance_supertype_object_type_id
+    add_foreign_key :nestings, :components, :column => :absorption_guid, :primary_key => :guid, :on_delete => :cascade
+    add_index :nestings, [:absorption_guid], :unique => false, :name => :index_nestings_on_absorption_guid
+    add_foreign_key :nestings, :roles, :column => :index_role_id, :primary_key => :role_id, :on_delete => :cascade
+    add_index :nestings, [:index_role_id], :unique => false, :name => :index_nestings_on_index_role_id
     add_foreign_key :object_types, :concepts, :column => :concept_guid, :primary_key => :guid, :on_delete => :cascade
     add_foreign_key :object_types, :concepts, :column => :value_type_unit_concept_guid, :primary_key => :guid, :on_delete => :cascade
     add_index :object_types, [:value_type_unit_concept_guid], :unique => false, :name => :index_object_types_on_value_type_unit_concept_guid
     add_foreign_key :object_types, :constraints, :column => :value_type_value_constraint_concept_guid, :primary_key => :concept_guid, :on_delete => :cascade
-    add_index :object_types, [:value_type_value_constraint_concept_guid], :unique => false, :name => :index_object_types_on_value_type_value_constraint_concept_guid
     add_foreign_key :object_types, :object_types, :column => :value_type_supertype_object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_index :object_types, [:value_type_supertype_object_type_id], :unique => false, :name => :index_object_types_on_value_type_supertype_object_type_id
     add_foreign_key :plays, :roles, :column => :role_id, :primary_key => :role_id, :on_delete => :cascade
@@ -455,18 +468,17 @@ ActiveRecord::Schema.define(:version => 20151008133030) do
     add_foreign_key :plays, :variables, :column => :variable_id, :primary_key => :variable_id, :on_delete => :cascade
     add_index :plays, [:variable_id], :unique => false, :name => :index_plays_on_variable_id
     add_foreign_key :populations, :concepts, :column => :concept_guid, :primary_key => :guid, :on_delete => :cascade
-    add_index :populations, [:concept_guid], :unique => false, :name => :index_populations_on_concept_guid
     add_foreign_key :readings, :fact_types, :column => :fact_type_concept_guid, :primary_key => :concept_guid, :on_delete => :cascade
     add_index :readings, [:fact_type_concept_guid], :unique => false, :name => :index_readings_on_fact_type_concept_guid
     add_foreign_key :readings, :role_sequences, :column => :role_sequence_guid, :primary_key => :guid, :on_delete => :cascade
     add_index :readings, [:role_sequence_guid], :unique => false, :name => :index_readings_on_role_sequence_guid
     add_foreign_key :roles, :concepts, :column => :concept_guid, :primary_key => :guid, :on_delete => :cascade
-    add_index :roles, [:concept_guid], :unique => false, :name => :index_roles_on_concept_guid
     add_foreign_key :roles, :fact_types, :column => :link_fact_type_concept_guid, :primary_key => :concept_guid, :on_delete => :cascade
     add_foreign_key :roles, :fact_types, :column => :fact_type_concept_guid, :primary_key => :concept_guid, :on_delete => :cascade
     add_index :roles, [:fact_type_concept_guid], :unique => false, :name => :index_roles_on_fact_type_concept_guid
     add_foreign_key :roles, :object_types, :column => :object_type_id, :primary_key => :object_type_id, :on_delete => :cascade
     add_index :roles, [:object_type_id], :unique => false, :name => :index_roles_on_object_type_id
+    add_foreign_key :roles, :roles, :column => :mirror_role_id, :primary_key => :role_id, :on_delete => :cascade
     add_foreign_key :role_displays, :roles, :column => :role_id, :primary_key => :role_id, :on_delete => :cascade
     add_index :role_displays, [:role_id], :unique => false, :name => :index_role_displays_on_role_id
     add_foreign_key :role_displays, :shapes, :column => :fact_type_shape_guid, :primary_key => :guid, :on_delete => :cascade

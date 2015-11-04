@@ -32,7 +32,7 @@ CREATE TABLE EventType (
 GO
 
 CREATE TABLE Friendship (
-	-- Friendship is confirmed Boolean,
+	-- Friendship is confirmed,
 	IsConfirmed                             bit NULL,
 	-- Friendship involves User and User has User ID,
 	OtherUserID                             int NOT NULL,

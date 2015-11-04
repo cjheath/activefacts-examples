@@ -1,5 +1,5 @@
 CREATE TABLE Booking (
-	-- Booking is confirmed Boolean,
+	-- Booking is confirmed,
 	IsConfirmed                             bit NULL,
 	-- Booking involves Number,
 	Number                                  smallint NOT NULL CHECK(Number >= 1),

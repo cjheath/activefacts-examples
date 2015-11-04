@@ -10,11 +10,11 @@ require 'activefacts/support'
 require 'activefacts/input/cql'
 require 'activefacts/generators/cql'
 
-ACTUAL_PATH = 'actual/cql'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_CQL_PATH = 'actual/cql'
+FileUtils.mkdir_p(ACTUAL_CQL_PATH)
 
 # Generate and return the CQL for the given vocabulary
-def generate(vocabulary)
+def generate_cql(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::CQL.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -23,6 +23,7 @@ def generate(vocabulary)
 end
 
 context "CQL Loader" do
+
   load_failures = {
     "Airline" => "Contains queries, unsupported",
     "CompanyQuery" => "Contains queries, unsupported",
@@ -40,7 +41,7 @@ context "CQL Loader" do
     # Use the canonical file if it exists; some differ from the preferred CQL
     expected_file = source_file.sub(%r{cql/}, 'canonical/')
     expected_file = source_file unless File.exists? expected_file
-    actual_file = source_file.sub(%r{cql/}, ACTUAL_PATH+'/')
+    actual_file = source_file.sub(%r{cql/}, ACTUAL_CQL_PATH+'/')
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
     describe "compiling #{source_file} to a model" do
@@ -65,7 +66,7 @@ context "CQL Loader" do
 
       context "and generating #{actual_file}" do
 	# Build and save the actual file:
-	actual_text = generate(vocabulary)
+	actual_text = generate_cql(vocabulary)
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	pending("expected output file #{expected_file} not found") and next unless File.exists? expected_file
 	expected_text = File.open(expected_file) {|f| f.read }

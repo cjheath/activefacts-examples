@@ -14,10 +14,10 @@ require 'activefacts/rmap'
 require 'activefacts/support'
 require 'activefacts/input/orm'
 
-ACTUAL_PATH = 'actual/orm/tables'
-FileUtils.mkdir_p(ACTUAL_PATH)
-EXPECTED_PATH = 'actual/orm/expected'
-FileUtils.mkdir_p(EXPECTED_PATH)
+ACTUAL_ORM_TABLES_PATH = 'actual/orm/tables'
+EXPECTED_ORM_TABLES_PATH = 'actual/orm/expected'
+FileUtils.mkdir_p(ACTUAL_ORM_TABLES_PATH)
+FileUtils.mkdir_p(EXPECTED_ORM_TABLES_PATH)
 
 # The exceptions table is keyed by the model name, and contains the added and removed table names vs NORMA
 load_failures = {
@@ -50,6 +50,7 @@ def extract_created_tables_from_sql sql_file
 end
 
 context "Relational Composition from ORM" do
+
   pattern = ENV["AFTESTS"] || "*"
   source_files = Dir["orm/#{pattern}.orm"]
 
@@ -61,8 +62,8 @@ context "Relational Composition from ORM" do
     next unless sql_file
     next if load_failures.include?(base)
 
-    actual_tables_file = ACTUAL_PATH+'/'+base+'.tables'
-    expected_tables_file = EXPECTED_PATH+'/'+base+'.tables'
+    actual_tables_file = ACTUAL_ORM_TABLES_PATH+'/'+base+'.tables'
+    expected_tables_file = EXPECTED_ORM_TABLES_PATH+'/'+base+'.tables'
 
     table_description = (exception ? "a modified" :  "the same") + " list of tables like those in #{sql_file}"
     describe "loading #{source_file} to a compute #{table_description}" do

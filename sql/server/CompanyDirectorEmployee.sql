@@ -16,7 +16,7 @@ GO
 CREATE TABLE Company (
 	-- Company is called Company Name,
 	CompanyName                             varchar(48) NOT NULL,
-	-- Company is listed Boolean,
+	-- Company is listed,
 	IsListed                                bit NULL,
 	PRIMARY KEY(CompanyName)
 )
@@ -41,7 +41,7 @@ CREATE TABLE Employee (
 	CompanyName                             varchar(48) NOT NULL,
 	-- Employee has Employee Nr,
 	EmployeeNr                              int NOT NULL,
-	-- maybe Employee is a Manager and Manager is ceo Boolean,
+	-- maybe Employee is a Manager and Manager is ceo,
 	ManagerIsCeo                            bit NULL,
 	-- maybe Employee is supervised by Manager and Manager is a kind of Employee and Employee has Employee Nr,
 	ManagerNr                               int NULL,

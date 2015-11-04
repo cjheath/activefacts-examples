@@ -9,7 +9,7 @@ CREATE TABLE Asset (
 	VehicleEngineNumber                     varchar NULL,
 	-- maybe Asset is a Vehicle and maybe Vehicle is subject to finance with Finance Institution and Finance Institution is a kind of Company and Company is a kind of Party and Party has Party ID,
 	VehicleFinanceInstitutionID             int NULL,
-	-- maybe Asset is a Vehicle and Vehicle has commercial registration Boolean,
+	-- maybe Asset is a Vehicle and Vehicle has commercial registration,
 	VehicleHasCommercialRegistration        bit NULL,
 	-- maybe Asset is a Vehicle and Vehicle is of model-Year and Year has Year Nr,
 	VehicleModelYearNr                      int NULL,
@@ -128,9 +128,9 @@ CREATE TABLE CoverWording (
 GO
 
 CREATE TABLE LossType (
-	-- Loss Type involves driving Boolean,
+	-- Loss Type involves driving,
 	InvolvesDriving                         bit NULL,
-	-- Loss Type is single vehicle incident Boolean,
+	-- Loss Type is single vehicle incident,
 	IsSingleVehicleIncident                 bit NULL,
 	-- maybe Loss Type implies Liability and Liability has Liability Code,
 	LiabilityCode                           char(1) NULL CHECK(LiabilityCode = 'D' OR LiabilityCode = 'L' OR LiabilityCode = 'R' OR LiabilityCode = 'U'),
@@ -161,7 +161,7 @@ GO
 CREATE TABLE Party (
 	-- maybe Party is a Company and Company has contact-Person and Person is a kind of Party and Party has Party ID,
 	CompanyContactPersonID                  int NULL,
-	-- Party is a company Boolean,
+	-- Party is a company,
 	IsACompany                              bit NULL,
 	-- Party has Party ID,
 	PartyID                                 int IDENTITY NOT NULL,
@@ -187,7 +187,7 @@ CREATE TABLE Party (
 	PersonGivenName                         varchar(256) NULL,
 	-- maybe Party is a Person and Person has Contact Methods and maybe Contact Methods includes home-Phone and Phone has Phone Nr,
 	PersonHomePhoneNr                       varchar NULL,
-	-- maybe Party is a Person and maybe Person holds License and License is international Boolean,
+	-- maybe Party is a Person and maybe Person holds License and License is international,
 	PersonIsInternational                   bit NULL,
 	-- maybe Party is a Person and maybe Person holds License and License has License Number,
 	PersonLicenseNumber                     varchar NULL,
@@ -368,7 +368,7 @@ CREATE TABLE VehicleIncident (
 	DrivingHospitalName                     varchar NULL,
 	-- Vehicle Incident is involved in Driving and maybe Driving followed Intoxication,
 	DrivingIntoxication                     varchar NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Driving Charge and Driving Charge is a warning Boolean,
+	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Driving Charge and Driving Charge is a warning,
 	DrivingIsAWarning                       bit NULL,
 	-- Vehicle Incident is involved in Driving and maybe Driving was without owners consent for nonconsent-Reason,
 	DrivingNonconsentReason                 varchar NULL,

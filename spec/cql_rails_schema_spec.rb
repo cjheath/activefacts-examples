@@ -11,11 +11,11 @@ require 'activefacts/input/cql'
 require 'activefacts/generators/transform/surrogate'
 require 'activefacts/generators/rails/schema'
 
-ACTUAL_PATH = 'actual/rails/schema'
-FileUtils.mkdir_p(ACTUAL_PATH)
+ACTUAL_RAILS_SCHEMA_PATH = 'actual/rails/schema'
+FileUtils.mkdir_p(ACTUAL_RAILS_SCHEMA_PATH)
 
 # Generate and return the Rails models for the given vocabulary
-def generate(vocabulary)
+def generate_rails_schema(vocabulary)
   output = StringIO.new
   @dumper = ActiveFacts::Generators::Rails::SchemaRb.new(vocabulary.constellation)
   @dumper.generate(output)
@@ -24,6 +24,7 @@ def generate(vocabulary)
 end
 
 context "CQL Loader" do
+
   load_failures = {
     "Airline" => "Contains queries, unsupported",
     "CompanyQuery" => "Contains queries, unsupported",
@@ -39,7 +40,7 @@ context "CQL Loader" do
 
   source_files.each do |source_file|
     expected_file = source_file.sub(%r{cql/(.*).cql\Z}, 'rails/schema/\1.schema.rb')
-    actual_file = source_file.sub(%r{cql/(.*).cql\Z}, ACTUAL_PATH+'/\1.schema.rb')
+    actual_file = source_file.sub(%r{cql/(.*).cql\Z}, ACTUAL_RAILS_SCHEMA_PATH+'/\1.schema.rb')
 
     File.delete(actual_file) rescue nil	  # Delete if the file exists
     describe "compiling #{source_file} to a model" do
@@ -67,7 +68,7 @@ context "CQL Loader" do
 
       context "and generating #{actual_file}" do
 	# Build and save the actual file:
-	actual_text = generate(vocabulary)
+	actual_text = generate_rails_schema(vocabulary)
 	File.open(actual_file, "w") { |f| f.write actual_text }
 	pending("expected output file #{expected_file} not found") and next unless File.exists? expected_file
 	expected_text = File.open(expected_file) {|f| f.read }

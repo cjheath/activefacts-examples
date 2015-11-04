@@ -39,7 +39,7 @@ GO
 CREATE TABLE AlternativeSet (
 	-- Alternative Set has Guid,
 	Guid                                    uniqueidentifier NOT NULL,
-	-- Alternative Set members are exclusive Boolean,
+	-- Alternative Set members are exclusive,
 	MembersAreExclusive                     bit NULL,
 	PRIMARY KEY(Guid)
 )
@@ -50,16 +50,14 @@ CREATE TABLE Component (
 	AbsorptionChildRoleFactTypeConceptGuid  uniqueidentifier NULL,
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses to child-Role and Role fills Ordinal,
 	AbsorptionChildRoleOrdinal              smallint NULL,
-	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption flattens Boolean,
+	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption flattens,
 	AbsorptionFlattens                      bit NULL,
-	-- maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is nested under index-Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
-	AbsorptionIndexRoleFactTypeConceptGuid  uniqueidentifier NULL,
-	-- maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is nested under index-Role and Role fills Ordinal,
-	AbsorptionIndexRoleOrdinal              smallint NULL,
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	AbsorptionParentRoleFactTypeConceptGuid uniqueidentifier NULL,
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role and Role fills Ordinal,
 	AbsorptionParentRoleOrdinal             smallint NULL,
+	-- maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is matched by reverse-Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component and Component has Guid,
+	AbsorptionReverseAbsorptionGuid         uniqueidentifier NULL,
 	-- Component has Guid,
 	Guid                                    uniqueidentifier NOT NULL,
 	-- maybe Component is an Indicator and Indicator indicates Role played and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
@@ -68,17 +66,26 @@ CREATE TABLE Component (
 	IndicatorRoleOrdinal                    smallint NULL,
 	-- maybe Component is a Mapping and maybe Mapping projects Composite and Composite belongs to Composition and Composition has Guid,
 	MappingCompositionGuid                  uniqueidentifier NULL,
-	-- maybe Component belongs to parent-Mapping and Mapping is a kind of Component and Component has Guid,
-	MappingGuid                             uniqueidentifier NULL,
 	-- maybe Component is a Mapping and Mapping represents Object Type and Object Type is called Name,
 	MappingObjectTypeName                   varchar(64) NULL,
 	-- maybe Component is a Mapping and Mapping represents Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
 	MappingObjectTypeVocabularyName         varchar(64) NULL,
 	-- maybe Component projects Name,
 	Name                                    varchar(64) NULL,
+	-- maybe Component belongs to Mapping and Mapping is a kind of Component and Component has Guid,
+	ParentGuid                              uniqueidentifier NULL,
 	PRIMARY KEY(Guid),
-	FOREIGN KEY (MappingGuid) REFERENCES Component (Guid)
+	FOREIGN KEY (AbsorptionReverseAbsorptionGuid) REFERENCES Component (Guid),
+	FOREIGN KEY (ParentGuid) REFERENCES Component (Guid)
 )
+GO
+
+CREATE VIEW dbo.AbsorptionInComponent_ReverseAbsorptionGuid (AbsorptionReverseAbsorptionGuid) WITH SCHEMABINDING AS
+	SELECT AbsorptionReverseAbsorptionGuid FROM dbo.Component
+	WHERE	AbsorptionReverseAbsorptionGuid IS NOT NULL
+GO
+
+CREATE UNIQUE CLUSTERED INDEX IX_AbsorptionInComponentByAbsorptionReverseAbsorptionGuid ON dbo.AbsorptionInComponent_ReverseAbsorptionGuid(AbsorptionReverseAbsorptionGuid)
 GO
 
 CREATE TABLE Composition (
@@ -136,7 +143,7 @@ CREATE TABLE Concept (
 	UnitCoefficientNumerator                decimal NULL,
 	-- maybe Unit is an instance of Concept and maybe Unit uses coefficient from Ephemera URL,
 	UnitEphemeraURL                         varchar NULL,
-	-- maybe Unit is an instance of Concept and Unit is fundamental Boolean,
+	-- maybe Unit is an instance of Concept and Unit is fundamental,
 	UnitIsFundamental                       bit NULL,
 	-- maybe Unit is an instance of Concept and Unit is called Name,
 	UnitName                                varchar(64) NULL,
@@ -204,9 +211,9 @@ CREATE TABLE [Constraint] (
 	EnforcementCode                         varchar(16) NULL,
 	-- maybe Constraint is called Name,
 	Name                                    varchar(64) NULL,
-	-- maybe Constraint is a Presence Constraint and Presence Constraint is mandatory Boolean,
+	-- maybe Constraint is a Presence Constraint and Presence Constraint is mandatory,
 	PresenceConstraintIsMandatory           bit NULL,
-	-- maybe Constraint is a Presence Constraint and Presence Constraint is preferred identifier Boolean,
+	-- maybe Constraint is a Presence Constraint and Presence Constraint is preferred identifier,
 	PresenceConstraintIsPreferredIdentifier bit NULL,
 	-- maybe Constraint is a Presence Constraint and maybe Presence Constraint has max-Frequency,
 	PresenceConstraintMaxFrequency          int NULL CHECK(PresenceConstraintMaxFrequency >= 1),
@@ -224,7 +231,7 @@ CREATE TABLE [Constraint] (
 	RingConstraintRoleFactTypeConceptGuid   uniqueidentifier NULL,
 	-- maybe Constraint is a Ring Constraint and maybe Ring Constraint has Role and Role fills Ordinal,
 	RingConstraintRoleOrdinal               smallint NULL,
-	-- maybe Constraint is a Set Constraint and maybe Set Constraint is a Set Comparison Constraint and maybe Set Comparison Constraint is a Set Exclusion Constraint and Set Exclusion Constraint is mandatory Boolean,
+	-- maybe Constraint is a Set Constraint and maybe Set Constraint is a Set Comparison Constraint and maybe Set Comparison Constraint is a Set Exclusion Constraint and Set Exclusion Constraint is mandatory,
 	SetExclusionConstraintIsMandatory       bit NULL,
 	-- maybe Constraint is a Set Constraint and maybe Set Constraint is a Subset Constraint and Subset Constraint covers subset-Role Sequence and Role Sequence has Guid,
 	SubsetConstraintSubsetRoleSequenceGuid  uniqueidentifier NULL,
@@ -353,13 +360,13 @@ GO
 CREATE TABLE FactType (
 	-- Fact Type is an instance of Concept and Concept has Guid,
 	ConceptGuid                             uniqueidentifier NOT NULL,
-	-- maybe Fact Type is nested as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type is called Name,
+	-- maybe Fact Type is objectified as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type is called Name,
 	EntityTypeName                          varchar(64) NULL,
-	-- maybe Fact Type is nested as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
+	-- maybe Fact Type is objectified as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
 	EntityTypeVocabularyName                varchar(64) NULL,
 	-- maybe Fact Type is a Type Inheritance and maybe Type Inheritance uses Assimilation,
 	TypeInheritanceAssimilation             varchar NULL CHECK(TypeInheritanceAssimilation = 'absorbed' OR TypeInheritanceAssimilation = 'partitioned' OR TypeInheritanceAssimilation = 'separate'),
-	-- maybe Fact Type is a Type Inheritance and Type Inheritance provides identification Boolean,
+	-- maybe Fact Type is a Type Inheritance and Type Inheritance provides identification,
 	TypeInheritanceProvidesIdentification   bit NULL,
 	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type is called Name,
 	TypeInheritanceSubtypeName              varchar(64) NULL,
@@ -404,10 +411,24 @@ GO
 CREATE UNIQUE CLUSTERED INDEX TypeInheritanceUQ ON dbo.TypeInheritanceInFactType_TypeInheritanceSubtypeVocabularyNameTypeInheritanceSubtypeNameTypeInheritanceSupertypeVocabula(TypeInheritanceSubtypeVocabularyName, TypeInheritanceSubtypeName, TypeInheritanceSupertypeVocabularyName, TypeInheritanceSupertypeName)
 GO
 
+CREATE TABLE Nesting (
+	-- Nesting involves Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component and Component has Guid,
+	AbsorptionGuid                          uniqueidentifier NOT NULL,
+	-- Nesting involves Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
+	IndexRoleFactTypeConceptGuid            uniqueidentifier NOT NULL,
+	-- Nesting involves Role and Role fills Ordinal,
+	IndexRoleOrdinal                        smallint NOT NULL,
+	-- Nesting involves Ordinal,
+	Ordinal                                 smallint NOT NULL,
+	PRIMARY KEY(AbsorptionGuid, Ordinal),
+	FOREIGN KEY (AbsorptionGuid) REFERENCES Component (Guid)
+)
+GO
+
 CREATE TABLE ObjectType (
 	-- Object Type is an instance of Concept and Concept has Guid,
 	ConceptGuid                             uniqueidentifier NOT NULL,
-	-- Object Type is independent Boolean,
+	-- Object Type is independent,
 	IsIndependent                           bit NULL,
 	-- Object Type is called Name,
 	Name                                    varchar(64) NOT NULL,
@@ -461,7 +482,7 @@ CREATE UNIQUE CLUSTERED INDEX IX_ValueTypeInObjectTypeByValueTypeValueConstraint
 GO
 
 CREATE TABLE Play (
-	-- Play is input Boolean,
+	-- Play is input,
 	IsInput                                 bit NULL,
 	-- Play involves Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	RoleFactTypeConceptGuid                 uniqueidentifier NOT NULL,
@@ -493,7 +514,7 @@ GO
 CREATE TABLE Reading (
 	-- Reading is for Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	FactTypeConceptGuid                     uniqueidentifier NOT NULL,
-	-- Reading is negative Boolean,
+	-- Reading is negative,
 	IsNegative                              bit NULL,
 	-- Reading is in Ordinal position,
 	Ordinal                                 smallint NOT NULL,
@@ -513,6 +534,10 @@ CREATE TABLE Role (
 	FactTypeConceptGuid                     uniqueidentifier NOT NULL,
 	-- maybe implying-Role implies Link Fact Type and Link Fact Type is a kind of Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	LinkFactTypeConceptGuid                 uniqueidentifier NULL,
+	-- maybe Role implies Mirror Role and Mirror Role is a kind of Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
+	MirrorRoleFactTypeConceptGuid           uniqueidentifier NULL,
+	-- maybe Role implies Mirror Role and Mirror Role is a kind of Role and Role fills Ordinal,
+	MirrorRoleOrdinal                       smallint NULL,
 	-- Role is played by Object Type and Object Type is called Name,
 	ObjectTypeName                          varchar(64) NOT NULL,
 	-- Role is played by Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
@@ -526,7 +551,8 @@ CREATE TABLE Role (
 	FOREIGN KEY (ConceptGuid) REFERENCES Concept (Guid),
 	FOREIGN KEY (LinkFactTypeConceptGuid) REFERENCES FactType (ConceptGuid),
 	FOREIGN KEY (FactTypeConceptGuid) REFERENCES FactType (ConceptGuid),
-	FOREIGN KEY (ObjectTypeVocabularyName, ObjectTypeName) REFERENCES ObjectType (VocabularyName, Name)
+	FOREIGN KEY (ObjectTypeVocabularyName, ObjectTypeName) REFERENCES ObjectType (VocabularyName, Name),
+	FOREIGN KEY (MirrorRoleFactTypeConceptGuid, MirrorRoleOrdinal) REFERENCES Role (FactTypeConceptGuid, Ordinal)
 )
 GO
 
@@ -536,6 +562,15 @@ CREATE VIEW dbo.Role_LinkFactTypeConceptGuid (LinkFactTypeConceptGuid) WITH SCHE
 GO
 
 CREATE UNIQUE CLUSTERED INDEX IX_RoleByLinkFactTypeConceptGuid ON dbo.Role_LinkFactTypeConceptGuid(LinkFactTypeConceptGuid)
+GO
+
+CREATE VIEW dbo.Role_MirrorRoleFactTypeConceptGuidMirrorRoleOrdinal (MirrorRoleFactTypeConceptGuid, MirrorRoleOrdinal) WITH SCHEMABINDING AS
+	SELECT MirrorRoleFactTypeConceptGuid, MirrorRoleOrdinal FROM dbo.Role
+	WHERE	MirrorRoleFactTypeConceptGuid IS NOT NULL
+	  AND	MirrorRoleOrdinal IS NOT NULL
+GO
+
+CREATE UNIQUE CLUSTERED INDEX IX_RoleByMirrorRoleFactTypeConceptGuidMirrorRoleOrdinal ON dbo.Role_MirrorRoleFactTypeConceptGuidMirrorRoleOrdinal(MirrorRoleFactTypeConceptGuid, MirrorRoleOrdinal)
 GO
 
 CREATE TABLE RoleDisplay (
@@ -591,7 +626,7 @@ GO
 CREATE TABLE RoleSequence (
 	-- Role Sequence has Guid,
 	Guid                                    uniqueidentifier NOT NULL,
-	-- Role Sequence has unused dependency to force table in norma Boolean,
+	-- Role Sequence has unused dependency to force table in norma,
 	HasUnusedDependencyToForceTableInNorma  bit NULL,
 	PRIMARY KEY(Guid)
 )
@@ -643,7 +678,7 @@ CREATE TABLE Shape (
 	FactTypeShapeRotationSetting            varchar NULL CHECK(FactTypeShapeRotationSetting = 'left' OR FactTypeShapeRotationSetting = 'right'),
 	-- Shape has Guid,
 	Guid                                    uniqueidentifier NOT NULL,
-	-- Shape is expanded Boolean,
+	-- Shape is expanded,
 	IsExpanded                              bit NULL,
 	-- maybe Shape is at Location and Location is at X,
 	LocationX                               int NULL,
@@ -655,7 +690,7 @@ CREATE TABLE Shape (
 	ORMDiagramName                          varchar(64) NOT NULL,
 	-- Shape is in ORM Diagram and ORM Diagram is a kind of Diagram and Diagram is for Vocabulary and Vocabulary is called Name,
 	ORMDiagramVocabularyName                varchar(64) NOT NULL,
-	-- maybe Shape is an Object Type Shape and Object Type Shape has expanded reference mode Boolean,
+	-- maybe Shape is an Object Type Shape and Object Type Shape has expanded reference mode,
 	ObjectTypeShapeHasExpandedReferenceMode bit NULL,
 	-- maybe Shape is an Object Type Shape and Object Type Shape is for Object Type and Object Type is called Name,
 	ObjectTypeShapeObjectTypeName           varchar(64) NULL,
@@ -747,9 +782,9 @@ CREATE TABLE Step (
 	FactTypeConceptGuid                     uniqueidentifier NOT NULL,
 	-- Step has Guid,
 	Guid                                    uniqueidentifier NOT NULL,
-	-- Step is disallowed Boolean,
+	-- Step is disallowed,
 	IsDisallowed                            bit NULL,
-	-- Step is optional Boolean,
+	-- Step is optional,
 	IsOptional                              bit NULL,
 	PRIMARY KEY(Guid),
 	FOREIGN KEY (AlternativeSetGuid) REFERENCES AlternativeSet (Guid),
@@ -899,10 +934,6 @@ ALTER TABLE Component
 GO
 
 ALTER TABLE Component
-	ADD FOREIGN KEY (AbsorptionIndexRoleFactTypeConceptGuid, AbsorptionIndexRoleOrdinal) REFERENCES Role (FactTypeConceptGuid, Ordinal)
-GO
-
-ALTER TABLE Component
 	ADD FOREIGN KEY (AbsorptionParentRoleFactTypeConceptGuid, AbsorptionParentRoleOrdinal) REFERENCES Role (FactTypeConceptGuid, Ordinal)
 GO
 
@@ -972,6 +1003,10 @@ GO
 
 ALTER TABLE FactType
 	ADD FOREIGN KEY (TypeInheritanceSupertypeVocabularyName, TypeInheritanceSupertypeName) REFERENCES ObjectType (VocabularyName, Name)
+GO
+
+ALTER TABLE Nesting
+	ADD FOREIGN KEY (IndexRoleFactTypeConceptGuid, IndexRoleOrdinal) REFERENCES Role (FactTypeConceptGuid, Ordinal)
 GO
 
 ALTER TABLE Play

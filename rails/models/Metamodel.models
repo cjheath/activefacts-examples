@@ -56,8 +56,11 @@ module Concernz
     included do
       self.primary_key = 'guid'
 
-      # maybe Component belongs to parent-Mapping and Mapping is a kind of Component
-      belongs_to :component_via_mapping, :class_name => 'Component', :foreign_key => :mapping_guid
+      # maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is matched by reverse-Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component
+      belongs_to :component_via_mapping_absorption_absorption_mapping, :class_name => 'Component', :foreign_key => :absorption_reverse_absorption_guid
+
+      # maybe Component belongs to Mapping and Mapping is a kind of Component
+      belongs_to :component_via_mapping, :class_name => 'Component', :foreign_key => :parent_guid
 
       # maybe Component is a Mapping and maybe Mapping projects Composite and Composite belongs to Composition
       belongs_to :composition_via_mapping_composite, :class_name => 'Composition', :foreign_key => :mapping_composition_guid
@@ -68,20 +71,23 @@ module Concernz
       # maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses to child-Role
       belongs_to :child_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_child_role_id
 
-      # maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption is nested under index-Role
-      belongs_to :index_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_index_role_id
-
       # maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role
       belongs_to :parent_role_via_mapping_absorption, :class_name => 'Role', :foreign_key => :absorption_parent_role_id
 
       # maybe Component is an Indicator and Indicator indicates Role played
       belongs_to :role_via_indicator, :class_name => 'Role', :foreign_key => :indicator_role_id
 
+      # Component is a Mapping and Mapping is an Absorption and maybe Absorption is matched by reverse-Absorption and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
+      has_one :component_via_mapping_absorption_absorption_mapping, :class_name => 'Component', :foreign_key => :absorption_reverse_absorption_guid, :dependent => :destroy
+
       # Component is a Mapping and maybe Mapping contains Component
-      has_many :members_via_mapping, :class_name => 'Component', :foreign_key => :mapping_guid, :dependent => :destroy
+      has_many :members_via_mapping, :class_name => 'Component', :foreign_key => :parent_guid, :dependent => :destroy
 
       # Component is a Discriminator and Discriminator is involved in Discriminated Role
       has_many :discriminated_roles_via_discriminator, :class_name => 'DiscriminatedRole', :foreign_key => :discriminator_guid, :dependent => :destroy
+
+      # Component is a Mapping and Mapping is an Absorption and Absorption is involved in Nesting
+      has_many :nestings_via_absorption_mapping, :class_name => 'Nesting', :foreign_key => :absorption_guid, :dependent => :destroy
     end
   end
 end
@@ -337,7 +343,7 @@ module Concernz
       # Fact Type is an instance of Concept
       belongs_to :concept, :foreign_key => :concept_guid
 
-      # maybe Fact Type is nested as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      # maybe Fact Type is objectified as Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
       belongs_to :object_type_via_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :entity_type_object_type_id
 
       # maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
@@ -370,6 +376,25 @@ module Concernz
 end
 
 module Concernz
+  module Nesting
+    extend ActiveSupport::Concern
+    included do
+      self.primary_key = 'nesting_id'
+
+      # Nesting involves Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component
+      belongs_to :component_via_absorption_mapping, :class_name => 'Component', :foreign_key => :absorption_guid
+
+      # Nesting involves Role
+      belongs_to :index_role, :class_name => 'Role', :foreign_key => :index_role_id
+
+      validates :absorption_guid, :presence => true
+      validates :ordinal, :presence => true
+      validates :index_role_id, :presence => true
+    end
+  end
+end
+
+module Concernz
   module ObjectType
     extend ActiveSupport::Concern
     included do
@@ -393,7 +418,7 @@ module Concernz
       # Instance is of Object Type and maybe Instance is an instance of Concept
       has_many :concepts_via_instance, :class_name => 'Concept', :foreign_key => :instance_object_type_id, :dependent => :destroy
 
-      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and maybe Entity Type nests Fact Type
+      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and maybe Entity Type objectifies Fact Type
       has_one :fact_type_via_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :entity_type_object_type_id, :dependent => :destroy
 
       # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and Entity Type is involved in Type Inheritance and maybe Type Inheritance is a kind of Fact Type
@@ -525,11 +550,11 @@ module Concernz
       # Role is played by Object Type
       belongs_to :object_type, :foreign_key => :object_type_id
 
+      # maybe Role implies Mirror Role and Mirror Role is a kind of Role
+      belongs_to :role_via_mirror_role, :class_name => 'Role', :foreign_key => :mirror_role_id
+
       # Absorption traverses to child-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
       has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_child_role_id, :dependent => :destroy
-
-      # maybe Absorption is nested under index-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
-      has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_index_role_id, :dependent => :destroy
 
       # Absorption traverses from parent-Role and maybe Absorption is a kind of Mapping and maybe Mapping is a kind of Component
       has_many :components_via_mapping_absorption, :class_name => 'Component', :foreign_key => :absorption_parent_role_id, :dependent => :destroy
@@ -549,6 +574,9 @@ module Concernz
       # Role is involved in Discriminated Role
       has_many :discriminated_roles, :class_name => 'DiscriminatedRole', :foreign_key => :role_id, :dependent => :destroy
 
+      # Role is involved in Nesting
+      has_many :nestings, :class_name => 'Nesting', :foreign_key => :index_role_id, :dependent => :destroy
+
       # Role is involved in Play
       has_many :plays, :class_name => 'Play', :foreign_key => :role_id, :dependent => :destroy
 
@@ -560,6 +588,9 @@ module Concernz
 
       # Role Value is of Role
       has_many :role_values, :class_name => 'RoleValue', :foreign_key => :role_id, :dependent => :destroy
+
+      # Role is a Mirror Role and maybe Mirror Role is for Role
+      has_one :base_role_via_mirror_role, :class_name => 'Role', :foreign_key => :mirror_role_id, :dependent => :destroy
 
       # maybe Role is projected from Variable
       has_one :variable, :class_name => 'Variable', :foreign_key => :projection_id, :dependent => :destroy
