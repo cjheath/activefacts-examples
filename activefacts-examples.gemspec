@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "activefacts-examples"
-  spec.version       = "1.7.2"
+  spec.version       = "1.8.0"
   spec.authors       = ["Clifford Heath"]
   spec.email         = ["clifford.heath@gmail.com"]
 
-  spec.summary       = %q{Example models in the Constellation Query Language for use with ActiveFacts}
+  spec.summary       = %q{Example models for use with ActiveFacts}
   spec.description   = %q{Example models in the Constellation Query Language for use with ActiveFacts}
   spec.homepage      = "http://github.com/cjheath/activefacts-examples"
   spec.license       = "MIT"

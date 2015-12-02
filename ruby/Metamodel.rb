@@ -96,6 +96,11 @@ module ::Metamodel
     one_to_one :vocabulary                      # See Vocabulary.name
   end
 
+  class NestingMode < String
+    value_type 
+    restrict 'Array', 'Bag', 'Map', 'Repetition'
+  end
+
   class Numerator < Decimal
     value_type 
   end
@@ -178,6 +183,7 @@ module ::Metamodel
     identified_by :guid
     one_to_one :guid, :mandatory => true        # See Guid.component
     has_one :name                               # See Name.all_component
+    has_one :ordinal                            # See Ordinal.all_component
     has_one :parent, :class => "Mapping", :counterpart => :member  # See Mapping.all_member
   end
 
@@ -399,6 +405,7 @@ module ::Metamodel
     one_to_one :absorption, :counterpart => :reverse_absorption  # See Absorption.reverse_absorption
     has_one :child_role, :class => Role, :mandatory => true  # See Role.all_absorption_as_child_role
     maybe :flattens
+    has_one :nesting_mode                       # See NestingMode.all_absorption
     has_one :parent_role, :class => Role, :mandatory => true  # See Role.all_absorption_as_parent_role
     one_to_one :reverse_absorption, :class => Absorption  # See Absorption.absorption_as_reverse_absorption
   end
@@ -487,6 +494,7 @@ module ::Metamodel
     has_one :absorption, :mandatory => true     # See Absorption.all_nesting
     has_one :index_role, :class => Role, :mandatory => true  # See Role.all_nesting_as_index_role
     has_one :ordinal, :mandatory => true        # See Ordinal.all_nesting
+    has_one :key_name, :class => Name           # See Name.all_nesting_as_key_name
   end
 
   class ORMDiagram < Diagram
@@ -575,6 +583,9 @@ module ::Metamodel
   class ValueConstraintShape < ConstraintShape
     has_one :object_type_shape                  # See ObjectTypeShape.all_value_constraint_shape
     one_to_one :role_display                    # See RoleDisplay.value_constraint_shape
+  end
+
+  class ValueField < Injection
   end
 
   class ValueRange

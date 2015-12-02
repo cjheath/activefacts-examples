@@ -22,6 +22,7 @@ Implication Rule Name is written as String;
 Length is written as Unsigned Integer(32);
 Literal is written as String;
 Name is written as String(64);
+Nesting Mode is written as String restricted to {'Array', 'Bag', 'Map', 'Repetition'};
 Numerator is written as Decimal;
 Offset is written as Decimal;
 Ordinal is written as Unsigned Integer(16);
@@ -57,6 +58,7 @@ Component is identified by Guid where
 	Component has one Guid,
 	Guid is of at most one Component;
 Component projects at most one Name;
+Component has at most one Ordinal rank;
 
 Composition is identified by Guid where
 	Composition has one Guid,
@@ -311,6 +313,7 @@ Fact Type Shape is for one Fact Type,
 Fact Type Shape has at most one Rotation Setting;
 
 Injection is a kind of Mapping;
+ValueField is a kind of Injection;
 
 Mirror Role is a kind of Role;
 Mirror Role is for at most one Role (as Base Role),
@@ -323,6 +326,11 @@ Nesting is where
 	Absorption is nested under index-Role in Ordinal position,
 	Absorption in Ordinal position is nested under one Role,
 	Role keys nesting of Absorption at Ordinal priority;
+Absorption uses at most one Nesting Mode;
+Nesting has at most one key-Name;
+Absorption is nested under index Role in Ordinal position
+	if and only if
+	that Absorption uses some Nesting Mode;
 
 ORM Diagram is a kind of Diagram;
 Shape is in one ORM Diagram,
