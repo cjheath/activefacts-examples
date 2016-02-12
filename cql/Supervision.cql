@@ -25,6 +25,9 @@ CEO is a kind of Manager;
 CEO runs Company,
 	Company is run by one CEO;
 
+CEO Shareholding is where
+	CEO holds shares in Company;
+
 /*
  * Constraints:
  */

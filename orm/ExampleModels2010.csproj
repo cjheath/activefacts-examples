@@ -136,6 +136,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Orienteering.orm</DependentUpon>
     </Compile>
+    <Compile Include="PartitionedSubtypeIdentification._ORMCustomToolReport.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartitionedSubtypeIdentification.orm</DependentUpon>
+    </Compile>
     <Compile Include="PersonPlaysGame._ORMCustomToolReport.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>PersonPlaysGame.orm</DependentUpon>
@@ -206,6 +210,10 @@
     <None Include="Health.orm">
       <Generator>ORMCustomTool</Generator>
       <LastGenOutput>Health._ORMCustomToolReport.cs</LastGenOutput>
+    </None>
+    <None Include="PartitionedSubtypeIdentification.orm">
+      <Generator>ORMCustomTool</Generator>
+      <LastGenOutput>PartitionedSubtypeIdentification._ORMCustomToolReport.cs</LastGenOutput>
     </None>
     <None Include="VenueSeating.orm">
       <Generator>ORMCustomTool</Generator>

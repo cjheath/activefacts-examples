@@ -3,6 +3,7 @@ vocabulary Party;
 /*
  * Value Types
  */
+ID is written as Auto Counter;
 Party ID is written as ID;
 Party Type Code is written as String(16) restricted to {'Company', 'Person'};
 

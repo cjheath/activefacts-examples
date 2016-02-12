@@ -1,3 +1,14 @@
+CREATE TABLE CEOShareholding (
+	-- CEO Shareholding involves CEO and CEO is a kind of Manager and Manager is a kind of Employee and Employee works for Company and Company has CompanyName,
+	CEOCompanyName                          varchar NOT NULL,
+	-- CEO Shareholding involves CEO and CEO is a kind of Manager and Manager is a kind of Employee and Employee has EmployeeNr,
+	CEOEmployeeNr                           int NOT NULL,
+	-- CEO Shareholding involves Company and Company has CompanyName,
+	CompanyName                             varchar NOT NULL,
+	PRIMARY KEY(CEOCompanyName, CEOEmployeeNr, CompanyName)
+)
+GO
+
 CREATE TABLE Company (
 	-- Company is run by CEO and CEO is a kind of Manager and Manager is a kind of Employee and Employee works for Company and Company has CompanyName,
 	CEOCompanyName                          varchar NOT NULL,
@@ -22,6 +33,14 @@ CREATE TABLE Employee (
 	FOREIGN KEY (CompanyName) REFERENCES Company (CompanyName),
 	FOREIGN KEY (ManagerCompanyName, ManagerEmployeeNr) REFERENCES Employee (CompanyName, EmployeeNr)
 )
+GO
+
+ALTER TABLE CEOShareholding
+	ADD FOREIGN KEY (CompanyName) REFERENCES Company (CompanyName)
+GO
+
+ALTER TABLE CEOShareholding
+	ADD FOREIGN KEY (CEOCompanyName, CEOEmployeeNr) REFERENCES Employee (CompanyName, EmployeeNr)
 GO
 
 ALTER TABLE Company

@@ -3,6 +3,7 @@ diagrams: [
 
   ],
   object_types: [
+    {"uuid":"dcae5045-5162-61a9-a68a-dded37","name":"CEO Shareholding","shapes":[],"objectifies":"aa696a9a-b1eb-b3b2-fd33-7c5497","implicit":true},
     {"uuid":"2296cdf1-eeab-cef6-b374-638031","name":"CEO","shapes":[],"supertypes":[["d0d32048-fd22-435a-af20-4867d8","0927b1de-f5e9-754f-0156-0c2365"]]},
     {"uuid":"458c5029-f482-48a2-c471-3312e2","name":"Company","shapes":[],"ref_mode":".Name"},
     {"uuid":"11e31f65-200d-3ed1-7c73-30fea1","name":"CompanyName","shapes":[],"supertype":"b2bb0459-8ea5-2062-242b-0c86f1"},
@@ -14,14 +15,15 @@ diagrams: [
   ],
   fact_types: [
     {"uuid":"8fa2cbc8-a08a-06d9-bdec-314740","roles":[{"uuid":"30172c72-cdfc-03d8-5654-7d44aa","player":"2296cdf1-eeab-cef6-b374-638031"},{"uuid":"a9d1c829-7e19-f9eb-3eb6-eff371","player":"458c5029-f482-48a2-c471-3312e2"}],"readings":[["01","{0} runs {1}"],["10","{0} is run by {1}"]],"shapes":[],"constraints":[{"uuid":"99c90d1c-81b6-9f83-02d7-a159f7","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"a9d1c829-7e19-f9eb-3eb6-eff371"}]},
+    {"uuid":"aa696a9a-b1eb-b3b2-fd33-7c5497","objectified_as":"dcae5045-5162-61a9-a68a-dded37","roles":[{"uuid":"5e0ebc5d-e1dc-8c0f-a462-dbbbba","player":"2296cdf1-eeab-cef6-b374-638031"},{"uuid":"edd56882-ed60-ab70-18a8-7bde2e","player":"458c5029-f482-48a2-c471-3312e2"}],"readings":[["01","{0} holds shares in {1}"]],"shapes":[],"constraints":[{"uuid":"897f3c4e-65ef-8304-f473-fc0ba2","min":1,"max":1,"is_preferred":true,"mandatory":true,"uniqueExcept":null}]},
     {"uuid":"8aaa0bfe-b1f8-f52b-1e4f-c063a0","roles":[{"uuid":"0f745a43-5d1d-a8eb-aa6d-594a94","player":"2684b620-20b6-7405-7673-a23d6b"},{"uuid":"d08294ed-0f43-aebe-b45c-698065","player":"23f3d345-85df-c5fb-e7a9-7efff3"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"c1822266-e38e-6412-a3fa-75ae34","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"0f745a43-5d1d-a8eb-aa6d-594a94"}]},
     {"uuid":"a068e79a-95cf-5f0d-1c65-540980","roles":[{"uuid":"16de3246-7d09-aa5e-c729-7258bf","player":"d0d32048-fd22-435a-af20-4867d8"},{"uuid":"19375004-2055-0489-8dbc-8db5fe","player":"2684b620-20b6-7405-7673-a23d6b"}],"readings":[["01","{0} supervises {1}"],["10","{0} reports to {1}"]],"shapes":[],"constraints":[{"uuid":"7230b919-774a-5f57-b745-ed71c1","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"16de3246-7d09-aa5e-c729-7258bf"}]},
     {"uuid":"6d373ae0-2361-fbe6-e700-cd24b6","roles":[{"uuid":"6a2a717c-aa5f-938b-40b4-b69a81","player":"458c5029-f482-48a2-c471-3312e2"},{"uuid":"a530d027-99f7-2bf0-bc8c-0b6dd6","player":"11e31f65-200d-3ed1-7c73-30fea1"}],"readings":[["01","{0} has {1}"],["10","{0} is of {1}"]],"shapes":[],"constraints":[{"uuid":"2d73b638-b679-76dd-4496-cd706d","min":0,"max":1,"is_preferred":true,"mandatory":null,"uniqueExcept":"6a2a717c-aa5f-938b-40b4-b69a81"},{"uuid":"5c6c942e-7604-7eed-ff9d-3a65d3","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"6a2a717c-aa5f-938b-40b4-b69a81"}]},
     {"uuid":"ff301450-eb96-cc89-896d-14472a","roles":[{"uuid":"2b1fc008-3711-b7b6-f5e7-7a23d7","player":"2684b620-20b6-7405-7673-a23d6b"},{"uuid":"83d804bc-fac3-8828-6237-8f2d69","player":"458c5029-f482-48a2-c471-3312e2"}],"readings":[["01","{0} works for {1}"],["10","{0} employs {1}"]],"shapes":[],"constraints":[{"uuid":"1378cc27-c686-48df-6545-6796f9","min":1,"max":1,"is_preferred":null,"mandatory":true,"role":"2b1fc008-3711-b7b6-f5e7-7a23d7"}]}
   ],
   constraints: [
+    {"uuid":"544264b0-e620-7ba0-9438-bfbeea","type":"SubsetConstraint","shapes":[],"role_sequences":[["1ebbc867-2b1c-5a4f-7b57-f8c875","a9d1c829-7e19-f9eb-3eb6-eff371"],["2b1fc008-3711-b7b6-f5e7-7a23d7","83d804bc-fac3-8828-6237-8f2d69"]]},
     {"uuid":"fbf62313-6d65-6513-6a8f-c5f20e","type":"PresenceConstraint","shapes":[],"min_frequency":0,"max_frequency":1,"is_mandatory":null,"is_preferred_identifier":true,"role_sequences":[["83d804bc-fac3-8828-6237-8f2d69","d08294ed-0f43-aebe-b45c-698065"]]},
-    {"uuid":"b129e350-b48f-f6f2-6b13-c6ed92","type":"SetEqualityConstraint","shapes":[],"role_sequences":[["1ebbc867-2b1c-5a4f-7b57-f8c875","a9d1c829-7e19-f9eb-3eb6-eff371"],["2b1fc008-3711-b7b6-f5e7-7a23d7","83d804bc-fac3-8828-6237-8f2d69"]]},
     {"uuid":"0f9e4b3d-c3ad-f9b2-8e30-91bee7","type":"SetExclusionConstraint","shapes":[],"is_mandatory":true,"role_sequences":[["19375004-2055-0489-8dbc-8db5fe"],["1ebbc867-2b1c-5a4f-7b57-f8c875"]]}
   ]
 }

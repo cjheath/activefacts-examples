@@ -13,7 +13,14 @@
           "type": "Manager"
         },
         {
-          "title": "all Company",
+          "title": "all Company as CEO",
+          "type": "Company",
+          "where": "this CEO holds shares in some Company",
+          "role_id": "61634015-78D5-4B09-A549-8D600C8DBDD0",
+          "is_list": true
+        },
+        {
+          "title": "all Company as CEO",
           "type": "Company",
           "where": "this CEO runs some Company",
           "role_id": "0CA8DDBF-0AF8-45BE-A076-C967144A74F7",
@@ -25,6 +32,13 @@
       "is_main": true,
       "id": "2EEF1364-C38B-463A-A788-4D9125F7415F",
       "functions": [
+        {
+          "title": "all CEO",
+          "type": "CEO",
+          "where": "some CEO holds shares in this Company",
+          "role_id": "0340C010-94B3-408A-AF27-66ED0AA51B73",
+          "is_list": true
+        },
         {
           "title": "CEO",
           "type": "CEO",

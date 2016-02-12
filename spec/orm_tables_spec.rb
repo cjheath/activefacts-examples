@@ -32,7 +32,7 @@ norma_table_exceptions = {
   "RedundantDependency" => [%w{Politician StateOrProvince}, %w{LegislativeDistrict}],   # NORMA doesn't make a table for the 3 IDENTITY fields
   "Warehousing" => [%w{Product Warehouse}, %w{Dispatch Receipt}],                     # NORMA doesn't make a table for the IDENTITY field
   "ServiceDirector" => [%w{DataStoreService MonitorNotificationUser}, %w{DataStoreFileHostSystem }],
-  "SeparateSubtype" => [%w{Claim}, %w{Incident}],
+  "SeparateSubtype" => [%w{}, %w{Incident}],
 }
   
 def extract_created_tables_from_sql sql_file
@@ -98,7 +98,7 @@ context "Relational Composition from ORM" do
 
       it "should generate the expected tables" do
 	# Check that the list matched:
-	expect(table_names).to_not differ_from(expected_tables)
+	expect(table_names.sort).to_not differ_from(expected_tables.sort)
 
 	if table_names == expected_tables
 	  File.delete(actual_tables_file)

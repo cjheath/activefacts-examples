@@ -30,4 +30,10 @@ module ::Supervision
   class CEO < Manager
   end
 
+  class CEOShareholding
+    identified_by :ceo, :company
+    has_one :ceo, :class => CEO, :mandatory => true  # See CEO.all_ceo_shareholding
+    has_one :company, :mandatory => true        # See Company.all_ceo_shareholding
+  end
+
 end

@@ -245,7 +245,7 @@ License was granted in at most one Year restricted to {1990..2100};
 License is international;
 
 Lodgement is where
-	Claim was lodged by one Person;
+	Claim was lodged by at most one Person;
 Lodgement was made at at most one Date Time;
 
 Policy is identified by p_year and p_product and p_state and p_serial where

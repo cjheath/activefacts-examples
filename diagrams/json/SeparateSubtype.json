@@ -24,6 +24,6 @@ diagrams: [
     {"uuid":"d85f1a32-60bd-27bf-12a2-e56d77","roles":[{"uuid":"259296c4-a3da-f20f-0d19-a5b4b9","player":"76746a2a-4685-acae-fed7-4f4d29"},{"uuid":"1ee79997-c033-d894-c853-645a65","player":"fdf574a2-a70a-4016-b454-380dde"}],"readings":[["01","{0} occurred on {1}"]],"shapes":[],"constraints":[{"uuid":"81759bc1-322c-655d-bc94-6a8f89","min":0,"max":1,"is_preferred":null,"mandatory":null,"uniqueExcept":"1ee79997-c033-d894-c853-645a65"}]}
   ],
   constraints: [
-
+    {"uuid":"07d11003-a4d3-95b7-6e67-eb2afa","type":"SetExclusionConstraint","shapes":[],"is_mandatory":null,"role_sequences":[["5ff235bb-b787-5eaa-92c2-8d2699","e0aabff7-ce74-497b-8979-bc6957"],["a60f704f-7729-51d5-dcdf-8fa1ab","301a52eb-25cb-466a-143c-5152b8"]]}
   ]
 }

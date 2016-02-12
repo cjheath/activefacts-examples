@@ -11,7 +11,7 @@ require 'activefacts/input/cql'
 require 'activefacts/generators/metadata/json'
 
 ACTUAL_METADATA_JSON_PATH = 'actual/metadata/json'
-FileUtils.mkdir_p(ACTUAL_METADATA_JSON_PATH)
+FileUtils.mkdir_p(ACTUAL_METADATA_JSON_PATH) unless File.exist?(ACTUAL_METADATA_JSON_PATH)
 
 # Generate and return the JSON Metadata for the given vocabulary
 def generate_metadata_json(vocabulary)
@@ -47,7 +47,7 @@ context "CQL Loader" do
     expected_file = source_file.sub(%r{cql/(.*).cql\Z}, 'metadata/json/\1.json')
     actual_file = source_file.sub(%r{cql/(.*).cql}, ACTUAL_METADATA_JSON_PATH+'/\1.json')
 
-    File.delete(actual_file) rescue nil	  # Delete if the file exists
+    File.delete(actual_file) if File.exist?(actual_file)
     describe "compiling #{source_file} to a model" do
       broken = load_failures[File.basename(source_file, ".cql")]
       vocabulary = nil
@@ -72,6 +72,7 @@ context "CQL Loader" do
 	# Build and save the actual file:
 	actual_text = generate_metadata_json(vocabulary)
 	File.open(actual_file, "w") { |f| f.write actual_text }
+
 	pending("expected output file #{expected_file} not found") and next unless File.exists? expected_file
 	expected_text = File.open(expected_file) {|f| f.read }
 
