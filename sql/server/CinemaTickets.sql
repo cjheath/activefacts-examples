@@ -114,11 +114,11 @@ CREATE TABLE Seat (
 GO
 
 CREATE TABLE SeatAllocation (
-	-- Seat Allocation involves Seat and Seat has Seat Number,
+	-- Seat Allocation involves allocated-Seat and Seat has Seat Number,
 	AllocatedSeatNumber                     smallint NOT NULL,
-	-- Seat Allocation involves Seat and Seat is in Row and Row is in Cinema and Cinema has Cinema ID,
+	-- Seat Allocation involves allocated-Seat and Seat is in Row and Row is in Cinema and Cinema has Cinema ID,
 	AllocatedSeatRowCinemaID                int NOT NULL,
-	-- Seat Allocation involves Seat and Seat is in Row and Row has Row Nr,
+	-- Seat Allocation involves allocated-Seat and Seat is in Row and Row has Row Nr,
 	AllocatedSeatRowNr                      char(2) NOT NULL,
 	-- Seat Allocation involves Booking and Booking has Booking Nr,
 	BookingNr                               int NOT NULL,

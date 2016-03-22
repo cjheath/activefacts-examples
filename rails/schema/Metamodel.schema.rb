@@ -1,9 +1,9 @@
 #
-# schema.rb auto-generated using ActiveFacts for Metamodel on 2015-11-02
+# schema.rb auto-generated using ActiveFacts for Metamodel on 2016-03-22
 #
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActiveRecord::Schema.define(:version => 20151102200220) do
+ActiveRecord::Schema.define(:version => 20160322175514) do
   enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
   create_table "aggregations", :id => false, :force => true do |t|
     t.column "aggregation_id", :primary_key, :null => false
@@ -36,12 +36,14 @@ ActiveRecord::Schema.define(:version => 20151102200220) do
     t.column "parent_guid", :uuid, :null => true
     t.column "absorption_child_role_id", :integer, :null => true
     t.column "absorption_flattens", :boolean, :null => true
+    t.column "absorption_nesting_mode", :string, :null => true
     t.column "absorption_parent_role_id", :integer, :null => true
     t.column "absorption_reverse_absorption_guid", :uuid, :null => true
     t.column "indicator_role_id", :integer, :null => true
     t.column "mapping_composition_guid", :uuid, :null => true
     t.column "mapping_object_type_id", :integer, :null => true
     t.column "name", :string, :limit => 64, :null => true
+    t.column "ordinal", :integer, :limit => 16, :null => true
   end
 
   add_index "components", ["absorption_reverse_absorption_guid"], :name => :index_components_on_absorption_reverse_absorption_guid
@@ -178,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20151102200220) do
     t.column "nesting_id", :primary_key, :null => false
     t.column "absorption_guid", :uuid, :null => false
     t.column "index_role_id", :integer, :null => false
+    t.column "key_name", :string, :limit => 64, :null => true
     t.column "ordinal", :integer, :limit => 16, :null => false
   end
 

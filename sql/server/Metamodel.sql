@@ -1,9 +1,9 @@
 CREATE TABLE Aggregation (
 	-- Aggregation involves Aggregate and Aggregate has Aggregate Code,
 	AggregateCode                           varchar(32) NOT NULL,
-	-- Aggregation involves Variable and Variable has Ordinal position,
+	-- Aggregation involves aggregated-Variable and Variable has Ordinal position,
 	AggregatedVariableOrdinal               smallint NOT NULL,
-	-- Aggregation involves Variable and Variable is in Query and Query is an instance of Concept and Concept has Guid,
+	-- Aggregation involves aggregated-Variable and Variable is in Query and Query is an instance of Concept and Concept has Guid,
 	AggregatedVariableQueryConceptGuid      uniqueidentifier NOT NULL,
 	-- Aggregation involves Variable and Variable has Ordinal position,
 	VariableOrdinal                         smallint NOT NULL,
@@ -52,6 +52,8 @@ CREATE TABLE Component (
 	AbsorptionChildRoleOrdinal              smallint NULL,
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption flattens,
 	AbsorptionFlattens                      bit NULL,
+	-- maybe Component is a Mapping and maybe Mapping is an Absorption and maybe Absorption uses Nesting Mode,
+	AbsorptionNestingMode                   varchar NULL CHECK(AbsorptionNestingMode = 'Array' OR AbsorptionNestingMode = 'Bag' OR AbsorptionNestingMode = 'Map' OR AbsorptionNestingMode = 'Repetition'),
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	AbsorptionParentRoleFactTypeConceptGuid uniqueidentifier NULL,
 	-- maybe Component is a Mapping and maybe Mapping is an Absorption and Absorption traverses from parent-Role and Role fills Ordinal,
@@ -72,6 +74,8 @@ CREATE TABLE Component (
 	MappingObjectTypeVocabularyName         varchar(64) NULL,
 	-- maybe Component projects Name,
 	Name                                    varchar(64) NULL,
+	-- maybe Component has Ordinal rank,
+	Ordinal                                 smallint NULL,
 	-- maybe Component belongs to Mapping and Mapping is a kind of Component and Component has Guid,
 	ParentGuid                              uniqueidentifier NULL,
 	PRIMARY KEY(Guid),
@@ -195,7 +199,7 @@ GO
 CREATE TABLE ConceptAnnotation (
 	-- Concept Annotation involves Concept and Concept has Guid,
 	ConceptGuid                             uniqueidentifier NOT NULL,
-	-- Concept Annotation involves Annotation,
+	-- Concept Annotation involves mapping-Annotation,
 	MappingAnnotation                       varchar NOT NULL,
 	PRIMARY KEY(ConceptGuid, MappingAnnotation),
 	FOREIGN KEY (ConceptGuid) REFERENCES Concept (Guid)
@@ -309,7 +313,7 @@ CREATE TABLE ContextAgreedBy (
 GO
 
 CREATE TABLE Derivation (
-	-- Derivation involves Unit and Unit is an instance of Concept and Concept has Guid,
+	-- Derivation involves base-Unit and Unit is an instance of Concept and Concept has Guid,
 	BaseUnitConceptGuid                     uniqueidentifier NOT NULL,
 	-- Derivation involves Unit and Unit is an instance of Concept and Concept has Guid,
 	DerivedUnitConceptGuid                  uniqueidentifier NOT NULL,
@@ -372,9 +376,9 @@ CREATE TABLE FactType (
 	TypeInheritanceSubtypeName              varchar(64) NULL,
 	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
 	TypeInheritanceSubtypeVocabularyName    varchar(64) NULL,
-	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type is called Name,
+	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves super-Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type is called Name,
 	TypeInheritanceSupertypeName            varchar(64) NULL,
-	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
+	-- maybe Fact Type is a Type Inheritance and Type Inheritance involves super-Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type and Object Type belongs to Vocabulary and Vocabulary is called Name,
 	TypeInheritanceSupertypeVocabularyName  varchar(64) NULL,
 	PRIMARY KEY(ConceptGuid),
 	FOREIGN KEY (ConceptGuid) REFERENCES Concept (Guid)
@@ -414,10 +418,12 @@ GO
 CREATE TABLE Nesting (
 	-- Nesting involves Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component and Component has Guid,
 	AbsorptionGuid                          uniqueidentifier NOT NULL,
-	-- Nesting involves Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
+	-- Nesting involves index-Role and Role belongs to Fact Type and Fact Type is an instance of Concept and Concept has Guid,
 	IndexRoleFactTypeConceptGuid            uniqueidentifier NOT NULL,
-	-- Nesting involves Role and Role fills Ordinal,
+	-- Nesting involves index-Role and Role fills Ordinal,
 	IndexRoleOrdinal                        smallint NOT NULL,
+	-- maybe Nesting has key-Name,
+	KeyName                                 varchar(64) NULL,
 	-- Nesting involves Ordinal,
 	Ordinal                                 smallint NOT NULL,
 	PRIMARY KEY(AbsorptionGuid, Ordinal),

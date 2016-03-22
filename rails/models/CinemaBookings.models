@@ -73,7 +73,7 @@ module Concernz
       # Seat is in Row and Row is in Cinema
       belongs_to :cinema_via_row, :class_name => 'Cinema', :foreign_key => :row_cinema_id
 
-      # Seat is involved in Seat Allocation
+      # allocated-Seat is involved in Seat Allocation
       has_many :seat_allocations, :class_name => 'SeatAllocation', :foreign_key => :allocated_seat_id, :dependent => :destroy
       has_many :bookings, :through => :seat_allocations
 
@@ -91,7 +91,7 @@ module Concernz
       # Seat Allocation involves Booking
       belongs_to :booking, :foreign_key => :booking_id
 
-      # Seat Allocation involves Seat
+      # Seat Allocation involves allocated-Seat
       belongs_to :allocated_seat, :class_name => 'Seat', :foreign_key => :allocated_seat_id
 
       validates :booking_id, :presence => true

@@ -5,7 +5,7 @@ module Concernz
     included do
       self.primary_key = 'aggregation_id'
 
-      # Aggregation involves Variable
+      # Aggregation involves aggregated-Variable
       belongs_to :aggregated_variable, :class_name => 'Variable', :foreign_key => :aggregated_variable_id
 
       # Aggregation involves Variable
@@ -151,7 +151,7 @@ module Concernz
       # Context Note is an instance of Concept and Context Note was added by Agreement and Agreement is involved in Context Agreed By
       has_many :context_agreed_bies_via_agreement_context_note, :class_name => 'ContextAgreedBy', :foreign_key => :agreement_context_note_concept_guid, :dependent => :destroy
 
-      # Unit is an instance of Concept and Unit is involved in Derivation
+      # Unit is an instance of Concept and base-Unit is involved in Derivation
       has_many :derivations_via_unit, :class_name => 'Derivation', :foreign_key => :base_unit_concept_guid, :dependent => :destroy
 
       # Unit is an instance of Concept and Unit is involved in Derivation
@@ -285,7 +285,7 @@ module Concernz
     included do
       self.primary_key = 'derivation_id'
 
-      # Derivation involves Unit and Unit is an instance of Concept
+      # Derivation involves base-Unit and Unit is an instance of Concept
       belongs_to :concept_via_unit, :class_name => 'Concept', :foreign_key => :base_unit_concept_guid
 
       # Derivation involves Unit and Unit is an instance of Concept
@@ -349,7 +349,7 @@ module Concernz
       # maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
       belongs_to :object_type_via_type_inheritance_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :type_inheritance_subtype_object_type_id
 
-      # maybe Fact Type is a Type Inheritance and Type Inheritance involves Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
+      # maybe Fact Type is a Type Inheritance and Type Inheritance involves super-Entity Type and Entity Type is a kind of Domain Object Type and Domain Object Type is a kind of Object Type
       belongs_to :object_type_via_type_inheritance_entity_type_domain_object_type, :class_name => 'ObjectType', :foreign_key => :type_inheritance_supertype_object_type_id
 
       # Fact is of Fact Type and maybe Fact is an instance of Concept
@@ -384,7 +384,7 @@ module Concernz
       # Nesting involves Absorption and Absorption is a kind of Mapping and Mapping is a kind of Component
       belongs_to :component_via_absorption_mapping, :class_name => 'Component', :foreign_key => :absorption_guid
 
-      # Nesting involves Role
+      # Nesting involves index-Role
       belongs_to :index_role, :class_name => 'Role', :foreign_key => :index_role_id
 
       validates :absorption_guid, :presence => true
@@ -425,7 +425,7 @@ module Concernz
       has_many :fact_types_via_type_inheritance_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :type_inheritance_subtype_object_type_id, :dependent => :destroy
       has_many :entity_types, :through => :fact_types_via_type_inheritance_entity_type_domain_object_type
 
-      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and Entity Type is involved in Type Inheritance and maybe Type Inheritance is a kind of Fact Type
+      # Object Type is a Domain Object Type and Domain Object Type is an Entity Type and super-Entity Type is involved in Type Inheritance and maybe Type Inheritance is a kind of Fact Type
       has_many :fact_types_via_type_inheritance_entity_type_domain_object_type, :class_name => 'FactType', :foreign_key => :type_inheritance_supertype_object_type_id, :dependent => :destroy
       has_many :entity_types, :through => :fact_types_via_type_inheritance_entity_type_domain_object_type
 
@@ -574,7 +574,7 @@ module Concernz
       # Role is involved in Discriminated Role
       has_many :discriminated_roles, :class_name => 'DiscriminatedRole', :foreign_key => :role_id, :dependent => :destroy
 
-      # Role is involved in Nesting
+      # index-Role is involved in Nesting
       has_many :nestings, :class_name => 'Nesting', :foreign_key => :index_role_id, :dependent => :destroy
 
       # Role is involved in Play
@@ -908,7 +908,7 @@ module Concernz
       # maybe Variable is bound to Value
       belongs_to :value, :foreign_key => :value_id
 
-      # Variable is involved in Aggregation
+      # aggregated-Variable is involved in Aggregation
       has_many :aggregations, :class_name => 'Aggregation', :foreign_key => :aggregated_variable_id, :dependent => :destroy
 
       # Variable is involved in Aggregation

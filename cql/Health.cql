@@ -35,7 +35,7 @@ each Policy is identified by Insurer and Policy Number where
     that Policy has one Policy Number;
 Policy is held by one Policy Holder;
 Policy was purchased from one Product Offering;
-Policy was purchased on one Date;
+Policy was purchased on one [satellite stable] Date;
 
 each Policy Coverage is where
     Policy includes Coverage Type;

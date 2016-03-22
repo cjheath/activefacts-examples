@@ -1,5 +1,5 @@
 CREATE TABLE AcceptableSubstitution (
-	-- Acceptable Substitution involves Product and Product has Product Name,
+	-- Acceptable Substitution involves alternate-Product and Product has Product Name,
 	AlternateProductName                    varchar NOT NULL,
 	-- Acceptable Substitution involves Product and Product has Product Name,
 	ProductName                             varchar NOT NULL,
@@ -35,11 +35,10 @@ CREATE TABLE ProductionForecast (
 	-- Production Forecast involves Refinery and Refinery has Refinery Name,
 	RefineryName                            varchar(80) NOT NULL,
 	-- Production Forecast involves Supply Period and Supply Period is in Month and Month has Month Nr,
-	SupplyPeriodMonthNr                     int NOT NULL CHECK((SupplyPeriodMonthNr >= 1 AND SupplyPeriodMonthNr <= 12)),
+	SupplyPeriodMonthNr                     int NOT NULL,
 	-- Production Forecast involves Supply Period and Supply Period is in Year and Year has Year Nr,
 	SupplyPeriodYearNr                      int NOT NULL,
 	PRIMARY KEY(RefineryName, SupplyPeriodYearNr, SupplyPeriodMonthNr, ProductName),
-	FOREIGN KEY (SupplyPeriodMonthNr) REFERENCES Month (MonthNr),
 	FOREIGN KEY (ProductName) REFERENCES Product (ProductName)
 )
 GO
@@ -66,13 +65,22 @@ CREATE TABLE RegionalDemand (
 	-- Regional Demand involves Region and Region has Region Name,
 	RegionName                              varchar NOT NULL,
 	-- Regional Demand involves Supply Period and Supply Period is in Month and Month has Month Nr,
-	SupplyPeriodMonthNr                     int NOT NULL CHECK((SupplyPeriodMonthNr >= 1 AND SupplyPeriodMonthNr <= 12)),
+	SupplyPeriodMonthNr                     int NOT NULL,
 	-- Regional Demand involves Supply Period and Supply Period is in Year and Year has Year Nr,
 	SupplyPeriodYearNr                      int NOT NULL,
 	PRIMARY KEY(RegionName, SupplyPeriodYearNr, SupplyPeriodMonthNr, ProductName),
-	FOREIGN KEY (SupplyPeriodMonthNr) REFERENCES Month (MonthNr),
 	FOREIGN KEY (ProductName) REFERENCES Product (ProductName),
 	FOREIGN KEY (RegionName) REFERENCES Region (RegionName)
+)
+GO
+
+CREATE TABLE SupplyPeriod (
+	-- Supply Period is in Month and Month has Month Nr,
+	MonthNr                                 int NOT NULL,
+	-- Supply Period is in Year and Year has Year Nr,
+	YearNr                                  int NOT NULL,
+	PRIMARY KEY(YearNr, MonthNr),
+	FOREIGN KEY (MonthNr) REFERENCES Month (MonthNr)
 )
 GO
 
@@ -101,5 +109,13 @@ GO
 
 ALTER TABLE ProductionForecast
 	ADD FOREIGN KEY (RefineryName) REFERENCES Refinery (RefineryName)
+GO
+
+ALTER TABLE ProductionForecast
+	ADD FOREIGN KEY (SupplyPeriodYearNr, SupplyPeriodMonthNr) REFERENCES SupplyPeriod (YearNr, MonthNr)
+GO
+
+ALTER TABLE RegionalDemand
+	ADD FOREIGN KEY (SupplyPeriodYearNr, SupplyPeriodMonthNr) REFERENCES SupplyPeriod (YearNr, MonthNr)
 GO
 

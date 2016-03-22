@@ -34,7 +34,7 @@ GO
 CREATE TABLE Friendship (
 	-- Friendship is confirmed,
 	IsConfirmed                             bit NULL,
-	-- Friendship involves User and User has User ID,
+	-- Friendship involves other-User and User has User ID,
 	OtherUserID                             int NOT NULL,
 	-- Friendship involves User and User has User ID,
 	UserID                                  int NOT NULL,
