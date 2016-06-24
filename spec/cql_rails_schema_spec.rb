@@ -80,8 +80,8 @@ context "CQL Loader" do
 	  }
 	else
 	  # Discard version timestamps:
-	  actual_text.gsub!(/(Schema.define\(:version => |# schema.rb auto-generated using ActiveFacts for .* on )[-0-9]*/, '\1')
-	  expected_text.gsub!(/(Schema.define\(:version => |# schema.rb auto-generated using ActiveFacts for .* on )[-0-9]*/, '\1')
+	  actual_text.gsub!(/(Schema.define\(version: |# schema.rb auto-generated using ActiveFacts for .* on )[-0-9]*/, '\1')
+	  expected_text.gsub!(/(Schema.define\(version: |# schema.rb auto-generated using ActiveFacts for .* on )[-0-9]*/, '\1')
 	  subject { actual_text }
 	  it { should_not differ_from(expected_text) }
 	  if expected_text == actual_text
