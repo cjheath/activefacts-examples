@@ -8,9 +8,9 @@ Booking Nr is written as Signed Integer(32);
 Cinema ID is written as Auto Counter;
 Collection Code is written as Signed Integer(32);
 Day is written as Signed Integer(32) restricted to {1..31};
+Demand Level is written as Boolean;
 Encrypted Password is written as String;
 Film ID is written as Auto Counter;
-High Demand is written as Boolean;
 Hour is written as Signed Integer(32) restricted to {0..23};
 Minute is written as Signed Integer(32) restricted to {0..59};
 Month Nr is written as Signed Integer(32) restricted to {1..12};
@@ -76,7 +76,7 @@ Session Time is identified by Year and Month and Day and Hour and Minute where
 	Session Time is at one Minute;
 
 Ticket Pricing is where
-	tickets on Session Time at Cinema in Section for High Demand have one Price;
+	tickets on Session Time at Cinema in Section for Demand Level have one Price;
 
 Session is where
 	Cinema shows Film on Session Time,

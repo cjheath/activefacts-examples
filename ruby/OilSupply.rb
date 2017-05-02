@@ -35,7 +35,7 @@ module ::OilSupply
     restrict 'Autumn', 'Spring', 'Summer', 'Winter'
   end
 
-  class TransportMethod < String
+  class TransportMode < String
     value_type 
     restrict 'Rail', 'Road', 'Sea'
   end
@@ -67,10 +67,10 @@ module ::OilSupply
   end
 
   class TransportRoute
-    identified_by :transport_method, :refinery, :region
+    identified_by :transport_mode, :refinery, :region
     has_one :refinery, :mandatory => true       # See Refinery.all_transport_route
     has_one :region, :mandatory => true         # See Region.all_transport_route
-    has_one :transport_method, :mandatory => true  # See TransportMethod.all_transport_route
+    has_one :transport_mode, :mandatory => true  # See TransportMode.all_transport_route
     has_one :cost                               # See Cost.all_transport_route
   end
 

@@ -10,7 +10,7 @@ Quantity is written as Unsigned Integer(32);
 Refinery Name is written as String(80);
 Region Name is written as String;
 Season is written as String(6) restricted to {'Autumn', 'Spring', 'Summer', 'Winter'};
-Transport Method is written as String restricted to {'Rail', 'Road', 'Sea'};
+Transport Mode is written as String restricted to {'Rail', 'Road', 'Sea'};
 Year Nr is written as Signed Integer(32);
 
 /*
@@ -26,8 +26,8 @@ Refinery is independent identified by its Name;
 Region is independent identified by its Name;
 
 Transport Route is where
-	Transport Method transportation is available from Refinery to Region,
-	Transport Method transportation is available to Region from Refinery;
+	Transport Mode transportation is available from Refinery to Region,
+	Transport Mode transportation is available to Region from Refinery;
 Transport Route incurs at most one Cost per kl;
 
 Year is identified by its Nr;
