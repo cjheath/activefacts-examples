@@ -49,7 +49,7 @@ module ::OneRoleNesting
 
   class Birth
     identified_by :person
-    has_one :event_date, :mandatory => true     # See EventDate.all_birth
+    has_one :event_date_of_birth, :class => EventDate, :mandatory => true  # See EventDate.all_birth_as_event_date_of_birth
     one_to_one :person, :mandatory => true      # See Person.birth
     has_one :attending_doctor, :class => "Doctor"  # See Doctor.all_birth_as_attending_doctor
   end

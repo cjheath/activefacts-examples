@@ -31,7 +31,6 @@ CEO Shareholding is where
 /*
  * Constraints:
  */
-either Employee reports to Manager(1) or Employee is a Manager(2) that is a CEO that runs Company but not both;
+either Employee reports to Manager or Employee is a Manager(2) that is a CEO that runs Company but not both;
 Employee is a Manager that is a CEO that runs Company
-	if and only if
-	Employee works for Company;
+	only if Employee works for Company;

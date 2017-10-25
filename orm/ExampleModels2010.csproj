@@ -100,6 +100,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Health.orm</DependentUpon>
     </Compile>
+    <Compile Include="HealthDV._ORMCustomToolReport.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HealthDV.orm</DependentUpon>
+    </Compile>
     <Compile Include="Insurance._ORMCustomToolReport.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Insurance.orm</DependentUpon>
@@ -156,6 +160,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SeparateSubtype.orm</DependentUpon>
     </Compile>
+    <Compile Include="ServiceDirector._ORMCustomToolReport.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceDirector.orm</DependentUpon>
+    </Compile>
     <Compile Include="SimplestUnary._ORMCustomToolReport.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>SimplestUnary.orm</DependentUpon>
@@ -211,9 +219,17 @@
       <Generator>ORMCustomTool</Generator>
       <LastGenOutput>Health._ORMCustomToolReport.cs</LastGenOutput>
     </None>
+    <None Include="HealthDV.orm">
+      <Generator>ORMCustomTool</Generator>
+      <LastGenOutput>HealthDV._ORMCustomToolReport.cs</LastGenOutput>
+    </None>
     <None Include="PartitionedSubtypeIdentification.orm">
       <Generator>ORMCustomTool</Generator>
       <LastGenOutput>PartitionedSubtypeIdentification._ORMCustomToolReport.cs</LastGenOutput>
+    </None>
+    <None Include="ServiceDirector.orm">
+      <Generator>ORMCustomTool</Generator>
+      <LastGenOutput>ServiceDirector._ORMCustomToolReport.cs</LastGenOutput>
     </None>
     <None Include="VenueSeating.orm">
       <Generator>ORMCustomTool</Generator>
@@ -759,6 +775,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WindowInRoomInBldg.orm</DependentUpon>
       <ORMGenerator>DDILtoMySQL</ORMGenerator>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="Exists('MultipleSubtyping.orm')">
+    <None Include="MultipleSubtyping.DCIL.xml">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultipleSubtyping.orm</DependentUpon>
+      <ORMGenerator>ConceptualDBtoDCL</ORMGenerator>
+    </None>
+    <None Include="MultipleSubtyping.DDIL.xml">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultipleSubtyping.orm</DependentUpon>
+      <ORMGenerator>DCILtoDDIL</ORMGenerator>
+    </None>
+    <None Include="MultipleSubtyping.PostgreSQL.sql">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MultipleSubtyping.orm</DependentUpon>
+      <ORMGenerator>DDILtoPostgreSQL</ORMGenerator>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

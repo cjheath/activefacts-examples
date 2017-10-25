@@ -153,26 +153,26 @@ CREATE TABLE Session (
 )
 GO
 
-CREATE TABLE TicketPricing (
-	-- Ticket Pricing involves Cinema and Cinema has Cinema ID,
+CREATE TABLE TicketCategory (
+	-- Ticket Category is for Cinema and Cinema has Cinema ID,
 	CinemaID                                int NOT NULL,
-	-- Ticket Pricing involves High Demand,
-	HighDemand                              Boolean NOT NULL,
-	-- Ticket Pricing involves Price,
-	Price                                   decimal NOT NULL,
-	-- Ticket Pricing involves Section and Section has Section Name,
+	-- Ticket Category has high demand,
+	HasHighDemand                           bit NULL,
+	-- maybe Ticket Category has Price,
+	Price                                   decimal NULL,
+	-- Ticket Category is for Section and Section has Section Name,
 	SectionName                             varchar NOT NULL,
-	-- Ticket Pricing involves Session Time and Session Time is on Day,
+	-- Ticket Category is for Session Time and Session Time is on Day,
 	SessionTimeDay                          int NOT NULL CHECK((SessionTimeDay >= 1 AND SessionTimeDay <= 31)),
-	-- Ticket Pricing involves Session Time and Session Time is at Hour,
+	-- Ticket Category is for Session Time and Session Time is at Hour,
 	SessionTimeHour                         int NOT NULL CHECK((SessionTimeHour >= 0 AND SessionTimeHour <= 23)),
-	-- Ticket Pricing involves Session Time and Session Time is at Minute,
+	-- Ticket Category is for Session Time and Session Time is at Minute,
 	SessionTimeMinute                       int NOT NULL CHECK((SessionTimeMinute >= 0 AND SessionTimeMinute <= 59)),
-	-- Ticket Pricing involves Session Time and Session Time is in Month and Month has Month Nr,
+	-- Ticket Category is for Session Time and Session Time is in Month and Month has Month Nr,
 	SessionTimeMonthNr                      int NOT NULL CHECK((SessionTimeMonthNr >= 1 AND SessionTimeMonthNr <= 12)),
-	-- Ticket Pricing involves Session Time and Session Time is in Year and Year has Year Nr,
+	-- Ticket Category is for Session Time and Session Time is in Year and Year has Year Nr,
 	SessionTimeYearNr                       int NOT NULL CHECK((SessionTimeYearNr >= 1900 AND SessionTimeYearNr <= 9999)),
-	PRIMARY KEY(SessionTimeYearNr, SessionTimeMonthNr, SessionTimeDay, SessionTimeHour, SessionTimeMinute, CinemaID, SectionName, HighDemand),
+	UNIQUE(CinemaID, SessionTimeYearNr, SessionTimeMonthNr, SessionTimeDay, SessionTimeHour, SessionTimeMinute, SectionName, HasHighDemand),
 	FOREIGN KEY (CinemaID) REFERENCES Cinema (CinemaID)
 )
 GO

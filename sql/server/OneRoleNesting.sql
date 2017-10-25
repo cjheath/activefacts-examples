@@ -11,19 +11,19 @@ CREATE TABLE Party (
 	PersonDeathEventDateYmd                 datetime NULL,
 	-- maybe Party is a Person and Person is involved in Death,
 	PersonDied                              bit NULL,
-	-- maybe Party is a Person and Person is involved in Birth and Birth involves Event Date and Event Date has ymd,
-	PersonEventDateYmd                      datetime NULL,
+	-- maybe Party is a Person and Person is involved in Birth and Birth involves Event Date of -birth and Event Date has ymd,
+	PersonEventDateOfBirthYmd               datetime NULL,
 	PRIMARY KEY(PartyId),
 	FOREIGN KEY (PersonAttendingDoctorId) REFERENCES Party (PartyId)
 )
 GO
 
-CREATE VIEW dbo.BirthInParty_PersonAttendingDoctorIdPersonEventDateYmd (PersonAttendingDoctorId, PersonEventDateYmd) WITH SCHEMABINDING AS
-	SELECT PersonAttendingDoctorId, PersonEventDateYmd FROM dbo.Party
+CREATE VIEW dbo.BirthInParty_PersonAttendingDoctorIdPersonEventDateOfBirthYmd (PersonAttendingDoctorId, PersonEventDateOfBirthYmd) WITH SCHEMABINDING AS
+	SELECT PersonAttendingDoctorId, PersonEventDateOfBirthYmd FROM dbo.Party
 	WHERE	PersonAttendingDoctorId IS NOT NULL
-	  AND	PersonEventDateYmd IS NOT NULL
+	  AND	PersonEventDateOfBirthYmd IS NOT NULL
 GO
 
-CREATE UNIQUE CLUSTERED INDEX PersonMustHaveSupertypeParty ON dbo.BirthInParty_PersonAttendingDoctorIdPersonEventDateYmd(PersonAttendingDoctorId, PersonEventDateYmd)
+CREATE UNIQUE CLUSTERED INDEX PersonMustHaveSupertypeParty ON dbo.BirthInParty_PersonAttendingDoctorIdPersonEventDateOfBirthYmd(PersonAttendingDoctorId, PersonEventDateOfBirthYmd)
 GO
 

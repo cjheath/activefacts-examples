@@ -26,7 +26,7 @@ Party Moniker has one Accuracy;
 Person is a kind of Party;
 
 Birth is where
-	Person was born on one Event Date;
+	Person was born on one Event Date of -birth;
 
 Death is where
 	Person died;

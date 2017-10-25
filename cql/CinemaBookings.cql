@@ -1,4 +1,4 @@
-vocabulary CinemaBookings;
+schema Cinema Bookings;
 
 /*
  * Value Types
@@ -62,3 +62,9 @@ Seat Allocation is where
  */
 Booking (in which Person booked Session (in which Cinema shows Film on DateTime) for Number of seats) has allocated Seat
 	only if Cinema contains Row that contains Seat;
+
+/*
+Booking has allocated Seat
+    only if that Booking is for some Session that is at some Cinema that contains some Row that contains that Seat;
+*/
+

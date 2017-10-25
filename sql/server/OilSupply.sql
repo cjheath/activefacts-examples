@@ -91,9 +91,9 @@ CREATE TABLE TransportRoute (
 	RefineryName                            varchar(80) NOT NULL,
 	-- Transport Route involves Region and Region has Region Name,
 	RegionName                              varchar NOT NULL,
-	-- Transport Route involves Transport Method,
-	TransportMethod                         varchar NOT NULL CHECK(TransportMethod = 'Rail' OR TransportMethod = 'Road' OR TransportMethod = 'Sea'),
-	PRIMARY KEY(TransportMethod, RefineryName, RegionName),
+	-- Transport Route involves Transport Mode,
+	TransportMode                           varchar NOT NULL CHECK(TransportMode = 'Rail' OR TransportMode = 'Road' OR TransportMode = 'Sea'),
+	PRIMARY KEY(TransportMode, RefineryName, RegionName),
 	FOREIGN KEY (RefineryName) REFERENCES Refinery (RefineryName),
 	FOREIGN KEY (RegionName) REFERENCES Region (RegionName)
 )

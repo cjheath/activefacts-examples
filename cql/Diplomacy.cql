@@ -39,9 +39,9 @@ for each Diplomat, Country at most one of these holds:
 	Diplomat serves in Country,
 	Diplomat represents Country;
 Diplomat is an Ambassador that is from Country(1) to Country(2)
-	only if Diplomat represents Country(1);
+	only if Diplomat represents Country;
 Diplomat is an Ambassador that is from Country(2) to Country(1)
-	only if Diplomat serves in Country(1);
+	only if Diplomat serves in Country;
 Diplomat serves in Country
 	only if Diplomat speaks Language that is spoken in Country;
 each Ambassador occurs at least one time in

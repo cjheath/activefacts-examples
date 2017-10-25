@@ -1,9 +1,9 @@
 #
-# schema.rb auto-generated using ActiveFacts for CinemaTickets on 2016-06-23
+# schema.rb auto-generated using ActiveFacts for CinemaTickets on 2017-10-24
 #
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActiveRecord::Schema.define(version: 20160623164245) do
+ActiveRecord::Schema.define(version: 20171024174748) do
   enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
   create_table "allocatable_cinema_sections", id: false, force: true do |t|
     t.column "allocatable_cinema_section_id", :primary_key, null: false
@@ -92,11 +92,11 @@ ActiveRecord::Schema.define(version: 20160623164245) do
 
   add_index "sessions", ["cinema_id", "session_time_year_nr", "session_time_month_nr", "session_time_day", "session_time_hour", "session_time_minute"], name: :index_sessions_on_cinema_id_session_time_year_nr_sess__7a05f3be, unique: true
 
-  create_table "ticket_pricings", id: false, force: true do |t|
-    t.column "ticket_pricing_id", :primary_key, null: false
+  create_table "ticket_categories", id: false, force: true do |t|
+    t.column "ticket_category_id", :primary_key, null: false
     t.column "cinema_id", :integer, null: false
-    t.column "high_demand", :boolean, null: false
-    t.column "price", :decimal, null: false
+    t.column "has_high_demand", :boolean, null: true
+    t.column "price", :decimal, null: true
     t.column "section_name", :string, null: false
     t.column "session_time_day", :integer, limit: 32, null: false
     t.column "session_time_hour", :integer, limit: 32, null: false
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20160623164245) do
     t.column "session_time_year_nr", :integer, limit: 32, null: false
   end
 
-  add_index "ticket_pricings", ["session_time_year_nr", "session_time_month_nr", "session_time_day", "session_time_hour", "session_time_minute", "cinema_id", "section_name", "high_demand"], name: :index_ticket_pricings_on_session_time_year_nr_session__181a38a0, unique: true
+  add_index "ticket_categories", ["cinema_id", "session_time_year_nr", "session_time_month_nr", "session_time_day", "session_time_hour", "session_time_minute", "section_name", "has_high_demand"], name: :index_ticket_categories_on_cinema_id_session_time_yea__35c4b14d
 
   unless ENV["EXCLUDE_FKS"]
     add_foreign_key :allocatable_cinema_sections, :cinemas, column: :cinema_id, primary_key: :cinema_id, on_delete: :cascade
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20160623164245) do
     add_index :sessions, [:cinema_id], unique: false, name: :index_sessions_on_cinema_id
     add_foreign_key :sessions, :films, column: :film_id, primary_key: :film_id, on_delete: :cascade
     add_index :sessions, [:film_id], unique: false, name: :index_sessions_on_film_id
-    add_foreign_key :ticket_pricings, :cinemas, column: :cinema_id, primary_key: :cinema_id, on_delete: :cascade
-    add_index :ticket_pricings, [:cinema_id], unique: false, name: :index_ticket_pricings_on_cinema_id
+    add_foreign_key :ticket_categories, :cinemas, column: :cinema_id, primary_key: :cinema_id, on_delete: :cascade
+    add_index :ticket_categories, [:cinema_id], unique: false, name: :index_ticket_categories_on_cinema_id
   end
 end

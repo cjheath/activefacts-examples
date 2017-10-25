@@ -35,10 +35,6 @@ module ::CinemaTickets
     one_to_one :film                            # See Film.film_id
   end
 
-  class HighDemand < Boolean
-    value_type 
-  end
-
   class Hour < SignedInteger
     value_type :length => 32
     restrict 0..23
@@ -172,13 +168,13 @@ module ::CinemaTickets
     has_one :year, :mandatory => true           # See Year.all_session_time
   end
 
-  class TicketPricing
-    identified_by :session_time, :cinema, :section, :high_demand
-    has_one :cinema, :mandatory => true         # See Cinema.all_ticket_pricing
-    has_one :high_demand, :mandatory => true    # See HighDemand.all_ticket_pricing
-    has_one :price, :mandatory => true          # See Price.all_ticket_pricing
-    has_one :section, :mandatory => true        # See Section.all_ticket_pricing
-    has_one :session_time, :mandatory => true   # See SessionTime.all_ticket_pricing
+  class TicketCategory
+    identified_by :cinema, :session_time, :section, :has_high_demand
+    has_one :cinema, :mandatory => true         # See Cinema.all_ticket_category
+    maybe :has_high_demand
+    has_one :price                              # See Price.all_ticket_category
+    has_one :section, :mandatory => true        # See Section.all_ticket_category
+    has_one :session_time, :mandatory => true   # See SessionTime.all_ticket_category
   end
 
   class Session

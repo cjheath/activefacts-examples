@@ -57,8 +57,8 @@ module Concernz
       # Cinema is involved in Session
       has_many :sessions, :class_name => 'Session', :foreign_key => :cinema_id, :dependent => :destroy
 
-      # Cinema is involved in Ticket Pricing
-      has_many :ticket_pricings, :class_name => 'TicketPricing', :foreign_key => :cinema_id, :dependent => :destroy
+      # Ticket Category is for Cinema
+      has_many :ticket_categories, :class_name => 'TicketCategory', :foreign_key => :cinema_id, :dependent => :destroy
 
       validates :name, :presence => true
     end
@@ -170,17 +170,15 @@ module Concernz
 end
 
 module Concernz
-  module TicketPricing
+  module TicketCategory
     extend ActiveSupport::Concern
     included do
-      self.primary_key = 'ticket_pricing_id'
+      self.primary_key = 'ticket_category_id'
 
-      # Ticket Pricing involves Cinema
+      # Ticket Category is for Cinema
       belongs_to :cinema, :foreign_key => :cinema_id
 
       validates :cinema_id, :presence => true
-      validates :high_demand, :presence => true
-      validates :price, :presence => true
       validates :section_name, :presence => true
       validates :session_time_year_nr, :presence => true
       validates :session_time_month_nr, :presence => true

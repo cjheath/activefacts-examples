@@ -28,3 +28,9 @@ Witness saw at least one Incident,
 Driver is a kind of Person;
 Vehicle Incident occurred while at most one Driver was in charge;
 
+/*
+ * Constraints:
+ */
+for each Incident, Person at most one of these holds:
+	Incident is a Vehicle Incident that occurred while Driver was in charge and Driver is a kind of Person,
+	Incident was independently witnessed by Witness;

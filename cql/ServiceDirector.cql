@@ -53,7 +53,7 @@ Credential has one User Name;
 Data Store is identified by its Name;
 Data Store requires at least one Credential;
 Data Store has one Friendly-Name;
-Data Store has at most one HeartBeat-Truck PCID;
+Data Store has at most one Heart- Beat Truck PCID;
 Data Store has one Internal-Credential;
 Data Store is one Major-Version;
 Data Store is one Minor-Version;
@@ -81,8 +81,8 @@ Monitor is owned by one Monitoring Application;
 
 Network is identified by its Nr;
 Company has at least one Origin-Network;
-Data Store has TcpProxy-Network,
-	TcpProxy-Network is in at most one Data Store;
+Data Store has Tcp- Proxy Network,
+	Tcp- Proxy Network is in at most one Data Store;
 Host System uses at least one Network,
 	Network is used by at most one Host System;
 Network uses at most one Domain-Name;
@@ -94,7 +94,7 @@ Network is ip_single;
 Network is ip_subnet;
 
 Notification Level is identified by its Nr;
-Notification Level has one InitialDelay-Duration;
+Notification Level has one Initial- Delay Duration;
 Notification Level has one Repeat-Duration;
 
 Notification Type is independent identified by its Name;
@@ -102,11 +102,11 @@ Notification Type is independent identified by its Name;
 Provider Type is identified by its Id;
 
 Recurring Schedule is identified by its Id;
-Monitor has AllExclusion-Recurring Schedule,
-	AllExclusion-Recurring Schedule applies to at most one Monitor;
-Monitor (as IntegratingMonitor) has IntegrationExclusion-Recurring Schedule;  // Avoid ambiguity; this is a new fact type
-Monitor (as IntegratingMonitor) has IntegrationExclusion-Recurring Schedule,
-	IntegrationExclusion-Recurring Schedule applies to at most one IntegratingMonitor;
+Monitor has All- Exclusion Recurring Schedule,
+	All- Exclusion Recurring Schedule applies to at most one Monitor;
+Monitor (as IntegratingMonitor) has Integration- Exclusion Recurring Schedule;  // Avoid ambiguity; this is a new fact type
+Monitor (as IntegratingMonitor) has Integration- Exclusion Recurring Schedule,
+	Integration- Exclusion Recurring Schedule applies to at most one IntegratingMonitor;
 Recurring Schedule has one Duration;
 Recurring Schedule has one Start-Time;
 Recurring Schedule friday;
@@ -126,7 +126,7 @@ Satellite Message has one Serial Number;
 Satellite Message has one insertion-Date Time;
 
 Subscription is identified by its Nr;
-Company has one DriverTech-Subscription;
+Company has one Driver- Tech Subscription;
 Subscription has one Beginning-Date;
 Subscription has at most one Ending-Date;
 Subscription is enabled;
@@ -206,7 +206,7 @@ for each Credential exactly one of these holds:
 for each Network exactly one of these holds:
 	Network is used by Host System,
 	Company has Origin-Network,
-	TcpProxy-Network is in Data Store;
+	Tcp- Proxy Network is in Data Store;
 for each Network exactly one of these holds:
 	Network is ip_single,
 	Network is ip_subnet,
@@ -229,7 +229,7 @@ Switch is on private Network
 	Data Store has Legacy Switch;
 Client has default Data Store
 	only if Client uses Data Store;
-TcpProxy Network is in Data Store
+Tcp Proxy Network is in Data Store
 	only if Network is ip_single;
 Network uses Domain Name
 	only if Network is ip_single;
@@ -264,7 +264,7 @@ each Recurring Schedule occurs at least one time in
 each Service occurs one time in
 	Vendor provides Service;
 each Subscription occurs at most one time in
-	Company has DriverTech Subscription;
+	Company has Driver Tech Subscription;
 each Subscription occurs at most one time in
 	Data Store Service has Subscription;
 each Switch occurs at most one time in

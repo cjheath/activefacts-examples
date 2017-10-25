@@ -1,9 +1,9 @@
 #
-# schema.rb auto-generated using ActiveFacts for CinemaBookings on 2016-06-23
+# schema.rb auto-generated using ActiveFacts for Cinema Bookings on 2017-10-24
 #
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActiveRecord::Schema.define(version: 20160623164244) do
+ActiveRecord::Schema.define(version: 20171024174747) do
   enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
   create_table "bookings", id: false, force: true do |t|
     t.column "booking_id", :primary_key, null: false
