@@ -70,9 +70,9 @@ context "Relational Composition from ORM" do
       begin
         vocabulary = ActiveFacts::Input::ORM.readfile(source_file)
 
-	# Get the list of tables from our composition:
-	tables = vocabulary.tables
-	table_names = tables.map{|o| o.name.gsub(/\s/,'')}.sort
+        # Get the list of tables from our composition:
+        tables = vocabulary.tables
+        table_names = tables.map{|o| o.name.gsub(/\s/,'')}.sort
       rescue => e
         pending and next load_failures[base]
       end
@@ -93,17 +93,17 @@ context "Relational Composition from ORM" do
 
       # Calculate the columns and column names; REVISIT: check the results
       tables.each do |table|
-	table.columns
+        table.columns
       end
 
       it "should generate the expected tables" do
-	# Check that the list matched:
-	expect(table_names.sort).to_not differ_from(expected_tables.sort)
+        # Check that the list matched:
+        expect(table_names.sort).to_not differ_from(expected_tables.sort)
 
-	if table_names == expected_tables
-	  File.delete(actual_tables_file)
-	  File.delete(expected_tables_file)
-	end
+        if table_names == expected_tables
+          File.delete(actual_tables_file)
+          File.delete(expected_tables_file)
+        end
       end
     end
   end

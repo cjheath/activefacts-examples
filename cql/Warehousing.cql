@@ -26,8 +26,8 @@ Bin contains one Quantity,
 Dispatch is identified by its ID;
 
 Dispatch Item is identified by its ID;
-Dispatch is of at least one Dispatch Item,
-	Dispatch Item is for at most one Dispatch;
+Dispatch is of Dispatch Item,
+	Dispatch Item is for one Dispatch;
 Dispatch Item is in one Quantity;
 
 Party is identified by its ID;
@@ -49,8 +49,8 @@ Purchase Order Item is in one Quantity;
 Receipt is identified by its ID;
 
 Received Item is identified by its ID;
-Receipt is of at least one Received Item,
-	Received Item has at most one Receipt;
+Receipt is of Received Item,
+	Received Item has one Receipt;
 Received Item is one Product;
 Received Item is for at most one Purchase Order Item;
 Received Item is in one Quantity;

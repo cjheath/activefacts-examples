@@ -11,5 +11,6 @@ if this_file =~ %r{\A#{ENV['HOME']}}i
   gem 'activefacts-rmap', path: dir+'/rmap'
   gem 'activefacts-cql', path: dir+'/cql'
   gem 'activefacts-orm', path: dir+'/orm'
+  gem 'activefacts-compositions', path: dir+'/compositions'
   gem 'activefacts-generators', path: dir+'/generators'
 end
