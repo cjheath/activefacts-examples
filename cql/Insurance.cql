@@ -75,7 +75,7 @@ Hospital is identified by its Name;
 
 Incident is identified by Claim where
 	Claim concerns at most one Incident,
-	Incident is of one Claim;
+	Incident gave rise to one Claim;
 Incident relates to loss on one Date Time;
 
 Liability is identified by its Code restricted to {'D', 'L', 'R', 'U'};
@@ -150,6 +150,7 @@ Vehicle Incident is a kind of Incident [separate];
 Vehicle Incident has at most one Description;
 Vehicle Incident resulted from at most one Loss Type;
 Vehicle Incident was caused by at most one Reason;
+Vehicle Incident resulted in at most one breath-Test Result;
 Vehicle Incident involved at most one previous_damage-Description;
 Vehicle Incident resulted in vehicle being towed to at most one towed-Location;
 Vehicle Incident occurred during at most one weather-Description;
@@ -209,23 +210,21 @@ Dealer is a kind of Party;
 Vehicle was sold by at most one Dealer;
 
 Driving is where
-	Vehicle Incident occurred while being driven;
+	Person (as Driver) was driving in Vehicle Incident,
+	Vehicle Incident occurred while one Driver was driving;
 Driving followed at most one Intoxication;
-Driving resulted in at most one breath-Test Result;
 Driving was without owners consent for at most one nonconsent-Reason;
 Driving was unlicenced for at most one unlicensed-Reason;
-Person was Driving,
-	Driving was by one Person;
 
 Driving Charge is where
-	Driving resulted in at most one Charge;
+	Driving resulted in one Charge;
 Driving Charge is a warning;
 
 Finance Institution is a kind of Company;
 Vehicle is subject to finance with at most one Finance Institution;
 
 Hospitalization is where
-	Driving resulted in driver taken to at most one Hospital;
+	Vehicle Incident resulted in driver taken to one Hospital;
 Hospitalization resulted in at most one blood-Test Result;
 
 Insured is a kind of Party;
@@ -245,7 +244,7 @@ License was granted in at most one Year restricted to {1990..2100};
 License is international;
 
 Lodgement is where
-	Claim was lodged by at most one Person;
+	Claim was lodged by one Person;
 Lodgement was made at at most one Date Time;
 
 Policy is identified by p_year and p_product and p_state and p_serial where
@@ -283,12 +282,16 @@ Third Party vehicle is of at most one Vehicle Type;
 Third Party vehicle is of at most one model-Year;
 Third Party drove at most one vehicle-Registration;
 
-Underwriting Demerit is identified by Vehicle Incident and Underwriting Question where
-	Vehicle Incident occurred despite Underwriting Demerit,
-	Underwriting Demerit preceded one Vehicle Incident,
-	Underwriting Demerit has one Underwriting Question,
-	Underwriting Question is of Underwriting Demerit;
-Underwriting Demerit occurred at most one occurrence-Count times;
+Underwriting Answer is where
+	Policy was conditional on Underwriting Question;
+Underwriting Answer has one Text;
+Underwriting Answer included at most one occurrence-Count;
+
+Underwriting Crosscheck is where
+	Incident posed Underwriting Question,
+	Underwriting Question was cross-checked after Incident;
+Underwriting Crosscheck has one Text;
+Underwriting Crosscheck included at most one occurrence-Count;
 
 Assessor is a kind of Contractor;
 

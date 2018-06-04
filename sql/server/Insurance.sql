@@ -32,7 +32,7 @@ CREATE VIEW dbo.VehicleInAsset_VIN (VehicleVIN) WITH SCHEMABINDING AS
 	WHERE	VehicleVIN IS NOT NULL
 GO
 
-CREATE UNIQUE CLUSTERED INDEX VehiclePK ON dbo.VehicleInAsset_VIN(VehicleVIN)
+CREATE UNIQUE CLUSTERED INDEX PK_VehicleInAsset ON dbo.VehicleInAsset_VIN(VehicleVIN)
 GO
 
 CREATE TABLE Claim (
@@ -58,10 +58,10 @@ CREATE TABLE Claim (
 	IncidentReporterName                    varchar(256) NULL,
 	-- maybe Claim concerns Incident and maybe Incident is covered by Police Report and maybe Police Report was at station-Name,
 	IncidentStationName                     varchar(256) NULL,
-	-- maybe Claim is involved in Lodgement and maybe Lodgement was made at Date Time,
+	-- Claim is involved in Lodgement and maybe Lodgement was made at Date Time,
 	LodgementDateTime                       datetime NULL,
-	-- maybe Claim is involved in Lodgement and Lodgement involves Person and Person is a kind of Party and Party has Party ID,
-	LodgementPersonID                       int NULL,
+	-- Claim is involved in Lodgement and Lodgement involves Person and Person is a kind of Party and Party has Party ID,
+	LodgementPersonID                       int NOT NULL,
 	-- Claim has Claim Sequence,
 	PSequence                               int NOT NULL CHECK((PSequence >= 1 AND PSequence <= 999)),
 	-- Claim is on Policy and Policy is for product having Product and Product has Product Code,
@@ -143,7 +143,7 @@ GO
 CREATE TABLE LostItem (
 	-- Lost Item has Description,
 	Description                             varchar(1024) NOT NULL,
-	-- Lost Item was lost in Incident and Incident is of Claim and Claim has Claim ID,
+	-- Lost Item was lost in Incident and Incident gave rise to Claim and Claim has Claim ID,
 	IncidentClaimID                         int NOT NULL,
 	-- Lost Item has Lost Item Nr,
 	LostItemNr                              int NOT NULL,
@@ -283,7 +283,7 @@ CREATE TABLE PropertyDamage (
 	AddressStateCode                        tinyint NULL CHECK((AddressStateCode >= 0 AND AddressStateCode <= 9)),
 	-- Property Damage is at Address and Address is at Street,
 	AddressStreet                           varchar(256) NOT NULL,
-	-- maybe Property Damage was damaged in Incident and Incident is of Claim and Claim has Claim ID,
+	-- maybe Property Damage was damaged in Incident and Incident gave rise to Claim and Claim has Claim ID,
 	IncidentClaimID                         int NULL,
 	-- maybe Property Damage belongs to owner-Name,
 	OwnerName                               varchar(256) NULL,
@@ -318,7 +318,7 @@ CREATE TABLE ThirdParty (
 	ModelYearNr                             int NULL,
 	-- Third Party involves Person and Person is a kind of Party and Party has Party ID,
 	PersonID                                int NOT NULL,
-	-- Third Party involves Vehicle Incident and Vehicle Incident is a kind of Incident and Incident is of Claim and Claim has Claim ID,
+	-- Third Party involves Vehicle Incident and Vehicle Incident is a kind of Incident and Incident gave rise to Claim and Claim has Claim ID,
 	VehicleIncidentClaimID                  int NOT NULL,
 	-- maybe Third Party drove vehicle-Registration and Registration has Registration Nr,
 	VehicleRegistrationNr                   char(8) NULL,
@@ -334,14 +334,37 @@ CREATE TABLE ThirdParty (
 )
 GO
 
-CREATE TABLE UnderwritingDemerit (
-	-- maybe Underwriting Demerit occurred occurrence-Count times,
+CREATE TABLE UnderwritingAnswer (
+	-- maybe Underwriting Answer included occurrence-Count,
 	OccurrenceCount                         int NULL,
-	-- Underwriting Demerit has Underwriting Question and Underwriting Question has Underwriting Question ID,
+	-- Underwriting Answer involves Policy and Policy is for product having Product and Product has Product Code,
+	PolicyPProductCode                      tinyint NOT NULL,
+	-- Underwriting Answer involves Policy and Policy has Policy Serial,
+	PolicyPSerial                           int NOT NULL,
+	-- Underwriting Answer involves Policy and Policy issued in state having State and State has State Code,
+	PolicyPStateCode                        tinyint NOT NULL,
+	-- Underwriting Answer involves Policy and Policy was issued in Year and Year has Year Nr,
+	PolicyPYearNr                           int NOT NULL,
+	-- Underwriting Answer has Text,
+	Text                                    varchar NOT NULL,
+	-- Underwriting Answer involves Underwriting Question and Underwriting Question has Underwriting Question ID,
 	UnderwritingQuestionID                  int NOT NULL,
-	-- Underwriting Demerit preceded Vehicle Incident and Vehicle Incident is a kind of Incident and Incident is of Claim and Claim has Claim ID,
-	VehicleIncidentClaimID                  int NOT NULL,
-	PRIMARY KEY(VehicleIncidentClaimID, UnderwritingQuestionID)
+	PRIMARY KEY(PolicyPYearNr, PolicyPProductCode, PolicyPStateCode, PolicyPSerial, UnderwritingQuestionID),
+	FOREIGN KEY (PolicyPYearNr, PolicyPProductCode, PolicyPStateCode, PolicyPSerial) REFERENCES Policy (PYearNr, PProductCode, PStateCode, PSerial)
+)
+GO
+
+CREATE TABLE UnderwritingCrosscheck (
+	-- Underwriting Crosscheck involves Incident and Incident gave rise to Claim and Claim has Claim ID,
+	IncidentClaimID                         int NOT NULL,
+	-- maybe Underwriting Crosscheck included occurrence-Count,
+	OccurrenceCount                         int NULL,
+	-- Underwriting Crosscheck has Text,
+	Text                                    varchar NOT NULL,
+	-- Underwriting Crosscheck involves Underwriting Question and Underwriting Question has Underwriting Question ID,
+	UnderwritingQuestionID                  int NOT NULL,
+	PRIMARY KEY(IncidentClaimID, UnderwritingQuestionID),
+	FOREIGN KEY (IncidentClaimID) REFERENCES Claim (ClaimID)
 )
 GO
 
@@ -356,32 +379,30 @@ CREATE TABLE UnderwritingQuestion (
 GO
 
 CREATE TABLE VehicleIncident (
+	-- maybe Vehicle Incident resulted in breath-Test Result,
+	BreathTestResult                        varchar NULL,
 	-- maybe Vehicle Incident has Description,
 	Description                             varchar(1024) NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Hospitalization and maybe Hospitalization resulted in blood-Test Result,
-	DrivingBloodTestResult                  varchar NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving resulted in breath-Test Result,
-	DrivingBreathTestResult                 varchar NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Driving Charge and Driving Charge involves Charge,
-	DrivingCharge                           varchar NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Hospitalization and Hospitalization involves Hospital and Hospital has Hospital Name,
-	DrivingHospitalName                     varchar NULL,
+	-- Vehicle Incident is involved in Driving and Driving is involved in Driving Charge and Driving Charge involves Charge,
+	DrivingCharge                           varchar NOT NULL,
+	-- Vehicle Incident is involved in Driving and Driving involves Person and Person is a kind of Party and Party has Party ID,
+	DrivingDriverID                         int NOT NULL,
 	-- Vehicle Incident is involved in Driving and maybe Driving followed Intoxication,
 	DrivingIntoxication                     varchar NULL,
-	-- Vehicle Incident is involved in Driving and maybe Driving is involved in Driving Charge and Driving Charge is a warning,
+	-- Vehicle Incident is involved in Driving and Driving is involved in Driving Charge and Driving Charge is a warning,
 	DrivingIsAWarning                       bit NULL,
 	-- Vehicle Incident is involved in Driving and maybe Driving was without owners consent for nonconsent-Reason,
 	DrivingNonconsentReason                 varchar NULL,
-	-- Vehicle Incident is involved in Driving and Driving was by Person and Person is a kind of Party and Party has Party ID,
-	DrivingPersonID                         int NULL,
 	-- Vehicle Incident is involved in Driving and maybe Driving was unlicenced for unlicensed-Reason,
 	DrivingUnlicensedReason                 varchar NULL,
-	-- Vehicle Incident is a kind of Incident and Incident is of Claim and Claim has Claim ID,
+	-- Vehicle Incident is involved in Hospitalization and maybe Hospitalization resulted in blood-Test Result,
+	HospitalizationBloodTestResult          varchar NULL,
+	-- Vehicle Incident is involved in Hospitalization and Hospitalization involves Hospital and Hospital has Hospital Name,
+	HospitalizationHospitalName             varchar NOT NULL,
+	-- Vehicle Incident is a kind of Incident and Incident gave rise to Claim and Claim has Claim ID,
 	IncidentClaimID                         int NOT NULL,
 	-- maybe Vehicle Incident resulted from Loss Type and Loss Type has Loss Type Code,
 	LossTypeCode                            char NULL,
-	-- Vehicle Incident is involved in Driving,
-	OccurredWhileBeingDriven                bit NULL,
 	-- maybe Vehicle Incident involved previous_damage-Description,
 	PreviousDamageDescription               varchar(1024) NULL,
 	-- maybe Vehicle Incident was caused by Reason,
@@ -393,7 +414,7 @@ CREATE TABLE VehicleIncident (
 	PRIMARY KEY(IncidentClaimID),
 	FOREIGN KEY (IncidentClaimID) REFERENCES Claim (ClaimID),
 	FOREIGN KEY (LossTypeCode) REFERENCES LossType (LossTypeCode),
-	FOREIGN KEY (DrivingPersonID) REFERENCES Party (PartyID)
+	FOREIGN KEY (DrivingDriverID) REFERENCES Party (PartyID)
 )
 GO
 
@@ -408,7 +429,7 @@ CREATE TABLE Witness (
 	AddressStreet                           varchar(256) NULL,
 	-- maybe Witness has contact-Phone and Phone has Phone Nr,
 	ContactPhoneNr                          varchar NULL,
-	-- Witness saw Incident and Incident is of Claim and Claim has Claim ID,
+	-- Witness saw Incident and Incident gave rise to Claim and Claim has Claim ID,
 	IncidentClaimID                         int NOT NULL,
 	-- Witness is called Name,
 	Name                                    varchar(256) NOT NULL,
@@ -474,11 +495,11 @@ ALTER TABLE ThirdParty
 	ADD FOREIGN KEY (VehicleIncidentClaimID) REFERENCES VehicleIncident (IncidentClaimID)
 GO
 
-ALTER TABLE UnderwritingDemerit
+ALTER TABLE UnderwritingAnswer
 	ADD FOREIGN KEY (UnderwritingQuestionID) REFERENCES UnderwritingQuestion (UnderwritingQuestionID)
 GO
 
-ALTER TABLE UnderwritingDemerit
-	ADD FOREIGN KEY (VehicleIncidentClaimID) REFERENCES VehicleIncident (IncidentClaimID)
+ALTER TABLE UnderwritingCrosscheck
+	ADD FOREIGN KEY (UnderwritingQuestionID) REFERENCES UnderwritingQuestion (UnderwritingQuestionID)
 GO
 

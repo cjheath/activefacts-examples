@@ -371,9 +371,9 @@ module ::Insurance
   end
 
   class VehicleIncident < Incident
+    has_one :breath_test_result, :class => TestResult  # See TestResult.all_vehicle_incident_as_breath_test_result
     has_one :description                        # See Description.all_vehicle_incident
     has_one :loss_type                          # See LossType.all_vehicle_incident
-    maybe :occurred_while_being_driven
     has_one :previous_damage_description, :class => Description  # See Description.all_vehicle_incident_as_previous_damage_description
     has_one :reason                             # See Reason.all_vehicle_incident
     has_one :towed_location, :class => Location  # See Location.all_vehicle_incident_as_towed_location
@@ -447,11 +447,10 @@ module ::Insurance
 
   class Driving
     identified_by :vehicle_incident
+    has_one :driver, :class => Person, :mandatory => true  # See Person.all_driving_as_driver
     one_to_one :vehicle_incident, :mandatory => true  # See VehicleIncident.driving
-    has_one :breath_test_result, :class => TestResult  # See TestResult.all_driving_as_breath_test_result
     has_one :intoxication                       # See Intoxication.all_driving
     has_one :nonconsent_reason, :class => Reason  # See Reason.all_driving_as_nonconsent_reason
-    has_one :person, :mandatory => true         # See Person.all_driving
     has_one :unlicensed_reason, :class => Reason  # See Reason.all_driving_as_unlicensed_reason
   end
 
@@ -466,9 +465,9 @@ module ::Insurance
   end
 
   class Hospitalization
-    identified_by :driving
-    one_to_one :driving, :mandatory => true     # See Driving.hospitalization
+    identified_by :vehicle_incident
     has_one :hospital, :mandatory => true       # See Hospital.all_hospitalization
+    one_to_one :vehicle_incident, :mandatory => true  # See VehicleIncident.hospitalization
     has_one :blood_test_result, :class => TestResult  # See TestResult.all_hospitalization_as_blood_test_result
   end
 
@@ -533,11 +532,20 @@ module ::Insurance
     has_one :vehicle_type                       # See VehicleType.all_third_party
   end
 
-  class UnderwritingDemerit
-    identified_by :vehicle_incident, :underwriting_question
-    has_one :occurrence_count, :class => Count  # See Count.all_underwriting_demerit_as_occurrence_count
-    has_one :underwriting_question, :mandatory => true  # See UnderwritingQuestion.all_underwriting_demerit
-    has_one :vehicle_incident, :mandatory => true  # See VehicleIncident.all_underwriting_demerit
+  class UnderwritingAnswer
+    identified_by :policy, :underwriting_question
+    has_one :policy, :mandatory => true         # See Policy.all_underwriting_answer
+    has_one :underwriting_question, :mandatory => true  # See UnderwritingQuestion.all_underwriting_answer
+    has_one :occurrence_count, :class => Count  # See Count.all_underwriting_answer_as_occurrence_count
+    has_one :text, :mandatory => true           # See Text.all_underwriting_answer
+  end
+
+  class UnderwritingCrosscheck
+    identified_by :incident, :underwriting_question
+    has_one :incident, :mandatory => true       # See Incident.all_underwriting_crosscheck
+    has_one :underwriting_question, :mandatory => true  # See UnderwritingQuestion.all_underwriting_crosscheck
+    has_one :occurrence_count, :class => Count  # See Count.all_underwriting_crosscheck_as_occurrence_count
+    has_one :text, :mandatory => true           # See Text.all_underwriting_crosscheck
   end
 
   class Assessor < Contractor
