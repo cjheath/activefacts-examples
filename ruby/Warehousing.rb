@@ -76,7 +76,7 @@ module ::Warehousing
 
   class DispatchItem
     identified_by :dispatch_item_id
-    has_one :dispatch                           # See Dispatch.all_dispatch_item
+    has_one :dispatch, :mandatory => true       # See Dispatch.all_dispatch_item
     one_to_one :dispatch_item_id, :class => DispatchItemID, :mandatory => true  # See DispatchItemID.dispatch_item
     has_one :product, :mandatory => true        # See Product.all_dispatch_item
     has_one :quantity, :mandatory => true       # See Quantity.all_dispatch_item
@@ -118,7 +118,7 @@ module ::Warehousing
     has_one :product, :mandatory => true        # See Product.all_received_item
     has_one :purchase_order_item                # See PurchaseOrderItem.all_received_item
     has_one :quantity, :mandatory => true       # See Quantity.all_received_item
-    has_one :receipt                            # See Receipt.all_received_item
+    has_one :receipt, :mandatory => true        # See Receipt.all_received_item
     one_to_one :received_item_id, :class => ReceivedItemID, :mandatory => true  # See ReceivedItemID.received_item
     has_one :transfer_request                   # See TransferRequest.all_received_item
   end
